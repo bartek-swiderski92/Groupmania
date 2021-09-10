@@ -1,0 +1,32 @@
+{
+  "name": "groupmania",
+  "version": "1.0.0",
+  "description": "Full Stack project of a social media app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phos23/BartoszSwiderski_7_10092021_A.git"
+  },
+  "author": "Bartosz Swiderski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phos23/BartoszSwiderski_7_10092021_A/issues"
+  },
+  "homepage": "https://github.com/phos23/BartoszSwiderski_7_10092021_A#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "multer": "^1.4.3",
+    "mysql2": "^2.3.0",
+    "sequelize": "^6.6.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
