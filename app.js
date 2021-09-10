@@ -2,16 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const {
-    Sequelize
-} = require('sequelize');
-
-// Option 2: Passing parameters separately (other dialects)
-const db = new Sequelize('groupmania', 'root', 'SQL098', {
-    host: 'localhost',
-    dialect: 'mysql',
-    port: 3307
-});
+//Database
+const db = require('./config/database')
 
 // Test DB
 db.authenticate()
