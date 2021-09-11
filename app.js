@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
+const userRoutes = require('./routes/user')
+
 //Database
 const db = require('./config/database')
 
@@ -19,5 +21,7 @@ app.get('/', (req, res) => res.send('INDEX'))
 app.use('/posts', require('./routes/posts.js'))
 
 const PORT = process.env.PORT || 5000;
+
+app.use('/users', userRoutes)
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
