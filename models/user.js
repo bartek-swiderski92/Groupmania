@@ -6,26 +6,31 @@ const User = db.define('user', {
         type: Sequelize.INTEGER,
         primaryKey: true
     },
+    email: {
+        type: Sequelize.STRING
+    },
+    password: {
+        type: Sequelize.STRING,
+    },
     firstName: {
         type: Sequelize.STRING
     },
     secondName: {
         type: Sequelize.STRING
     },
-    email: {
-        type: Sequelize.STRING
-    },
     profilePicture: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING, default : 'Unknown'
+        //TODO: add default picture
     },
     gender: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING, default: 'Unknown'
     },
     dob: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE, default: 'unknown'
     },
     isAdmin: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        default: false
     }
 }, {
     timeStamps: true,
