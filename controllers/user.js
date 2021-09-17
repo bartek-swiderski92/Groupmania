@@ -1,6 +1,6 @@
 const express = require('express');
 const users = express.Router();
-const cors = require('cors'); 
+const cors = require('cors');
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -47,53 +47,52 @@ exports.register = (req, res, next) => {
     .catch(err => {
       res.send('ERROR ' + err)
     })
-  }
+}
 
 exports.login = (req, res, next) => {
   const userObject = req.body
   User.findOne({
-    where: {
-      email: userObject.email
-    }
-  })
-  .then(user => {
-    if (user) {
-      //TODO: bcrypt? secret key? expiresIn? jwt?
-      if (bcrypt.compareSync(req.body.password, user.password)) {
-        let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
-          expiresIn: 1440
-        })
-        res.send(token)
+      where: {
+        email: userObject.email
       }
-    } else {
-      res.status(400).json({
-        error: 'User does not exist'
-      })
-    }
-  })
-  .catch(err => {
-    res.status(400).json({
-      error: err
     })
-  })
+    .then(user => {
+      if (user) {
+        if (bcrypt.compareSync(req.body.password, user.password)) {
+          let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
+            expiresIn: '24h'
+          })
+          res.send(token)
+        }
+      } else {
+        res.status(400).json({
+          error: 'User does not exist'
+        })
+      }
+    })
+    .catch(err => {
+      res.status(400).json({
+        error: err
+      })
+    })
 }
 
 exports.profile = (req, res, next) => {
   let decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
 
   User.findOne({
-    where: {
-      id: decoded.id
-    }
-  })
-  .then(user => {
-    if (user) {
-      res.json(user) 
-    } else {
-      res.send('User does not exist')
-    }
-  })
-  .catch(err =>{
-    res.send('error: ' + err)
-  })
+      where: {
+        id: 1
+      }
+    })
+    .then(user => {
+      if (user) {
+        res.json(user)
+      } else {
+        res.send('User does not exist')
+      }
+    })
+    .catch(err => {
+      res.send('error: ' + err)
+    })
 }

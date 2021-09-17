@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
+const Post = require('./post')
+
 
 const User = db.define('user', {
     userId: {
@@ -19,14 +21,18 @@ const User = db.define('user', {
         type: Sequelize.STRING
     },
     profilePicture: {
-        type: Sequelize.STRING, default : 'Unknown'
+        type: Sequelize.STRING,
+        default: 'Unknown'
         //TODO: add default picture
+        // add folder to the application with a profile picture
     },
     gender: {
-        type: Sequelize.STRING, default: 'Unknown'
+        type: Sequelize.STRING,
+        default: 'Unknown'
     },
     dob: {
-        type: Sequelize.DATE, default: 'unknown'
+        type: Sequelize.DATE,
+        default: 'unknown'
     },
     isAdmin: {
         type: Sequelize.BOOLEAN,
@@ -34,7 +40,9 @@ const User = db.define('user', {
     }
 }, {
     timeStamps: true,
-    updatedAt: false
+    updatedAt: false,
+    freezeTableNames: true
 });
-
+Post.hasMany(User);
+User.belongsTo(Post);
 module.exports = User;

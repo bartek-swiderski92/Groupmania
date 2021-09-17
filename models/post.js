@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
+const User = require('./user')
 
 const Post = db.define('post', {
     postId: {
@@ -18,6 +19,9 @@ const Post = db.define('post', {
     media: {
         type: Sequelize.STRING
     }
+}, {
+    freezeTableNames: true
 });
+//TODO: belongs to
 
 module.exports = Post;
