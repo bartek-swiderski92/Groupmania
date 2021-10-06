@@ -11,14 +11,26 @@ users.use(cors());
 process.env.SECRET_KEY = 'secret';
 
 exports.register = (req, res, next) => {
-  const userObject = req.body
-  const userData = {
-    email: userObject.email,
-    password: userObject.password,
-    firstName: userObject.firstName,
-    secondName: userObject.secondName,
-  }
-
+  bcrypt.hash(req.body.password, 10).then((hash) => {
+    const userObject = req.body
+    const user = new User({
+      email: userObject.email,
+      password: hash,
+      firstName: userObject.firstName,
+      secondName: userObject.secondName,
+    });
+    user.save().then(() => {
+      res.status(201).json({
+        message: 'User registered successfully'
+      });
+    }).catch((error) => {
+      res.status(500).json({
+        error: error
+      });
+    });
+  });
+  
+// email unique validation
   User.findOne({
       where: {
         email: userObject.email
