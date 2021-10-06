@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const userRoutes = require('./routes/user')
-const postRoutes = require('./routes/posts.js')
+const postRoutes = require('./routes/posts')
 
 //Database
 const db = require('./config/database')
