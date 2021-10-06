@@ -29,7 +29,7 @@ exports.register = (req, res, next) => {
       });
     });
   });
-  
+
 // email unique validation
   User.findOne({
       where: {
@@ -75,10 +75,14 @@ exports.login = (req, res, next) => {
             expiresIn: '24h'
           })
           res.send(token)
+        } else {
+          return res.status(401).json({
+            error: new Error('Incorrect password!')
+          })
         }
       } else {
-        res.status(400).json({
-          error: 'User does not exist'
+        res.status(401).json({
+          error: new Error('User does not exist')
         })
       }
     })
