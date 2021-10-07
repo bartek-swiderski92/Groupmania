@@ -22,6 +22,13 @@ const Post = db.define('post', {
 }, {
     freezeTableNames: true
 });
-//TODO: belongs to
+// Post.sync({
+//     force: true
+// });
 
+//TODO: belongs to
+// Post.hasMany(User);
+// User.belongsTo(Post, {
+//     foreignKey: 'postId'
+// });
 module.exports = Post;
