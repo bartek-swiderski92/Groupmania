@@ -12,8 +12,9 @@ users.use(cors());
 
 process.env.SECRET_KEY = 'secret';
 
-router.post('/register', userCtrl.register)
-router.post('/login', userCtrl.login)
-router.get('/profile', userCtrl.profile)
+router.post('/register', userCtrl.register);
+router.post('/login', userCtrl.login);
+router.get('/profile/:id', userCtrl.profile);
+router.put('/update-profile/:id', userCtrl.updateProfile);
 
 module.exports = router

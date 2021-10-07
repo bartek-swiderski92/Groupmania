@@ -4,12 +4,13 @@ const router = express.Router();
 const auth = '';
 const multer = '';
 
-const postCtrl = require('../controllers/posts')
+const postCtrl = require('../controllers/posts');
+const likeCtrl = require('../controllers/like');
 
 router.get('/', postCtrl.getAllPosts);
-router.get('/post/:id', postCtrl.getOnePost);
-router.post('/post', postCtrl.createAPost);
-router.delete('post/:id', postCtrl.deletePost);
-router.post('/post/like/:id', postCtrl.likeAPost)
+router.get('/:id', postCtrl.getOnePost);
+router.post('/', postCtrl.createAPost);
+router.delete('/:id', postCtrl.deletePost);
+router.post('/like/:id', postCtrl.likeAPost);
 
 module.exports = router;
