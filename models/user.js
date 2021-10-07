@@ -6,7 +6,9 @@ const Post = require('./post')
 const User = db.define('user', {
     userId: {
         type: Sequelize.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
+        default: 0
     },
     email: {
         type: Sequelize.STRING
@@ -44,6 +46,17 @@ const User = db.define('user', {
     freezeTableNames: true
 });
 // TODO: error: SequelizeDatabaseError: Unknown column 'postPostId' in 'field list'
-// Post.hasMany(User);
-// User.belongsTo(Post);
+// User.sync({
+//     force: true
+// });
+User.hasMany(Post
+    //     , {
+    //     foreignKey: 'userId'
+    // }
+);
+Post.belongsTo(User
+    //     , {
+    //     foreignKey: 'postId'
+    // }
+);
 module.exports = User;
