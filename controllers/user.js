@@ -18,6 +18,8 @@ exports.register = (req, res, next) => {
       password: hash,
       firstName: userObject.firstName,
       secondName: userObject.secondName,
+      profilePicture: 'url',
+      isAdmin: false
     });
     user.save().then(() => {
       res.status(201).json({
@@ -30,11 +32,11 @@ exports.register = (req, res, next) => {
     });
   });
 
-// email unique validation
+
+  //TODO: email unique validation
+  //TODO: where: ?
   User.findOne({
-      where: {
-        email: userObject.email
-      }
+      email: userObject.email
     })
     .then(user => {
       if (!user) {
@@ -64,9 +66,8 @@ exports.register = (req, res, next) => {
 exports.login = (req, res, next) => {
   const userObject = req.body
   User.findOne({
-      where: {
-        email: userObject.email
-      }
+      // where: 
+      email: userObject.email
     })
     .then(user => {
       if (user) {
@@ -94,16 +95,16 @@ exports.login = (req, res, next) => {
 }
 
 exports.profile = (req, res, next) => {
-  let decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
-
+  // let decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
+  console.log(req.params.id);
   User.findOne({
-      where: {
-        id: 1
-      }
+      userId: req.params.id
     })
-    .then(user => {
+    .then((user) => {
       if (user) {
-        res.json(user)
+        res.json(
+          user
+        )
       } else {
         res.send('User does not exist')
       }
@@ -111,4 +112,22 @@ exports.profile = (req, res, next) => {
     .catch(err => {
       res.send('error: ' + err)
     })
+}
+
+exports.updateProfile = (req, res, next) => {
+  User.findOne({
+    id: req.params.id
+  }).then((user) => {
+    const userObject = req.body
+
+    user = {
+      email: userObject.email,
+      password: hash,
+      firstName: userObject.firstName,
+      secondName: userObject.secondName,
+      profilePicture: userObject.profilePicture,
+      gender: userObject.gender,
+      DOB: userObject.dob,
+    }
+  })
 }
