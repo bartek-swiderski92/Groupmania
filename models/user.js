@@ -43,6 +43,7 @@ const User = db.define('user', {
     updatedAt: false,
     freezeTableNames: true
 });
-Post.hasMany(User);
-User.belongsTo(Post);
+// TODO: error: SequelizeDatabaseError: Unknown column 'postPostId' in 'field list'
+// Post.hasMany(User);
+// User.belongsTo(Post);
 module.exports = User;
