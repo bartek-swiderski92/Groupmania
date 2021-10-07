@@ -1,14 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const cors = require('cors');
 
 const userCtrl = require('../controllers/user')
 
-//TODO: does it make sense? VV
-const users = express.Router();
-const cors = require('cors');
-
-//TODO: does it make sense? VV
-users.use(cors());
+router.use(cors());
 
 process.env.SECRET_KEY = 'secret';
 
