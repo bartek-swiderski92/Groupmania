@@ -11,38 +11,53 @@ users.use(cors());
 process.env.SECRET_KEY = 'secret';
 
 exports.register = (req, res, next) => {
-  bcrypt.hash(req.body.password, 10).then((hash) => {
-    const userObject = req.body;
-    const user = new User({
-      email: userObject.email,
-      password: hash,
-      firstName: userObject.firstName,
-      secondName: userObject.secondName,
-      profilePicture: 'url',
-      isAdmin: false
-    });
-    user.save().then(() => {
-      res.status(201).json({
-        message: 'User registered successfully!'
-      });
-    }).catch((error) => {
-      res.status(500).json({
-        error: error
-      });
-    });
-  });
+  console.log(req.body);
+  const userObject = req.body;
+  // bcrypt.hash(req.body.password, 10).then((hash) => {
+  //   console.log(hash);
+  //   
+  //   const user = new User({
+  //     email: userObject.email,
+  //     password: hash,
+  //     firstName: userObject.firstName,
+  //     secondName: userObject.secondName,
+  //     profilePicture: 'url',
+  //     isAdmin: false
+  //   });
+  //   user.save().then(() => {
+  //     res.status(201).json({
+  //       message: 'User registered successfully!'
+  //     });
+  //   }).catch((error) => {
+  //     res.status(500).json({
+  //       error: error
+  //     });
+  //   });
+  // });
 
 
-  //TODO: email unique validation
   //TODO: where: ?
   User.findOne({
-      email: userObject.email
+      where: {
+        email: userObject.email
+      },
+      attributes: {
+        exclude: ['postPostId']
+      }
     })
     .then(user => {
       if (!user) {
         bcrypt.hash(userObject.password, 10, (err, hash) => {
-          userData.password = hash
-          User.create(userData)
+          userObject.password = hash
+          // const user = new User({
+          //   email: userObject.email,
+          //   password: hash,
+          //   firstName: userObject.firstName,
+          //   secondName: userObject.secondName,
+          //   profilePicture: 'url',
+          //   isAdmin: false
+          // });
+          User.create(userObject)
             .then(user => {
               res.json({
                 status: user.email + 'REGISTERED'
@@ -98,7 +113,12 @@ exports.profile = (req, res, next) => {
   // let decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
   console.log(req.params.id);
   User.findOne({
-      userId: req.params.id
+      where: {
+        userId: req.params.id
+      // },
+      // attributes: {
+      //   exclude: ['postPostId']
+      }
     })
     .then((user) => {
       if (user) {
