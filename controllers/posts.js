@@ -1,6 +1,9 @@
 const Post = require('../models/post');
 const fs = require('fs');
-const { secureHeapUsed } = require('crypto');
+//TODO: What is this?
+const {
+    secureHeapUsed
+} = require('crypto');
 
 //TODO: Z_FIXED?
 // const {
@@ -53,13 +56,41 @@ exports.createAPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     Post.deleteOne({
         _id: req.params.id
-    }).then((sauce) =>{
+    }).then((sauce) => {
         res.status(200).json({
             message: 'Post has been successfully deleted!'
         });
-    }).catch((error) =>{
+    }).catch((error) => {
         res.status(400).json({
             error: error
         })
     })
 }
+
+exports.likeAPost = (req, res, next) => {
+    //     const likeObj = req.body;
+    //     const like = new Like()
+    //     Post.findOne({
+    //         _id: req.params.id
+    //     }, function (error, post) {
+    // })
+}
+
+// exports.createAPost = (req, res, next) => {
+//     const postObj = req.body;
+//     const post = new Post({
+//         userId: postObj.userId,
+//         postTitle: postObj.postTitle,
+//         postContent: postObj.postContent,
+//         media: postObj.media
+//     });
+//     post.save().then(() => {
+//         res.status(201).json({
+//             message: 'Post created successfully!'
+//         });
+//     }).catch((error) => {
+//         res.status(500).json({
+//             error: error
+//         });
+//     });
+// };
