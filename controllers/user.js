@@ -12,7 +12,7 @@ process.env.SECRET_KEY = 'secret';
 
 exports.register = (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then((hash) => {
-    const userObject = req.body
+    const userObject = req.body;
     const user = new User({
       email: userObject.email,
       password: hash,
@@ -21,7 +21,7 @@ exports.register = (req, res, next) => {
     });
     user.save().then(() => {
       res.status(201).json({
-        message: 'User registered successfully'
+        message: 'User registered successfully!'
       });
     }).catch((error) => {
       res.status(500).json({
