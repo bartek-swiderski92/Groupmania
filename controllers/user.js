@@ -50,7 +50,7 @@ exports.register = (req, res, next) => {
           User.create(userObject)
             .then(user => {
               res.json({
-                status: user.email + 'REGISTERED'
+                status: 'User ' + user.email + ' has successfully been registered'
               })
             })
             .catch(err => {
