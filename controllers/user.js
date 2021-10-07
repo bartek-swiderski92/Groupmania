@@ -35,8 +35,6 @@ exports.register = (req, res, next) => {
   //   });
   // });
 
-
-  //TODO: where: ?
   User.findOne({
       where: {
         email: userObject.email
@@ -49,14 +47,6 @@ exports.register = (req, res, next) => {
       if (!user) {
         bcrypt.hash(userObject.password, 10, (err, hash) => {
           userObject.password = hash
-          // const user = new User({
-          //   email: userObject.email,
-          //   password: hash,
-          //   firstName: userObject.firstName,
-          //   secondName: userObject.secondName,
-          //   profilePicture: 'url',
-          //   isAdmin: false
-          // });
           User.create(userObject)
             .then(user => {
               res.json({
@@ -81,8 +71,9 @@ exports.register = (req, res, next) => {
 exports.login = (req, res, next) => {
   const userObject = req.body
   User.findOne({
-      // where: 
-      email: userObject.email
+      where: {
+        email: userObject.email
+      }
     })
     .then(user => {
       if (user) {
@@ -115,9 +106,9 @@ exports.profile = (req, res, next) => {
   User.findOne({
       where: {
         userId: req.params.id
-      // },
-      // attributes: {
-      //   exclude: ['postPostId']
+        // },
+        // attributes: {
+        //   exclude: ['postPostId']
       }
     })
     .then((user) => {
