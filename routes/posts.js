@@ -5,7 +5,6 @@ const auth = '';
 const multer = '';
 
 const postCtrl = require('../controllers/posts');
-const likeCtrl = require('../controllers/like');
 
 router.get('/', postCtrl.getAllPosts);
 router.get('/:id', postCtrl.getOnePost);
