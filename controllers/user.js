@@ -48,6 +48,7 @@ exports.register = (req, res, next) => {
           userObject.password = hash
           User.create(userObject)
             .then(user => {
+              res.status(201).json(user);
               res.json({
                 status: 'User ' + user.email + ' has successfully been registered'
               })
@@ -58,7 +59,7 @@ exports.register = (req, res, next) => {
         })
       } else {
         res.json({
-          error: "USER ALREADY EXISTS"
+          error: "User already exists."
         })
       }
     })
