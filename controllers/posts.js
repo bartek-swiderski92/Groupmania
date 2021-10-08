@@ -9,7 +9,11 @@ const {
 // } = require('zlib');
 
 exports.getAllPosts = (req, res, next) => {
-    Post.findAll().then((posts) => {
+    Post.findAll({
+            attributes: {
+                exclude: ['userUserId']
+            }
+        }).then((posts) => {
             res.status(200).json(posts);
         })
         .catch((error) => {
@@ -29,8 +33,14 @@ exports.getOnePost = (req, res, next) => {
             exclude: ['userUserId']
         }
     }).then((post) => {
-        //TODO: add if(post)
-        res.status(200).json(post);
+        if (post) {
+            res.status(200).json(post);
+
+        } else {
+            res.json({
+                status: 'The post could not be found.'
+            })
+        }
     }).catch((error) => {
         res.status(404).json({
             error: error
@@ -46,15 +56,16 @@ exports.createAPost = (req, res, next) => {
         postTitle: postObj.postTitle,
         postContent: postObj.postContent,
         media: postObj.media
-    }).then(() => {
-        res.status(200).json(post);
+    }).then((post) => {
+        res.status(201).json(post);
+        res.json({
+            status: 'Post has been successfully created!'
+        });
     }).catch((error) => {
         res.status(404).json({
             error: error
         })
     })
-
-
     // const postObj = req.body;
     // const post = new Post({
     //     userId: postObj.userId,
@@ -74,16 +85,24 @@ exports.createAPost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-    Post.deleteOne({
+    Post.destroy({
         where: {
             postId: req.params.id
         }
-    }).then((sauce) => {
-        res.status(200).json({
-            message: 'Post has been successfully deleted!'
-        });
+    }).then((post) => {
+        if (post) {
+            res.json({
+                status: 'The post has been successfully deleted.'
+            })
+            res.status(204).json(post);
+
+        } else {
+            res.json({
+                status: 'The post could not be found.'
+            })
+        }
     }).catch((error) => {
-        res.status(400).json({
+        res.status(404).json({
             error: error
         })
     })
