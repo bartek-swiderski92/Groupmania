@@ -6,16 +6,23 @@ const Post = require('./post')
 const Comment = db.define('comment', {
     commentId: {
         type: Sequelize.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
+        default: 0,
+        unique: true,
+        allowNull: false
     },
     userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
     },
     postId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
     },
     commentContent: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     }
 }, {
     freezeTableNames: true
