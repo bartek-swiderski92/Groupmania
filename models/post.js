@@ -5,16 +5,23 @@ const User = require('./user')
 const Post = db.define('post', {
     postId: {
         type: Sequelize.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
+        default: 0,
+        unique: true,
+        allowNull: false
     },
     userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
     },
     postTitle: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     postContent: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     media: {
         type: Sequelize.STRING
@@ -28,7 +35,8 @@ const Post = db.define('post', {
 
 //TODO: belongs to
 // Post.hasMany(User);
-// User.belongsTo(Post, {
-//     foreignKey: 'postId'
+// Post.belongsTo(User, {
+//     foreignKey: 'userId',
+//     allowNull: false
 // });
 module.exports = Post;
