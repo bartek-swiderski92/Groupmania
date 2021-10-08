@@ -11,7 +11,6 @@ users.use(cors());
 process.env.SECRET_KEY = 'secret';
 
 exports.register = (req, res, next) => {
-  console.log(req.body);
   const userObject = req.body;
   // bcrypt.hash(req.body.password, 10).then((hash) => {
   //   console.log(hash);
@@ -77,19 +76,28 @@ exports.login = (req, res, next) => {
     })
     .then(user => {
       if (user) {
-        if (bcrypt.compareSync(req.body.password, user.password)) {
-          let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
+        if (bcrypt.compareSync(userObject.password, user.password)) {
+          // let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
+          //   expiresIn: '24h'
+          // })
+          // res.send(token)
+          const token = jwt.sign({
+            userId: user._id
+          }, process.env.SECRET_KEY, {
             expiresIn: '24h'
-          })
-          res.send(token)
+          });
+          res.status(200).json({
+            userId: user._id,
+            token: token
+          });
         } else {
           return res.status(401).json({
-            error: new Error('Incorrect password!')
+            error: 'Incorrect password!'
           })
         }
       } else {
-        res.status(401).json({
-          error: new Error('User does not exist')
+        return res.status(404).json({
+          error: 'User does not exist'
         })
       }
     })
@@ -102,7 +110,6 @@ exports.login = (req, res, next) => {
 
 exports.profile = (req, res, next) => {
   // let decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
-  console.log(req.params.id);
   User.findOne({
       where: {
         userId: req.params.id
@@ -126,19 +133,38 @@ exports.profile = (req, res, next) => {
 }
 
 exports.updateProfile = (req, res, next) => {
+  const userObject = req.body
   User.findOne({
-    id: req.params.id
-  }).then((user) => {
-    const userObject = req.body
-
-    user = {
-      email: userObject.email,
-      password: hash,
-      firstName: userObject.firstName,
-      secondName: userObject.secondName,
-      profilePicture: userObject.profilePicture,
-      gender: userObject.gender,
-      DOB: userObject.dob,
+    where: {
+      email: userObject.email
     }
+  }).then((user) => {
+    if (user) {
+      User.update({
+        email: userObject.email,
+        firstName: userObject.firstName,
+        secondName: userObject.secondName,
+        profilePicture: userObject.profilePicture,
+        gender: userObject.gender,
+        DOB: userObject.dob
+      }, {
+        where: {
+          email: userObject.email
+
+        }
+      }).then(() => {
+        res.status(200).json({
+          success: 'User profile updated successfully!'
+        });
+      }).catch(err => {
+        res.send(err)
+      })
+    } else {
+      res.send('User does not exist')
+    }
+  }).catch(err => {
+    res.send('error: ' + err)
   })
 }
+
+exports.changePassowrd = (req, res, next) => {}
