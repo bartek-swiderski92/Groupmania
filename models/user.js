@@ -8,44 +8,50 @@ const User = db.define('user', {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        default: 0
+        default: 0,
+        unique: true,
+        allowNull: false
     },
     email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
     },
     password: {
         type: Sequelize.STRING,
+        allowNull: false
     },
     firstName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     secondName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     profilePicture: {
         type: Sequelize.STRING,
-        default: 'Unknown'
+        defaultValue: 'no-url'
         //TODO: add default picture
         // add folder to the application with a profile picture
     },
     gender: {
         type: Sequelize.STRING,
-        default: 'Unknown'
+        defaultValue: 'Unknown'
     },
     dob: {
         type: Sequelize.DATE,
-        default: 'unknown'
+        defaultValue: 0
     },
     isAdmin: {
         type: Sequelize.BOOLEAN,
-        default: false
+        defaultValue: false
     }
 }, {
     timeStamps: true,
     updatedAt: false,
     freezeTableNames: true
 });
-// TODO: error: SequelizeDatabaseError: Unknown column 'postPostId' in 'field list'
 // User.sync({
 //     force: true
 // });
