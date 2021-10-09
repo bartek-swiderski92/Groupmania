@@ -49,13 +49,13 @@ exports.getOnePost = (req, res, next) => {
 }
 
 exports.createAPost = (req, res, next) => {
-    const postObj = req.body;
+    const postObject = req.body;
 
     const post = Post.create({
-        userId: postObj.userId,
-        postTitle: postObj.postTitle,
-        postContent: postObj.postContent,
-        media: postObj.media
+        userId: postObject.userId,
+        postTitle: postObject.postTitle,
+        postContent: postObject.postContent,
+        media: postObject.media
     }).then((post) => {
         res.status(201).json(post);
         res.json({
@@ -83,6 +83,36 @@ exports.createAPost = (req, res, next) => {
     //     });
     // });
 };
+
+exports.editPost = (req, res, next) => {
+    const postObject = req.body
+    Post.findOne({
+        where: {
+            postId: postObject.postId
+        },
+        attributes: {
+            exclude: ['userUserId']
+        }
+    }).then((post) => {
+        if (post) {
+            post.update({
+                postTitle: postObject.postTitle,
+                postContent: postObject.postContent,
+                media: postObject.media
+            }).then(() => {
+                res.status(200).json({
+                    success: 'Post has been updated successfully!'
+                })
+            }).catch(err => {
+                res.send(err)
+            })
+        } else {
+            res.send('The post no longer exists')
+        }
+    }).catch(err => {
+        res.send('error: ' + err)
+    })
+}
 
 exports.deletePost = (req, res, next) => {
     Post.destroy({
