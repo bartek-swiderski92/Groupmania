@@ -109,7 +109,7 @@ exports.login = (req, res, next) => {
     })
 }
 
-exports.profile = (req, res, next) => {
+exports.displayProfile = (req, res, next) => {
   // let decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
   User.findOne({
       where: {
@@ -137,11 +137,11 @@ exports.updateProfile = (req, res, next) => {
   const userObject = req.body
   User.findOne({
     where: {
-      email: userObject.email
+      userId: userObject.userId
     }
   }).then((user) => {
     if (user) {
-      User.update({
+      user.update({
         email: userObject.email,
         firstName: userObject.firstName,
         secondName: userObject.secondName,
