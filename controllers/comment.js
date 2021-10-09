@@ -29,76 +29,74 @@ exports.createAComment = (req, res, next) => {
 };
 
 
-// exports.getAllPosts = (req, res, next) => {
-//     Post.findAll({
-//             attributes: {
-//                 exclude: ['userUserId']
-//             }
-//         }).then((posts) => {
-//             res.status(200).json(posts);
-//         })
-//         .catch((error) => {
-//             console.log(error);
-//             res.status(400).json({
-//                 error: error
-//             })
-//         })
-// }
+exports.getAllCommentsOfAPost = (req, res, next) => {
+    Comment.findAll({
+            where: {
+                postId: req.params.id
+            },
+            attributes: {
+                exclude: ['userUserId']
+            }
+        }).then((comments) => {
+            res.status(200).json(comments);
+        })
+        .catch((error) => {
+            res.status(400).json({
+                error: error
+            })
+        })
+}
 
 
 
-// exports.editPost = (req, res, next) => {
-//     const postObject = req.body
-//     Post.findOne({
-//         where: {
-//             postId: postObject.postId
-//         },
-//         attributes: {
-//             exclude: ['userUserId']
-//         }
-//     }).then((post) => {
-//         if (post) {
-//             post.update({
-//                 postTitle: postObject.postTitle,
-//                 postContent: postObject.postContent,
-//                 media: postObject.media
-//             }).then(() => {
-//                 res.status(200).json({
-//                     success: 'Post has been updated successfully!'
-//                 })
-//             }).catch(err => {
-//                 res.send(err)
-//             })
-//         } else {
-//             res.status(404);
-//             res.send('The post no longer exists')
-//         }
-//     }).catch(err => {
-//         res.send('error: ' + err)
-//     })
-// }
+exports.editComment = (req, res, next) => {
+    const commentObject = req.body
+    Comment.findOne({
+        where: {
+            commentId: commentObject.commentId
+        }
+    }).then((comment) => {
+        if (comment) {
+            comment.update({
+                commentContent: commentObject.commentContent,
+                media: commentObject.media
+            }).then(() => {
+                res.status(200).json({
+                    success: 'Comment has been updated successfully!'
+                })
+            }).catch(err => {
+                res.send(err)
+            })
+        } else {
+            res.status(404);
+            res.send('The comment no longer exists')
+        }
+    }).catch(err => {
+        res.send('error: ' + err)
+    })
+}
 
-// exports.deletePost = (req, res, next) => {
-//     Post.destroy({
-//         where: {
-//             postId: req.params.id
-//         }
-//     }).then((post) => {
-//         if (post) {
-//             res.json({
-//                 status: 'The post has been successfully deleted.'
-//             })
-//             res.status(204).json(post);
+exports.deleteComment = (req, res, next) => {
+    Comment.destroy({
+        where: {
+            commentId: req.params.id
+        }
+    }).then((comment) => {
+        if (comment) {
+            res.json({
+                status: 'The comment has been successfully deleted.'
+            })
+            res.status(204).json(comment);
 
-//         } else {
-//             res.status(404);
-//             res.json({
-//                 status: 'The post could not be found.'
-//             })
-//         }
-//     }).catch((error) => {
-//         res.status(404).json({
-//             error: error
-//         })
-//     })
-// }
+        } else {
+            res.status(404);
+            res.json({
+                status: 'The comment could not be found.'
+            })
+        }
+    }).catch((error) => {
+        res.status(404).json({
+            error: error
+        })
+    })
+}
