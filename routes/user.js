@@ -10,7 +10,7 @@ process.env.SECRET_KEY = 'secret';
 
 router.post('/register', userCtrl.register);
 router.post('/login', userCtrl.login);
-router.get('/profile/:id', userCtrl.profile);
+router.get('/:id', userCtrl.displayProfile);
 router.put('/update/:id', userCtrl.updateProfile);
 
 module.exports = router
