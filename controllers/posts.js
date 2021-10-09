@@ -107,6 +107,7 @@ exports.editPost = (req, res, next) => {
                 res.send(err)
             })
         } else {
+            res.status(404);
             res.send('The post no longer exists')
         }
     }).catch(err => {
@@ -127,6 +128,7 @@ exports.deletePost = (req, res, next) => {
             res.status(204).json(post);
 
         } else {
+            res.status(404);
             res.json({
                 status: 'The post could not be found.'
             })

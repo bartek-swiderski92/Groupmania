@@ -125,7 +125,8 @@ exports.displayProfile = (req, res, next) => {
           user
         )
       } else {
-        res.send('User does not exist')
+        res.status(404);
+        res.send('User does not exist');
       }
     })
     .catch(err => {
