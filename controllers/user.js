@@ -168,4 +168,4 @@ exports.updateProfile = (req, res, next) => {
   })
 }
 
-exports.changePassowrd = (req, res, next) => {}
+exports.changePassword = (req, res, next) => {}
