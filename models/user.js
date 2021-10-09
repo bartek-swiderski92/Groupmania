@@ -31,9 +31,8 @@ const User = db.define('user', {
     },
     profilePicture: {
         type: Sequelize.STRING,
-        defaultValue: 'no-url'
-        //TODO: add default picture
-        // add folder to the application with a profile picture
+        defaultValue: '../media/default-picture.png'
+
     },
     gender: {
         type: Sequelize.STRING,
