@@ -1,31 +1,11 @@
 const Like = require('../models/like');
 
-exports.sendLike = (req, res, next) => {
-    const likeObj = req.body;
-
-    const like = Like.create({
-        userId: likeObj.userId,
-        postId: likeObj.postId
-    }).then((like) => {
-        res.status(201).json(like);
-        res.json({
-            status: 'Like!'
-        });
-    }).catch((error) => {
-        res.status(404).json({
-            error: error
-        })
-    })
-}
-
-
-
 exports.likeAPost = (req, res, next) => {
-    const likeObj = req.body;
+    const likeObject = req.body;
 
     const like = Like.create({
-        userId: likeObj.userId,
-        postId: likeObj.postId
+        userId: likeObject.userId,
+        postId: likeObject.postId
     }).then((like) => {
         res.status(201).json(like);
         res.json({
@@ -39,7 +19,7 @@ exports.likeAPost = (req, res, next) => {
 }
 
 exports.removeLike = (req, res, next) => {
-    Post.destroy({
+    Like.destroy({
         where: {
             likeId: req.params.id
         }
@@ -51,8 +31,9 @@ exports.removeLike = (req, res, next) => {
             res.status(204).json(like);
 
         } else {
+            res.status(404);
             res.json({
-                status: 'The post could not be found.'
+                status: 'The like could not be found.'
             })
         }
     }).catch((error) => {
