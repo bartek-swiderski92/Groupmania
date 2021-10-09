@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
-const User = require('./user')
-const Post = require('./post')
+
 
 const Comment = db.define('comment', {
     commentId: {
@@ -23,10 +22,15 @@ const Comment = db.define('comment', {
     commentContent: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    media: {
+        type: Sequelize.STRING
     }
 }, {
     freezeTableNames: true
 });
 //TODO: belongs to
-
+// Comment.sync({
+//     force: true
+// });
 module.exports = Comment;

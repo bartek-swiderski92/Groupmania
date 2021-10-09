@@ -6,6 +6,7 @@ const cors = require('cors');
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/posts');
 const likeRoutes = require('./routes/like');
+const commentRoutes = require('./routes/comment');
 
 const db = require('./config/database');
 const app = express();
@@ -23,6 +24,7 @@ const PORT = process.env.PORT || 5000;
 app.use('/posts', postRoutes);
 app.use('/users', userRoutes);
 app.use('/like', likeRoutes);
+app.use('/comment', commentRoutes);
 
 // Simple front end for development
 app.use(express.static('public'));
