@@ -84,7 +84,7 @@ exports.login = (req, res, next) => {
           // res.send(token)
           const token = jwt.sign({
             userId: user._id
-          }, process.env.SECRET_KEY, {
+          }, 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTYzNDMxMjk0MywiaWF0IjoxNjM0MzEyOTQzfQ.ItNXyQddj_arej08iGQYY6uua2xua9hmNfNGk6bzxX8', {
             expiresIn: '24h'
           });
           res.status(200).json({
