@@ -17,7 +17,6 @@ exports.getAllPosts = (req, res, next) => {
             res.status(200).json(posts);
         })
         .catch((error) => {
-            console.log(error);
             res.status(400).json({
                 error: error
             })
@@ -35,7 +34,6 @@ exports.getOnePost = (req, res, next) => {
     }).then((post) => {
         if (post) {
             res.status(200).json(post);
-
         } else {
             res.json({
                 status: 'The post could not be found.'
@@ -50,16 +48,15 @@ exports.getOnePost = (req, res, next) => {
 
 exports.createAPost = (req, res, next) => {
     const postObject = req.body;
-
     const post = Post.create({
         userId: postObject.userId,
         postTitle: postObject.postTitle,
         postContent: postObject.postContent,
         media: postObject.media
     }).then((post) => {
-        res.status(201).json(post);
-        res.json({
-            status: 'Post has been successfully created!'
+        res.status(201).json({
+            status: 'Post has been successfully created!',
+            post
         });
     }).catch((error) => {
         res.status(404).json({
@@ -107,8 +104,14 @@ exports.editPost = (req, res, next) => {
                 res.send(err)
             })
         } else {
-            res.status(404);
-            res.send('The post no longer exists')
+        
+            res.status(201).json({
+                status: 'Post has been successfully created!',
+                post
+            });
+            res.status(404).json({
+                status: 'The post no longer exists'
+            });
         }
     }).catch(err => {
         res.send('error: ' + err)
@@ -122,16 +125,14 @@ exports.deletePost = (req, res, next) => {
         }
     }).then((post) => {
         if (post) {
-            res.json({
-                status: 'The post has been successfully deleted.'
+            res.status(204).json({
+                status: 'The post has been successfully deleted.',
+                post
             })
-            res.status(204).json(post);
-
         } else {
-            res.status(404);
-            res.json({
-                status: 'The post could not be found.'
-            })
+            res.status(404).json({
+                status: 'The post no longer exists'
+            });
         }
     }).catch((error) => {
         res.status(404).json({
