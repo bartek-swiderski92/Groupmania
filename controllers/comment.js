@@ -17,9 +17,9 @@ exports.createAComment = (req, res, next) => {
         commentContent: commentObject.commentContent,
         media: commentObject.media
     }).then((post) => {
-        res.status(201).json(post);
-        res.json({
-            status: 'Comment has been successfully created!'
+        res.status(201).json({
+            status: 'Comment has been successfully created!',
+            post
         });
     }).catch((error) => {
         res.status(404).json({
@@ -83,8 +83,9 @@ exports.editComment = (req, res, next) => {
                 res.send(err)
             })
         } else {
-            res.status(404);
-            res.send('The comment no longer exists')
+            res.status(404).json({
+                status: 'The comment no longer exists'
+            });
         }
     }).catch(err => {
         res.send('error: ' + err)
@@ -104,8 +105,7 @@ exports.deleteComment = (req, res, next) => {
             res.status(204).json(comment);
 
         } else {
-            res.status(404);
-            res.json({
+            res.status(404).json({
                 status: 'The comment could not be found.'
             })
         }

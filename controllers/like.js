@@ -8,9 +8,6 @@ exports.likeAPost = (req, res, next) => {
         postId: likeObject.postId
     }).then((like) => {
         res.status(201).json(like);
-        res.json({
-            status: 'Like!'
-        });
     }).catch((error) => {
         res.status(404).json({
             error: error
@@ -31,10 +28,9 @@ exports.removeLike = (req, res, next) => {
             res.status(204).json(like);
 
         } else {
-            res.status(404);
-            res.json({
+            res.status(404).json({
                 status: 'The like could not be found.'
-            })
+            });
         }
     }).catch((error) => {
         res.status(404).json({

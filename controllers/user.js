@@ -48,17 +48,20 @@ exports.register = (req, res, next) => {
           userObject.password = hash
           User.create(userObject)
             .then(user => {
-              res.status(201).json(user);
-              res.json({
-                status: 'User ' + user.email + ' has successfully been registered'
-              })
+              res.status(201).json({
+                status: 'User ' + user.email + ' has successfully been registered',
+                user
+              });
+              // res.json({
+              //   status: 'User ' + user.email + ' has successfully been registered'
+              // })
             })
             .catch(err => {
               res.send('ERROR' + err)
             })
         })
       } else {
-        res.json({
+        res.status(400).json({
           error: "User already exists."
         })
       }
@@ -125,8 +128,9 @@ exports.displayProfile = (req, res, next) => {
           user
         )
       } else {
-        res.status(404);
-        res.send('User does not exist');
+        res.status(404).json({
+          status: 'User does not exist',
+        });
       }
     })
     .catch(err => {
