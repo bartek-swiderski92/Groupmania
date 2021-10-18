@@ -24,7 +24,7 @@ const readPost = db.define('readpost', {
 }, {
     freezeTableNames: true
 });
-readPost.sync({
-    force: true
-});
+// readPost.sync({
+//     force: true
+// });
 module.exports = readPost;
