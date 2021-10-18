@@ -4,7 +4,7 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const multer = '';
 
-const postCtrl = require('../controllers/posts');
+const postCtrl = require('../controllers/post');
 
 router.get('/', auth, postCtrl.getAllPosts);
 router.get('/:id', auth, postCtrl.getOnePost);
