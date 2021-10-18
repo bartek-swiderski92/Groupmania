@@ -34,7 +34,13 @@ exports.getAllCommentsOfAPost = (req, res, next) => {
                 postId: req.params.id
             }
         }).then((comments) => {
-            res.status(200).json(comments);
+            if (comments) {
+                res.status(200).json(comments);
+            } else {
+                res.status(404).json({
+                    error: 'Comments cannot be found'
+                })
+            }
         })
         .catch((error) => {
             res.status(400).json({
@@ -94,7 +100,8 @@ exports.editComment = (req, res, next) => {
 exports.deleteComment = (req, res, next) => {
     Comment.destroy({
         where: {
-            commentId: req.params.id
+            commentId: req.params.id,
+            userId: res.locals.userId
         }
     }).then((comment) => {
         if (comment) {
@@ -104,8 +111,8 @@ exports.deleteComment = (req, res, next) => {
             res.status(204).json(comment);
 
         } else {
-            res.status(404).json({
-                status: 'The comment could not be found.'
+            res.status(401).json({
+                status: 'You cannot access this content.'
             })
         }
     }).catch((error) => {
