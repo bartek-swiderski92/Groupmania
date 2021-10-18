@@ -35,13 +35,13 @@ exports.getOnePost = (req, res, next) => {
         if (post) {
             res.status(200).json(post);
         } else {
-            res.json({
+            res.status(404).json({
                 status: 'The post could not be found.'
             })
         }
     }).catch((error) => {
-        res.status(404).json({
-            error: error
+        res.status(500).json({
+            error: 'Error: ' + error
         })
     })
 }
@@ -55,7 +55,7 @@ exports.createAPost = (req, res, next) => {
         media: postObject.media
     }).then((post) => {
         res.status(201).json({
-            status: 'Post has been successfully created!',
+            success: 'Post has been successfully created!',
             post
         });
     }).catch((error) => {
@@ -106,7 +106,7 @@ exports.editPost = (req, res, next) => {
             })
         } else {
             res.status(401).json({
-                status: 'You cannot access this post'
+                error: 'You cannot access this post'
             });
         }
     }).catch(err => {
@@ -119,15 +119,15 @@ exports.deletePost = (req, res, next) => {
         where: {
             postId: req.params.id,
             userId: res.locals.userId
-        },
+        }
     }).then((post) => {
         if (post) {
             res.status(200).json({
-                status: 'The post has been successfully deleted.'
+                success: 'The post has been successfully deleted.'
             })
         } else {
             res.status(401).json({
-                status: 'You cannot access this post'
+                error: 'You cannot access this post.'
             });
         }
     }).catch((error) => {
