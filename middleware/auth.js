@@ -8,11 +8,12 @@ module.exports = (req, res, next) => {
         if (req.body.userId && req.body.userId != userId) {
             throw 'Invalid user ID';
         } else {
+            res.locals.userId = userId
             next();
         }
-    } catch {
+    } catch (error) {
         res.status(401).json({
-            error: ('Invalid Request!')
+            error: ('Authorization error: ' + error)
         });
     }
 };
