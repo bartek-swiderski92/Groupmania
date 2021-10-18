@@ -124,9 +124,7 @@ exports.displayProfile = (req, res, next) => {
     })
     .then((user) => {
       if (user) {
-        res.json(
-          user
-        )
+        res.status(200).json(user)
       } else {
         res.status(404).json({
           status: 'User does not exist',
@@ -142,7 +140,8 @@ exports.updateProfile = (req, res, next) => {
   const userObject = req.body
   User.findOne({
     where: {
-      userId: userObject.userId
+      // userId: userObject.userId,
+      userId: res.locals.userId,
     }
   }).then((user) => {
     if (user) {
@@ -156,7 +155,6 @@ exports.updateProfile = (req, res, next) => {
       }, {
         where: {
           email: userObject.email
-
         }
       }).then(() => {
         res.status(200).json({
@@ -166,11 +164,47 @@ exports.updateProfile = (req, res, next) => {
         res.send(err)
       })
     } else {
-      res.send('User does not exist')
+      res.send('You cannot access this user.')
     }
   }).catch(err => {
     res.send('error: ' + err)
   })
 }
 
-exports.changePassword = (req, res, next) => {}
+exports.changePassword = (req, res, next) => {
+  const userObject = req.body
+  User.findOne({
+      where: {
+        userId: req.body.userId,
+      }
+    }).then(user => {
+      if (user) {
+        if (bcrypt.compareSync(userObject.password, user.password)) {
+          const token = jwt.sign({
+            userId: user.userId
+          }, 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTYzNDMxMjk0MywiaWF0IjoxNjM0MzEyOTQzfQ.ItNXyQddj_arej08iGQYY6uua2xua9hmNfNGk6bzxX8', {
+            expiresIn: '24h'
+          });
+          user.update({
+            password: token
+          })
+          res.status(200).json({
+            status: 'Password has been successfully changed!'
+          })
+        } else {
+          return res.status(401).json({
+            error: 'Incorrect password!'
+          })
+        }
+      } else {
+        return res.status(404).json({
+          error: 'User does not exist'
+        })
+      }
+    })
+    .catch(err => {
+      res.status(400).json({
+        error: "" + err
+      })
+    })
+}
