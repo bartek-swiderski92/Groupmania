@@ -49,7 +49,7 @@ exports.getOnePost = (req, res, next) => {
 exports.createAPost = (req, res, next) => {
     const postObject = req.body;
     const post = Post.create({
-        userId: postObject.userId,
+        userId: res.locals.userId,
         postTitle: postObject.postTitle,
         postContent: postObject.postContent,
         media: postObject.media
@@ -85,7 +85,8 @@ exports.editPost = (req, res, next) => {
     const postObject = req.body
     Post.findOne({
         where: {
-            postId: postObject.postId
+            postId: postObject.postId,
+            userId: res.locals.userId,
         },
         attributes: {
             exclude: ['userUserId']
@@ -104,13 +105,8 @@ exports.editPost = (req, res, next) => {
                 res.send(err)
             })
         } else {
-        
-            res.status(201).json({
-                status: 'Post has been successfully created!',
-                post
-            });
-            res.status(404).json({
-                status: 'The post no longer exists'
+            res.status(401).json({
+                status: 'You cannot access this post'
             });
         }
     }).catch(err => {
@@ -121,21 +117,21 @@ exports.editPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     Post.destroy({
         where: {
-            postId: req.params.id
-        }
+            postId: req.params.id,
+            userId: res.locals.userId
+        },
     }).then((post) => {
         if (post) {
-            res.status(204).json({
-                status: 'The post has been successfully deleted.',
-                post
+            res.status(200).json({
+                status: 'The post has been successfully deleted.'
             })
         } else {
-            res.status(404).json({
-                status: 'The post no longer exists'
+            res.status(401).json({
+                status: 'You cannot access this post'
             });
         }
     }).catch((error) => {
-        res.status(404).json({
+        res.status(500).json({
             error: error
         })
     })
