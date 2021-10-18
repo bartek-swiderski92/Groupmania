@@ -4,7 +4,7 @@ exports.likeAPost = (req, res, next) => {
     const likeObject = req.body;
 
     const like = Like.create({
-        userId: likeObject.userId,
+        userId: res.locals.userId,
         postId: likeObject.postId
     }).then((like) => {
         res.status(201).json(like);
@@ -18,7 +18,8 @@ exports.likeAPost = (req, res, next) => {
 exports.removeLike = (req, res, next) => {
     Like.destroy({
         where: {
-            likeId: req.params.id
+            likeId: req.params.id,
+            userId: res.locals.userId
         }
     }).then((like) => {
         if (like) {
@@ -28,8 +29,8 @@ exports.removeLike = (req, res, next) => {
             res.status(204).json(like);
 
         } else {
-            res.status(404).json({
-                status: 'The like could not be found.'
+            res.status(401).json({
+                status: 'You cannot access this element.'
             });
         }
     }).catch((error) => {
