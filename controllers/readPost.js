@@ -1,11 +1,10 @@
 const ReadPost = require('../models/readPost');
+const Post = require('../models/post');
 
 exports.markAsRead = (req, res, next) => {
-    const readPostObject = req.body;
-
     const readPost = ReadPost.create({
-        userId: readPostObject.userId,
-        postId: readPostObject.postId
+        userId: res.locals.userId,
+        postId: req.body.postId
     }).then((readPost) => {
         res.status(201).json(readPost);
     }).catch((error) => {
@@ -18,7 +17,8 @@ exports.markAsRead = (req, res, next) => {
 exports.markAsUnread = (req, res, next) => {
     ReadPost.destroy({
         where: {
-            readPostId: req.body.readPostId
+            readPostId: req.body.readPostId,
+            userId: res.locals.userId
         }
     }).then((readPost) => {
         if (readPost) {
@@ -37,4 +37,17 @@ exports.markAsUnread = (req, res, next) => {
             error: 'Internal server error: ' + error
         })
     })
+}
+
+exports.showAllUnreadPosts = (req, res, next) => {
+    ReadPost.findAll({
+            include: [Post]
+        })
+        .then(unReadPosts => {
+            res.status(200).json(unReadPosts)
+        }).catch(error => {
+            res.status(500).json({
+                error: error
+            })
+        })
 }
