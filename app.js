@@ -7,6 +7,7 @@ const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/posts');
 const likeRoutes = require('./routes/like');
 const commentRoutes = require('./routes/comment');
+const readPost = require('./routes/readPost');
 
 const db = require('./config/database');
 const app = express();
@@ -21,10 +22,11 @@ db.authenticate()
 const PORT = process.env.PORT || 5000;
 
 // Routes
-app.use('/posts', postRoutes);
-app.use('/users', userRoutes);
-app.use('/like', likeRoutes);
-app.use('/comment', commentRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/like', likeRoutes);
+app.use('/api/comment', commentRoutes);
+app.use('/api/readPost', readPost);
 
 // Simple front end for development
 app.use(express.static('public'));
