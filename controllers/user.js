@@ -140,7 +140,6 @@ exports.updateProfile = (req, res, next) => {
   const userObject = req.body
   User.findOne({
     where: {
-      // userId: userObject.userId,
       userId: res.locals.userId,
     }
   }).then((user) => {
@@ -175,18 +174,16 @@ exports.changePassword = (req, res, next) => {
   const userObject = req.body
   User.findOne({
       where: {
-        userId: req.body.userId,
+        userId: res.locals.userId,
       }
     }).then(user => {
       if (user) {
         if (bcrypt.compareSync(userObject.password, user.password)) {
-          const token = jwt.sign({
-            userId: user.userId
-          }, 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTYzNDMxMjk0MywiaWF0IjoxNjM0MzEyOTQzfQ.ItNXyQddj_arej08iGQYY6uua2xua9hmNfNGk6bzxX8', {
-            expiresIn: '24h'
-          });
-          user.update({
-            password: token
+          bcrypt.hash(userObject.newPassword, 10, (err, hash) => {
+            console.log(hash)
+            user.update({
+              password: hash
+            })
           })
           res.status(200).json({
             status: 'Password has been successfully changed!'
