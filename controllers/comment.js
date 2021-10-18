@@ -10,9 +10,8 @@ const {
 
 exports.createAComment = (req, res, next) => {
     const commentObject = req.body;
-
     const comment = Comment.create({
-        userId: commentObject.userId,
+        userId: res.locals.userId,
         postId: commentObject.postId,
         commentContent: commentObject.commentContent,
         media: commentObject.media
@@ -23,7 +22,7 @@ exports.createAComment = (req, res, next) => {
         });
     }).catch((error) => {
         res.status(404).json({
-            error: error
+            error: 'Error: ' + error
         })
     })
 };
