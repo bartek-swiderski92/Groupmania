@@ -208,3 +208,23 @@ exports.changePassword = (req, res, next) => {
       })
     })
 }
+
+exports.deleteAccount = (req, res, next) => {
+  const userObject = req.body
+  User.destroy({
+      where: {
+        userId: res.locals.userId,
+      }
+    })
+    .then((user) => {
+      if (user) {
+        res.status(200).json({
+          success: 'User has been successfully deleted.'
+        })
+      } else {
+        res.status(401).json({
+          error: 'You cannot access this request.'
+        })
+      }
+    })
+}
