@@ -15,26 +15,26 @@ exports.markAsRead = (req, res, next) => {
     })
 }
 
-exports.removeLike = (req, res, next) => {
-    Like.destroy({
+exports.markAsUnread = (req, res, next) => {
+    ReadPost.destroy({
         where: {
-            likeId: req.params.id
+            readPostId: req.body.readPostId
         }
-    }).then((like) => {
-        if (like) {
+    }).then((readPost) => {
+        if (readPost) {
             res.json({
-                status: 'The like has been removed.'
+                status: 'The post has been marked as unread.'
             })
-            res.status(204).json(like);
+            res.status(204).json(readPost);
 
         } else {
             res.status(404).json({
-                status: 'The like could not be found.'
+                status: 'Post has not been read yet.'
             });
         }
     }).catch((error) => {
-        res.status(404).json({
-            error: error
+        res.status(500).json({
+            error: 'Internal server error: ' + error
         })
     })
 }

@@ -8,7 +8,7 @@ const readPost = require('../controllers/readPost');
 
 //TODO: Add Auth
 router.post('/markAsRead', readPost.markAsRead);
-// router.delete('/:markAsUnread', auth, readPost.removeLike);
+router.delete('/markAsUnread', readPost.markAsUnread);
 
 
 module.exports = router;
