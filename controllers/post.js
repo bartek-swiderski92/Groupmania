@@ -63,22 +63,6 @@ exports.createAPost = (req, res, next) => {
             error: error
         })
     })
-    // const postObj = req.body;
-    // const post = new Post({
-    //     userId: postObj.userId,
-    //     postTitle: postObj.postTitle,
-    //     postContent: postObj.postContent,
-    //     media: postObj.media
-    // });
-    // post.save().then(() => {
-    //     res.status(201).json({
-    //         message: 'Post created successfully!'
-    //     });
-    // }).catch((error) => {
-    //     res.status(500).json({
-    //         error: error
-    //     });
-    // });
 };
 
 exports.editPost = (req, res, next) => {
