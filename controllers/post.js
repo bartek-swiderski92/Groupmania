@@ -1,5 +1,7 @@
 const Post = require('../models/post');
+const db = require("../models");
 const fs = require('fs');
+
 const {
     secureHeapUsed
 } = require('crypto');
@@ -9,7 +11,7 @@ const {
 // } = require('zlib');
 
 exports.getAllPosts = (req, res, next) => {
-    Post.findAll({
+    db.Post.findAll({
             attributes: {
                 exclude: ['userUserId']
             }
@@ -48,8 +50,9 @@ exports.getOnePost = (req, res, next) => {
 
 exports.createAPost = (req, res, next) => {
     const postObject = req.body;
-    const post = Post.create({
-        userId: res.locals.userId,
+    console.log(req.body);
+    const post = db.Post.create({
+        userId: postObject.userId,
         postTitle: postObject.postTitle,
         postContent: postObject.postContent,
         media: postObject.media
