@@ -12,28 +12,6 @@ process.env.SECRET_KEY = 'secret';
 
 exports.register = (req, res, next) => {
   const userObject = req.body;
-  // bcrypt.hash(req.body.password, 10).then((hash) => {
-  //   console.log(hash);
-  //   
-  //   const user = new User({
-  //     email: userObject.email,
-  //     password: hash,
-  //     firstName: userObject.firstName,
-  //     secondName: userObject.secondName,
-  //     profilePicture: 'url',
-  //     isAdmin: false
-  //   });
-  //   user.save().then(() => {
-  //     res.status(201).json({
-  //       message: 'User registered successfully!'
-  //     });
-  //   }).catch((error) => {
-  //     res.status(500).json({
-  //       error: error
-  //     });
-  //   });
-  // });
-
   User.findOne({
       where: {
         email: userObject.email
@@ -52,9 +30,6 @@ exports.register = (req, res, next) => {
                 status: 'User ' + user.email + ' has successfully been registered',
                 user
               });
-              // res.json({
-              //   status: 'User ' + user.email + ' has successfully been registered'
-              // })
             })
             .catch(err => {
               res.send('ERROR' + err)
@@ -81,10 +56,6 @@ exports.login = (req, res, next) => {
     .then(user => {
       if (user) {
         if (bcrypt.compareSync(userObject.password, user.password)) {
-          // let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
-          //   expiresIn: '24h'
-          // })
-          // res.send(token)
           const token = jwt.sign({
             userId: user.userId
           }, 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTYzNDMxMjk0MywiaWF0IjoxNjM0MzEyOTQzfQ.ItNXyQddj_arej08iGQYY6uua2xua9hmNfNGk6bzxX8', {
@@ -113,7 +84,6 @@ exports.login = (req, res, next) => {
 }
 
 exports.displayProfile = (req, res, next) => {
-  // let decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
   User.findOne({
       where: {
         userId: req.params.id
