@@ -12,9 +12,7 @@ const {
 
 exports.getAllPosts = (req, res, next) => {
     db.Post.findAll({
-            attributes: {
-                exclude: ['userUserId']
-            }
+            include: [db.Comment, db.Like, db.ReadPost]
         }).then((posts) => {
             res.status(200).json(posts);
         })
@@ -30,6 +28,7 @@ exports.getOnePost = (req, res, next) => {
         where: {
             id: req.params.id
         },
+        include: [db.Comment, db.Like, db.ReadPost]
         // attributes: {
         //     exclude: ['userUserId']
         // }

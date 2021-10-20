@@ -92,7 +92,8 @@ exports.displayProfile = (req, res, next) => {
         // },
         // attributes: {
         //   exclude: ['postPostId']
-      }
+      },
+      include: [db.Post, db.Comment, db.Like, db.ReadPost]
     })
     .then((user) => {
       if (user) {
