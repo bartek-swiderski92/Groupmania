@@ -1,25 +1,41 @@
 const Like = require('../models/like');
+const db = require("../models/index.js");
+const e = require('express');
+
 
 exports.likeAPost = (req, res, next) => {
     const likeObject = req.body;
-
-    const like = Like.create({
-        userId: res.locals.userId,
-        postId: likeObject.postId
+    db.Like.findOne({
+        where: {
+            UserId: res.locals.userId,
+            PostId: likeObject.postId
+        }
     }).then((like) => {
-        res.status(201).json(like);
-    }).catch((error) => {
-        res.status(404).json({
-            error: error
-        })
+        if (!like) {
+            const like = db.Like.create({
+                UserId: res.locals.userId,
+                PostId: likeObject.postId
+            }).then((like) => {
+                res.status(201).json(like);
+            }).catch((error) => {
+                res.status(404).json({
+                    error: error
+                })
+            })
+        } else {
+            res.status(500).json({
+                error: 'The post has been already liked!'
+            })
+        }
     })
+
 }
 
 exports.removeLike = (req, res, next) => {
-    Like.destroy({
+    db.Like.destroy({
         where: {
-            likeId: req.params.id,
-            userId: res.locals.userId
+            PostId: req.params.id,
+            UserId: res.locals.userId
         }
     }).then((like) => {
         if (like) {
