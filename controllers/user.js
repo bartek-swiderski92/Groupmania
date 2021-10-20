@@ -112,7 +112,7 @@ exports.updateProfile = (req, res, next) => {
   const userObject = req.body
   db.User.findOne({
     where: {
-      userId: res.locals.id,
+      id: res.locals.userId,
     }
   }).then((user) => {
     if (user) {
@@ -146,7 +146,7 @@ exports.changePassword = (req, res, next) => {
   const userObject = req.body
   db.User.findOne({
       where: {
-        id: res.locals.id,
+        id: res.locals.userId,
       }
     }).then(user => {
       if (user) {
@@ -179,10 +179,9 @@ exports.changePassword = (req, res, next) => {
 }
 
 exports.deleteAccount = (req, res, next) => {
-  const userObject = req.body
   db.User.destroy({
       where: {
-        id: res.locals.id,
+        id: res.locals.userId,
       }
     })
     .then((user) => {
