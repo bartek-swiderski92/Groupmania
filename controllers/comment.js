@@ -1,4 +1,3 @@
-const Comment = require('../models/comment');
 const db = require("../models/index.js");
 
 const fs = require('fs');
@@ -12,9 +11,9 @@ const {
 
 exports.createAComment = (req, res, next) => {
     const commentObject = req.body;
-    const comment = Comment.create({
-        userId: res.locals.userId,
-        postId: commentObject.postId,
+    const comment = db.Comment.create({
+        UserId: res.locals.userId,
+        PostId: commentObject.postId,
         commentContent: commentObject.commentContent,
         media: commentObject.media
     }).then((post) => {
@@ -30,52 +29,53 @@ exports.createAComment = (req, res, next) => {
 };
 
 
-exports.getAllCommentsOfAPost = (req, res, next) => {
-    Comment.findAll({
-            where: {
-                postId: req.params.id
-            }
-        }).then((comments) => {
-            if (comments) {
-                res.status(200).json(comments);
-            } else {
-                res.status(404).json({
-                    error: 'Comments cannot be found'
-                })
-            }
-        })
-        .catch((error) => {
-            res.status(400).json({
-                error: error
-            })
-        })
-}
+// exports.getAllCommentsOfAPost = (req, res, next) => {
+//     Comment.findAll({
+//             where: {
+//                 postId: req.params.id
+//             }
+//         }).then((comments) => {
+//             if (comments) {
+//                 res.status(200).json(comments);
+//             } else {
+//                 res.status(404).json({
+//                     error: 'Comments cannot be found'
+//                 })
+//             }
+//         })
+//         .catch((error) => {
+//             res.status(400).json({
+//                 error: error
+//             })
+//         })
+// }
 
-exports.removeAllCommentsOfAPost = (req, res, next) => {
-    Comment.destroy({
-            where: {
-                postId: req.params.id
-            }
-        }).then((comments) => {
-            if (comments) {
-                res.status(200).json('Comments have been successfully removed');
-            } else {
-                res.status(404).json('No comments to delete');
-            }
-        })
-        .catch((error) => {
-            res.status(400).json({
-                error: error
-            })
-        })
-}
+// exports.removeAllCommentsOfAPost = (req, res, next) => {
+//     Comment.destroy({
+//             where: {
+//                 postId: req.params.id
+//             }
+//         }).then((comments) => {
+//             if (comments) {
+//                 res.status(200).json('Comments have been successfully removed');
+//             } else {
+//                 res.status(404).json('No comments to delete');
+//             }
+//         })
+//         .catch((error) => {
+//             res.status(400).json({
+//                 error: error
+//             })
+//         })
+// }
 
 
 exports.editComment = (req, res, next) => {
     const commentObject = req.body
-    Comment.findOne({
+    db.Comment.findOne({
         where: {
-            commentId: commentObject.commentId
+            id: commentObject.id,
+            UserId: res.locals.userId
         }
     }).then((comment) => {
         if (comment) {
@@ -91,7 +91,7 @@ exports.editComment = (req, res, next) => {
             })
         } else {
             res.status(404).json({
-                status: 'The comment no longer exists'
+                status: 'You cannot access this content.'
             });
         }
     }).catch(err => {
@@ -100,10 +100,10 @@ exports.editComment = (req, res, next) => {
 }
 
 exports.deleteComment = (req, res, next) => {
-    Comment.destroy({
+    db.Comment.destroy({
         where: {
-            commentId: req.params.id,
-            userId: res.locals.userId
+            id: req.body.id,
+            UserId: res.locals.userId
         }
     }).then((comment) => {
         if (comment) {
@@ -119,7 +119,7 @@ exports.deleteComment = (req, res, next) => {
         }
     }).catch((error) => {
         res.status(404).json({
-            error: error
+            error: '' + error
         })
     })
 }

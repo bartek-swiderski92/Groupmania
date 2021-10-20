@@ -6,10 +6,10 @@ const multer = '';
 
 const commentCtrl = require('../controllers/comment');
 
-router.get('/post/:id', auth, commentCtrl.getAllCommentsOfAPost);
-router.delete('/post/:id', auth, commentCtrl.removeAllCommentsOfAPost);
+// router.get('/post/:id', auth, commentCtrl.getAllCommentsOfAPost);
+// router.delete('/post/:id', auth, commentCtrl.removeAllCommentsOfAPost);
 router.post('/', auth, commentCtrl.createAComment);
 router.put('/', auth, commentCtrl.editComment);
-router.delete('/:id', auth, commentCtrl.deleteComment);
+router.delete('/', auth, commentCtrl.deleteComment);
 
 module.exports = router;
