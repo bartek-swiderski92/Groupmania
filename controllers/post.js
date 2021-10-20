@@ -47,6 +47,37 @@ exports.getOnePost = (req, res, next) => {
     })
 }
 
+exports.showAllUnreadPosts = (req, res, next) => {
+    // console.log(res)
+    db.Post.findAll({
+            // attributes: ['id'],
+            include: [{
+                model: db.ReadPost,
+                required: false,
+                // right: true,
+                // attributes: ['id'],
+                where: {
+                    // UserId: res.locals.userId,
+                    PostId: !null
+                }
+            }],
+            where: {
+                    // id: db.ReadPost.PostId
+                id: null
+
+            },
+            // required: false,
+            // right: true
+        })
+        .then(unReadPosts => {
+            res.status(200).json(unReadPosts)
+        }).catch(error => {
+            res.status(500).json({
+                error: error + ''
+            })
+        })
+}
+
 exports.createAPost = (req, res, next) => {
     const postObject = req.body;
     console.log(req.body);
