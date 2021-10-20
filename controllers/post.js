@@ -26,13 +26,13 @@ exports.getAllPosts = (req, res, next) => {
 }
 
 exports.getOnePost = (req, res, next) => {
-    Post.findOne({
+    db.Post.findOne({
         where: {
-            postId: req.params.id
+            id: req.params.id
         },
-        attributes: {
-            exclude: ['userUserId']
-        }
+        // attributes: {
+        //     exclude: ['userUserId']
+        // }
     }).then((post) => {
         if (post) {
             res.status(200).json(post);
@@ -52,7 +52,7 @@ exports.createAPost = (req, res, next) => {
     const postObject = req.body;
     console.log(req.body);
     const post = db.Post.create({
-        userId: postObject.userId,
+        UserId: res.locals.userId,
         postTitle: postObject.postTitle,
         postContent: postObject.postContent,
         media: postObject.media
@@ -70,14 +70,14 @@ exports.createAPost = (req, res, next) => {
 
 exports.editPost = (req, res, next) => {
     const postObject = req.body
-    Post.findOne({
+    db.Post.findOne({
         where: {
-            postId: postObject.postId,
+            id: postObject.id,
             userId: res.locals.userId,
         },
-        attributes: {
-            exclude: ['userUserId']
-        }
+        // attributes: {
+        //     exclude: ['userUserId']
+        // }
     }).then((post) => {
         if (post) {
             post.update({
@@ -102,9 +102,9 @@ exports.editPost = (req, res, next) => {
 }
 
 exports.deletePost = (req, res, next) => {
-    Post.destroy({
+    db.Post.destroy({
         where: {
-            postId: req.params.id,
+            id: req.params.id,
             userId: res.locals.userId
         }
     }).then((post) => {
