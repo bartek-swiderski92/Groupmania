@@ -5,7 +5,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const db = require("../models");
+const db = require("../models/index.js");
 
 users.use(cors());
 

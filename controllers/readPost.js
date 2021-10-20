@@ -1,5 +1,6 @@
 const ReadPost = require('../models/readPost');
-const Post = require('../models/post');
+const db = require("../models/index.js");
+
 
 exports.markAsRead = (req, res, next) => {
     const readPost = ReadPost.create({

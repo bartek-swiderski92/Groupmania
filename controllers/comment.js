@@ -1,4 +1,6 @@
 const Comment = require('../models/comment');
+const db = require("../models/index.js");
+
 const fs = require('fs');
 const {
     secureHeapUsed

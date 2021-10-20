@@ -1,5 +1,5 @@
 const Post = require('../models/post');
-const db = require("../models");
+const db = require("../models/index.js");
 const fs = require('fs');
 
 const {
