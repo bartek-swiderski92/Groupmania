@@ -1,10 +1,8 @@
-const Like = require('../models/like');
 const db = require("../models/index.js");
-const e = require('express');
-
 
 exports.likeAPost = (req, res, next) => {
     const likeObject = req.body;
+    //Checking for duplicates
     db.Like.findOne({
         where: {
             UserId: res.locals.userId,
@@ -17,9 +15,9 @@ exports.likeAPost = (req, res, next) => {
                 PostId: likeObject.postId
             }).then((like) => {
                 res.status(201).json(like);
-            }).catch((error) => {
-                res.status(404).json({
-                    error: error
+            }).catch(() => {
+                res.status(401).json({
+                    error: 'You cannot access this element.'
                 })
             })
         } else {
@@ -28,7 +26,6 @@ exports.likeAPost = (req, res, next) => {
             })
         }
     })
-
 }
 
 exports.removeLike = (req, res, next) => {
@@ -46,7 +43,7 @@ exports.removeLike = (req, res, next) => {
 
         } else {
             res.status(401).json({
-                status: 'You cannot access this element.'
+                error: 'You cannot access this element.'
             });
         }
     }).catch((error) => {
