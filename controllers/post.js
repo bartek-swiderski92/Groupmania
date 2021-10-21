@@ -62,7 +62,7 @@ exports.showAllUnreadPosts = (req, res, next) => {
                 }
             }],
             where: {
-                    // id: db.ReadPost.PostId
+                // id: db.ReadPost.PostId
                 id: null
 
             },
@@ -79,13 +79,16 @@ exports.showAllUnreadPosts = (req, res, next) => {
 }
 
 exports.createAPost = (req, res, next) => {
-    const postObject = req.body;
-    console.log(req.body);
+    console.log(req.body)
+    // const postObject = req.body;
+    const postObject = JSON.parse(req.body.post);
+    const url = req.protocol + '://' + req.get('host')
+    // console.log(req.body);
     const post = db.Post.create({
         UserId: res.locals.userId,
         postTitle: postObject.postTitle,
         postContent: postObject.postContent,
-        media: postObject.media
+        media: url + '/images/' + req.file.filename
     }).then((post) => {
         res.status(201).json({
             success: 'Post has been successfully created!',
@@ -110,17 +113,38 @@ exports.editPost = (req, res, next) => {
         // }
     }).then((post) => {
         if (post) {
-            post.update({
-                postTitle: postObject.postTitle,
-                postContent: postObject.postContent,
-                media: postObject.media
-            }).then(() => {
-                res.status(200).json({
-                    success: 'Post has been updated successfully!'
+            if (req.file) {
+                const postObject = JSON.parse(req.body.post);
+                const url = req.protocol + '://' + req.get('host')
+                const post = db.Post.create({
+                    UserId: res.locals.userId,
+                    postTitle: postObject.postTitle,
+                    postContent: postObject.postContent,
+                    media: url + '/images/' + req.file.filename
+                }).then((post) => {
+                    res.status(201).json({
+                        success: 'Post has been updated successfully!',
+                        post
+                    });
+                }).catch((error) => {
+                    res.status(404).json({
+                        error: error
+                    })
                 })
-            }).catch(err => {
-                res.send(err)
-            })
+            } else {
+                post.update({
+                    postTitle: postObject.postTitle,
+                    postContent: postObject.postContent,
+                    media: postObject.media
+                }).then(() => {
+                    res.status(200).json({
+                        success: 'Post has been updated successfully!',
+                        post
+                    })
+                }).catch(err => {
+                    res.send(err)
+                })
+            }
         } else {
             res.status(401).json({
                 error: 'You cannot access this post'

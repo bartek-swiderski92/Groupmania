@@ -10,12 +10,13 @@ const {
 // } = require('zlib');
 
 exports.createAComment = (req, res, next) => {
-    const commentObject = req.body;
+    const commentObject = JSON.parse(req.body.post);
+    const url = req.protocol + '://' + req.get('host')
     const comment = db.Comment.create({
         UserId: res.locals.userId,
         PostId: commentObject.postId,
         commentContent: commentObject.commentContent,
-        media: commentObject.media
+        media: url + '/images/' + req.file.filename
     }).then((post) => {
         res.status(201).json({
             status: 'Comment has been successfully created!',
@@ -79,16 +80,36 @@ exports.editComment = (req, res, next) => {
         }
     }).then((comment) => {
         if (comment) {
-            comment.update({
-                commentContent: commentObject.commentContent,
-                media: commentObject.media
-            }).then(() => {
-                res.status(200).json({
-                    success: 'Comment has been updated successfully!'
+            if(req.file) {
+                const commentObject = JSON.parse(req.body.post);
+                const url = req.protocol + '://' + req.get('host')
+                const comment = db.Comment.create({
+                    UserId: res.locals.userId,
+                    PostId: commentObject.postId,
+                    commentContent: commentObject.commentContent,
+                    media: url + '/images/' + req.file.filename
+                }).then((post) => {
+                    res.status(201).json({
+                        status: 'Comment has been successfully created!',
+                        post
+                    });
+                }).catch((error) => {
+                    res.status(404).json({
+                        error: 'Error: ' + error
+                    })
                 })
-            }).catch(err => {
-                res.send(err)
-            })
+            } else {
+                comment.update({
+                    commentContent: commentObject.commentContent,
+                    media: commentObject.media
+                }).then(() => {
+                    res.status(200).json({
+                        success: 'Comment has been updated successfully!'
+                    })
+                }).catch(err => {
+                    res.send(err)
+                })
+            }
         } else {
             res.status(404).json({
                 status: 'You cannot access this content.'
