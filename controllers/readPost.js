@@ -1,24 +1,37 @@
-const ReadPost = require('../models/readPost');
-const Post = require('../models/post');
+const db = require("../models/index.js");
 
 exports.markAsRead = (req, res, next) => {
-    const readPost = ReadPost.create({
-        userId: res.locals.userId,
-        postId: req.body.postId
-    }).then((readPost) => {
-        res.status(201).json(readPost);
-    }).catch((error) => {
-        res.status(404).json({
-            error: error
-        })
+    //Checking for duplicates
+    db.ReadPost.findOne({
+        where: {
+            PostId: req.params.id,
+            UserId: res.locals.userId
+        }
+    }).then(readPost => {
+        if (!readPost) {
+            const readPost = db.ReadPost.create({
+                UserId: res.locals.userId,
+                PostId: req.params.id
+            }).then((readPost) => {
+                res.status(201).json(readPost);
+            }).catch(() => {
+                res.status(401).json({
+                    error: 'You cannot access this element.'
+                })
+            })
+        } else {
+            res.status(500).json({
+                error: 'Post has been already marked as read!'
+            })
+        }
     })
 }
 
 exports.markAsUnread = (req, res, next) => {
-    ReadPost.destroy({
+    db.ReadPost.destroy({
         where: {
-            readPostId: req.body.readPostId,
-            userId: res.locals.userId
+            PostId: req.params.id,
+            UserId: res.locals.userId
         }
     }).then((readPost) => {
         if (readPost) {
@@ -39,15 +52,15 @@ exports.markAsUnread = (req, res, next) => {
     })
 }
 
-exports.showAllUnreadPosts = (req, res, next) => {
-    ReadPost.findAll({
-            include: [Post]
-        })
-        .then(unReadPosts => {
-            res.status(200).json(unReadPosts)
-        }).catch(error => {
-            res.status(500).json({
-                error: error
-            })
-        })
-}
+// exports.showAllUnreadPosts = (req, res, next) => {
+//     ReadPost.findAll({
+//             include: [Post]
+//         })
+//         .then(unReadPosts => {
+//             res.status(200).json(unReadPosts)
+//         }).catch(error => {
+//             res.status(500).json({
+//                 error: error
+//             })
+//         })
+// }

@@ -1,5 +1,7 @@
 const Post = require('../models/post');
+const db = require("../models/index.js");
 const fs = require('fs');
+
 const {
     secureHeapUsed
 } = require('crypto');
@@ -9,10 +11,8 @@ const {
 // } = require('zlib');
 
 exports.getAllPosts = (req, res, next) => {
-    Post.findAll({
-            attributes: {
-                exclude: ['userUserId']
-            }
+    db.Post.findAll({
+            include: [db.Comment, db.Like, db.ReadPost]
         }).then((posts) => {
             res.status(200).json(posts);
         })
@@ -24,13 +24,14 @@ exports.getAllPosts = (req, res, next) => {
 }
 
 exports.getOnePost = (req, res, next) => {
-    Post.findOne({
+    db.Post.findOne({
         where: {
-            postId: req.params.id
+            id: req.params.id
         },
-        attributes: {
-            exclude: ['userUserId']
-        }
+        include: [db.Comment, db.Like, db.ReadPost]
+        // attributes: {
+        //     exclude: ['userUserId']
+        // }
     }).then((post) => {
         if (post) {
             res.status(200).json(post);
@@ -46,13 +47,48 @@ exports.getOnePost = (req, res, next) => {
     })
 }
 
+exports.showAllUnreadPosts = (req, res, next) => {
+    // console.log(res)
+    db.Post.findAll({
+            // attributes: ['id'],
+            include: [{
+                model: db.ReadPost,
+                required: false,
+                // right: true,
+                // attributes: ['id'],
+                where: {
+                    // UserId: res.locals.userId,
+                    PostId: !null
+                }
+            }],
+            where: {
+                // id: db.ReadPost.PostId
+                id: null
+
+            },
+            // required: false,
+            // right: true
+        })
+        .then(unReadPosts => {
+            res.status(200).json(unReadPosts)
+        }).catch(error => {
+            res.status(500).json({
+                error: error + ''
+            })
+        })
+}
+
 exports.createAPost = (req, res, next) => {
-    const postObject = req.body;
-    const post = Post.create({
-        userId: res.locals.userId,
+    console.log(req.body)
+    // const postObject = req.body;
+    const postObject = JSON.parse(req.body.post);
+    const url = req.protocol + '://' + req.get('host')
+    // console.log(req.body);
+    const post = db.Post.create({
+        UserId: res.locals.userId,
         postTitle: postObject.postTitle,
         postContent: postObject.postContent,
-        media: postObject.media
+        media: url + '/images/' + req.file.filename
     }).then((post) => {
         res.status(201).json({
             success: 'Post has been successfully created!',
@@ -67,27 +103,48 @@ exports.createAPost = (req, res, next) => {
 
 exports.editPost = (req, res, next) => {
     const postObject = req.body
-    Post.findOne({
+    db.Post.findOne({
         where: {
-            postId: postObject.postId,
+            id: postObject.id,
             userId: res.locals.userId,
         },
-        attributes: {
-            exclude: ['userUserId']
-        }
+        // attributes: {
+        //     exclude: ['userUserId']
+        // }
     }).then((post) => {
         if (post) {
-            post.update({
-                postTitle: postObject.postTitle,
-                postContent: postObject.postContent,
-                media: postObject.media
-            }).then(() => {
-                res.status(200).json({
-                    success: 'Post has been updated successfully!'
+            if (req.file) {
+                const postObject = JSON.parse(req.body.post);
+                const url = req.protocol + '://' + req.get('host')
+                const post = db.Post.create({
+                    UserId: res.locals.userId,
+                    postTitle: postObject.postTitle,
+                    postContent: postObject.postContent,
+                    media: url + '/images/' + req.file.filename
+                }).then((post) => {
+                    res.status(201).json({
+                        success: 'Post has been updated successfully!',
+                        post
+                    });
+                }).catch((error) => {
+                    res.status(404).json({
+                        error: error
+                    })
                 })
-            }).catch(err => {
-                res.send(err)
-            })
+            } else {
+                post.update({
+                    postTitle: postObject.postTitle,
+                    postContent: postObject.postContent,
+                    media: postObject.media
+                }).then(() => {
+                    res.status(200).json({
+                        success: 'Post has been updated successfully!',
+                        post
+                    })
+                }).catch(err => {
+                    res.send(err)
+                })
+            }
         } else {
             res.status(401).json({
                 error: 'You cannot access this post'
@@ -99,9 +156,9 @@ exports.editPost = (req, res, next) => {
 }
 
 exports.deletePost = (req, res, next) => {
-    Post.destroy({
+    db.Post.destroy({
         where: {
-            postId: req.params.id,
+            id: req.params.id,
             userId: res.locals.userId
         }
     }).then((post) => {

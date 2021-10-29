@@ -5,6 +5,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const db = require("../models/index.js");
 
 users.use(cors());
 
@@ -12,19 +13,20 @@ process.env.SECRET_KEY = 'secret';
 
 exports.register = (req, res, next) => {
   const userObject = req.body;
-  User.findOne({
+  db.User.findOne({
       where: {
         email: userObject.email
-      },
-      attributes: {
-        exclude: ['postPostId']
       }
+      // ,
+      // attributes: {
+      //   exclude: ['postPostId']
+      // }
     })
     .then(user => {
       if (!user) {
         bcrypt.hash(userObject.password, 10, (err, hash) => {
           userObject.password = hash
-          User.create(userObject)
+          db.User.create(userObject)
             .then(user => {
               res.status(201).json({
                 status: 'User ' + user.email + ' has successfully been registered',
@@ -48,7 +50,7 @@ exports.register = (req, res, next) => {
 
 exports.login = (req, res, next) => {
   const userObject = req.body
-  User.findOne({
+  db.User.findOne({
       where: {
         email: userObject.email
       }
@@ -57,12 +59,12 @@ exports.login = (req, res, next) => {
       if (user) {
         if (bcrypt.compareSync(userObject.password, user.password)) {
           const token = jwt.sign({
-            userId: user.userId
+            id: user.id
           }, 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTYzNDMxMjk0MywiaWF0IjoxNjM0MzEyOTQzfQ.ItNXyQddj_arej08iGQYY6uua2xua9hmNfNGk6bzxX8', {
             expiresIn: '24h'
           });
           res.status(200).json({
-            userId: user.userId,
+            id: user.id,
             token: token
           });
         } else {
@@ -84,13 +86,14 @@ exports.login = (req, res, next) => {
 }
 
 exports.displayProfile = (req, res, next) => {
-  User.findOne({
+  db.User.findOne({
       where: {
-        userId: req.params.id
+        id: req.params.id
         // },
         // attributes: {
         //   exclude: ['postPostId']
-      }
+      },
+      include: [db.Post, db.Comment, db.Like, db.ReadPost]
     })
     .then((user) => {
       if (user) {
@@ -108,9 +111,9 @@ exports.displayProfile = (req, res, next) => {
 
 exports.updateProfile = (req, res, next) => {
   const userObject = req.body
-  User.findOne({
+  db.User.findOne({
     where: {
-      userId: res.locals.userId,
+      id: res.locals.userId,
     }
   }).then((user) => {
     if (user) {
@@ -142,9 +145,9 @@ exports.updateProfile = (req, res, next) => {
 
 exports.changePassword = (req, res, next) => {
   const userObject = req.body
-  User.findOne({
+  db.User.findOne({
       where: {
-        userId: res.locals.userId,
+        id: res.locals.userId,
       }
     }).then(user => {
       if (user) {
@@ -177,10 +180,9 @@ exports.changePassword = (req, res, next) => {
 }
 
 exports.deleteAccount = (req, res, next) => {
-  const userObject = req.body
-  User.destroy({
+  db.User.destroy({
       where: {
-        userId: res.locals.userId,
+        id: res.locals.userId,
       }
     })
     .then((user) => {
