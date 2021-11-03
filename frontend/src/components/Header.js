@@ -1,7 +1,11 @@
+import '../styles/Header.css'
+
 function Header () {
     return(
-        <div>Header</div>
-    )
+        <header>
+            <h1>Groupmania</h1>
+        </header>
+        )
 }
 
 export default Header

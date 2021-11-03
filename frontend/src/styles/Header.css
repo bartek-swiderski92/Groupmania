@@ -1,0 +1,12 @@
+header {
+    color: white;
+    background-color: #5284ea;
+    padding: .1rem .4rem;
+}
+
+h1 {
+    padding-left: 5%;
+    font-size: 1.5em;
+    font-weight: normal;
+    font-style: italic;
+}
