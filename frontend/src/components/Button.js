@@ -1,8 +1,8 @@
 import '../styles/Button.css'
 
-function Button({ buttonContent, className, bgc }) {
-    return (<button
-        className={className}
+function Button({type, className,onClick, buttonContent   }) {
+    return (<button type={type}
+        className={className} onClick={onClick}
     >{buttonContent}</button>)
 }
 
