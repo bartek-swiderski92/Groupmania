@@ -52,9 +52,9 @@ app.use(express.json())
 
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/like', likeRoutes);
-app.use('/api/comment', commentRoutes);
-app.use('/api/readPost', readPostRoutes);
+app.use('/api/likes', likeRoutes);
+app.use('/api/comments', commentRoutes);
+app.use('/api/readPosts', readPostRoutes);
 
 app.use(cors());
 app.use(express.json())
