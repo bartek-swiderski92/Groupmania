@@ -1,17 +1,22 @@
+.post-wrapper {
+    margin: 10px 5px 30px;
+    background-color: #ddd;
+}
+
 .post {
     display: flex;
     flex-direction: column;
-    border-radius: 5px;    
+    border-radius: 5px;
+    margin: 5px 5px 0
 }
 
 .post-section {
-    padding: 20px;
-    margin: 5px 0;
+    padding: 20px 20px 10px;
     background-color: #eee;
     border: 1px solid #aaa;
 }
 
-.post__details {
+.post-details {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -21,6 +26,14 @@
     border: 1px solid #aaa;
     border-radius: 15px;    
     cursor: pointer;
+}
+
+.post-details__title {
+    font-size: 20px;
+}
+
+.post-details__user-name {
+    font-size: 12px;
 }
 
 .post__user-picture img{
@@ -37,11 +50,6 @@ overflow: hidden;
     border: 2px solid #aaa;
     border-radius: 10px;
 }
-
-.like-bar {
-    background-color: #eee;
+.post__content {
     margin-bottom: 10px;
-    /* padding: 5px; */
-
 }
-

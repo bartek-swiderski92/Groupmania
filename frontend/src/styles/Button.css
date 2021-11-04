@@ -3,27 +3,27 @@ button {
     padding: 8px 25px;
     max-height: 40px;
     border: none;
-    border-radius: 5px;
+    border-radius: 2px;
     cursor: pointer;
 }
 
 button.like {
     color: black;
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(82,132,234, 0.2) ;
 }
 
 button.liked {
     color: white;
-    background-color: #5284ea;
+    background-color: rgba(82,132,234) 
 }
 
 button.header {
     color:white;
-    background-color :rgba(255,255,255,0.1);
+    background-color :rgb(34, 104, 253);
     align-self: center;
     
 }
 button:hover {
-background-color: white;
-color: black
+    background-color: rgba(82,132,234, 0.5);
+    color: black
 }
