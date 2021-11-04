@@ -17,10 +17,6 @@
     align-content: center;
 }
 
-.comment-details__user-name{
-    /* align-self: center; */
-}
-
 .comment-details__user-picture img {
     max-height: 30px;
     max-width: 30px;
@@ -28,6 +24,11 @@
     border: 1px solid #aaa
 }
 
-.comment__content {
-    margin-bottom: 20px;
+.comment-content {
+    display: flex;
+}
+
+.comment-content__media img{
+    max-width: 80px;
+    margin-right: 20px
 }

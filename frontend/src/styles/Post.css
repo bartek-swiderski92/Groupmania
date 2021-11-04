@@ -26,20 +26,15 @@
     border: 1px solid #aaa;
     border-radius: 15px;    
     cursor: pointer;
+    overflow: hidden;
 }
-
+    
 .post-details__title {
     font-size: 20px;
 }
 
 .post-details__user-name {
     font-size: 12px;
-}
-
-.post__user-picture img{
-display: block;
-max-height: 100%;
-overflow: hidden;
 }
 
 .post__media img {

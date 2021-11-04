@@ -2,7 +2,7 @@ import LikeBar from './LikeBar';
 import Comment from './Comment.js';
 import '../styles/Post.css';
 
-function Post() {
+function Post({ likes }) {
     return (
         <div className="post-wrapper">
             <div className="post">
@@ -19,11 +19,11 @@ function Post() {
                     </div>
                     <div className="post__content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia ipsam, quia aspernatur quis asperiores id. Perferendis unde modi, maiores, dicta possimus ducimus ipsa neque, nostrum aliquam provident aperiam eum magnam dolorem id? Beatae id tempore iure sed voluptatum similique veniam inventore quia eos adipisci, repellendus, deleniti, explicabo accusamus harum porro!</div>
                 </div>
-                <LikeBar likes='43' />
+                <LikeBar likes={likes} />
 
             </div>
             <div className="comment-section">
-                <Comment />
+                <Comment media={require('../media/emoji.png').default} />
                 <Comment />
                 <Comment />
                 <Comment />

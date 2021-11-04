@@ -1,7 +1,7 @@
-import LikeBar from './LikeBar';
+// import LikeBar from './LikeBar';
 import '../styles/Comment.css';
 
-function Comment() {
+function Comment({ media }) {
     return (
         <div className="comment-wrapper">
             <div className="comment">
@@ -13,12 +13,18 @@ function Comment() {
                         Jane Smith
                     </div>
                 </div>
-                <div className="comment__content">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum aspernatur eveniet non exercitationem quas itaque illo recusandae impedit aliquam dicta.
+                <div className="comment-content">
+                    {media ? (<div className="comment-content__media">
+                    <img src={media} alt={media} />
+                    </div>) : (null)
+                    }
+                    <div className="comment-content__text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum aspernatur eveniet non exercitationem quas itaque illo recusandae impedit aliquam dicta.
+                    </div>
                 </div>
 
             </div>
-            <LikeBar />
+            {/* <LikeBar /> */}
         </div>
     )
 }

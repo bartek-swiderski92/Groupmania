@@ -4,7 +4,11 @@ import '../styles/NewsFeed.css'
 
 function NewsFeed() {
     return (
-        <Post />
+        <>
+            <Post likes='24' />
+            <Post likes='14' />
+            <Post likes='124' />
+        </>
     )
 }
 
