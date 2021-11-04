@@ -1,8 +1,10 @@
 import LikeBar from './LikeBar';
 import Comment from './Comment.js';
+// import { api } from '../main'
 import '../styles/Post.css';
 
 function Post({ likes }) {
+
     return (
         <div className="post-wrapper">
             <div className="post">

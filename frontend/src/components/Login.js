@@ -12,12 +12,12 @@ function Login() {
 
     function registerUser(e) {
         e.preventDefault();
-        const email = document.getElementById('register-email').value
-        const firstName = document.getElementById('register-fist-name').value
-        const secondName = document.getElementById('register-second-name').value
-        const password = document.getElementById('register-password').value
-        const rePassword = document.getElementById('register-repeat-password').value
-        password === rePassword ? console.log('Correct password') : console.log('Wrong password');
+        // const email = document.getElementById('register-email').value
+        // const firstName = document.getElementById('register-fist-name').value
+        // const secondName = document.getElementById('register-second-name').value
+        // const password = document.getElementById('register-password').value
+        // const rePassword = document.getElementById('register-repeat-password').value
+        // password === rePassword ? console.log('Correct password') : console.log('Wrong password');
 
     }
 
