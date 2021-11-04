@@ -1,8 +1,6 @@
 header {
-    /* position: absolute;
-    top: 0;
-    left: 0;
-    right: 0; */
+    display: flex;
+    justify-content: space-between;
     color: white;
     background-color: #5284ea;
     padding: .1rem .4rem;
