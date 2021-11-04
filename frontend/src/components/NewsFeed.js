@@ -4,10 +4,13 @@ import { api, getContent } from '../main';
 import '../styles/NewsFeed.css';
 
 function NewsFeed() {
-
+    let Posts = []
     async function getPosts(query) {
-        await getContent(query).then(item => {
-            console.log(item)
+        await getContent(query).then(items => {
+            Posts = [...items]
+            console.log(Posts);
+        }).catch((error) => {
+            console.log(error);
         })
     }
     getPosts(api.posts)
