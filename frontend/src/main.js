@@ -7,10 +7,15 @@ const apiUrl = `http://localhost:5000/api`;
 // export const readPost = `${api}/readPost`;
 
 export const api = {
-    postsApi: `${apiUrl}/posts`,
-    usersApi: `${apiUrl}/users`,
-    likeApi: `${apiUrl}/like`,
-    commentApi: `${apiUrl}/comment`,
-    readPost: `${apiUrl}/readPost`
+    posts: `${apiUrl}/posts`,
+    users: `${apiUrl}/users`,
+    likes: `${apiUrl}/likes`,
+    comments: `${apiUrl}/comments`,
+    readPosts: `${apiUrl}/readPosts`
 }
 
+export async function getContent(query) {
+    const response = await fetch(query);
+    const data = await response.json();
+    return data;
+}
