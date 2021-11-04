@@ -1,0 +1,48 @@
+.login-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width:100%;
+    min-height: 80vh;
+}
+
+.forms{
+    display: flex;
+    justify-content: space-around;
+}
+
+@media (max-width: 768px) {
+    .forms{ 
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+input {
+    margin: 5px;
+    max-width: 150px;
+    min-width: 15px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    margin: 20px;
+}
+
+div.login, div.register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:50%;
+    margin: 10px;
+    padding: 10px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+}
