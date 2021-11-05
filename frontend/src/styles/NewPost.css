@@ -1,8 +1,12 @@
 .new-post-component{
     display: flex;
     flex-direction: column;
-    margin: 0 0 40px;
+    margin: 10px 0 40px;
+    padding:0 10px 15px;
     align-items: center;
+    border-radius: 15px;
+    background-color: #ddd;
+
 }
 
 form.post-body{
@@ -28,3 +32,7 @@ textarea.new-post-input {
 form.post-body>*{
   margin:0  
 }
+
+/* #image-url {
+    display: none;
+} */
