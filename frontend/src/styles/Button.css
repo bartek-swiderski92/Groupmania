@@ -26,9 +26,16 @@ button.header, button.login{
     color:white;
     background-color :rgb(34, 104, 253);
     align-self: center;
-    
 }
+
+button.new-post {
+    /* border: 1px solid white; */
+    background-color: rgba(82,132,234, 0.2);
+    min-width: 100%;
+    margin:0;
+}
+
 button:hover {
     background-color: rgba(82,55,255, 0.6);
-    color: black
+    color: white
 }
