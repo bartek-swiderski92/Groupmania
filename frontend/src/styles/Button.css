@@ -29,10 +29,10 @@ button.header, button.login{
 }
 
 button.new-post {
-    /* border: 1px solid white; */
+    border: 1px solid white;
     background-color: rgba(82,132,234, 0.2);
     min-width: 100%;
-    margin:0;
+    margin: 0 auto;
 }
 
 button:hover {

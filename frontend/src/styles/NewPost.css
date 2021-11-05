@@ -1,7 +1,7 @@
 .new-post-component{
     display: flex;
     flex-direction: column;
-    margin: 0 5px;
+    margin: 0 5px 40px;
     align-items: center;
 }
 
@@ -10,11 +10,11 @@ form.post-body{
     flex-direction: column;
     gap: 1px;
     /* border: 1px solid black */
-    min-width: 80vw;
+    min-width: 100%;
 }
 
 .new-post-input{
-    min-width: 100%;
+    min-width: 95%;
     border: 1px solid black;
     border-radius: 2px;
     font-family: sans-serif;
