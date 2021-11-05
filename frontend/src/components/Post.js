@@ -15,6 +15,11 @@ function Post({ likes }) {
                         </div>
                         <div className="post-details__title">Post Title</div>
                         <div className="post-details__user-name">John Doe</div>
+
+                    </div>
+                    <div className="post-details-dates">
+                        <div className="post-details__created-at">Post Created: {new Date().toLocaleDateString()}</div>
+                        <div className="post-details__last-modified">Last Modified: {new Date().toLocaleDateString()}</div>
                     </div>
                     <div className="post__media">
                         <img src={require('../media/photo.jpg').default} alt={'tablet'} />
