@@ -5,7 +5,9 @@
     width:100%;
     min-height: 80vh;
 }
-
+.login-text{
+    margin: 0 auto 20px;
+}
 .forms{
     display: flex;
     justify-content: space-around;

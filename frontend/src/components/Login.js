@@ -23,12 +23,14 @@ function Login() {
 
     return (
         <div className="login-wrapper">
+            <h2 className='login-text'>Welcome in Groupmania!</h2>
+            <p className='login-text'>In order to proceed, you must login or register first. Please use forms below:</p>
             <div className="forms">
                 <div className="login">
                     <h2>Login</h2>
                     <form action="submit" className="login-form">
                         <label htmlFor="login-email">Email:</label>
-                        <input type="text" id="login-email" placeholder="example@email.com" name="login-email" required />
+                        <input type="email" id="login-email" placeholder="example@email.com" name="login-email" required />
 
                         <label htmlFor="login-password">Password:</label>
                         <input type="password" id="login-password" placeholder="•••••••••••" name="login-password" required />
@@ -39,7 +41,7 @@ function Login() {
                     <h2>Register</h2>
                     <form action="submit" className="register-form">
                         <label htmlFor="register-email">Email: </label>
-                        <input type="text" id="register-email" placeholder="example@email.com" name="register-email" required />
+                        <input type="email" id="register-email" placeholder="example@email.com" name="register-email" required />
 
                         <label htmlFor="register-fist-name">Fist Name:</label>
                         <input type="text" id="register-fist-name" placeholder="John" name="register-fist-name" required />
