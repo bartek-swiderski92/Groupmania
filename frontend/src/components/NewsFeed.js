@@ -15,13 +15,14 @@ function NewsFeed() {
     }
     getPosts(api.posts)
     return (
-        <>
-            <h2>Welcome Back!</h2>
+        <div className="news-feed-wrapper">
+            <h2>Welcome back!</h2>
             <NewPost />
             <Post likes='24' />
             <Post likes='14' />
             <Post likes='124' />
-        </>
+        </div>
+
     )
 }
 

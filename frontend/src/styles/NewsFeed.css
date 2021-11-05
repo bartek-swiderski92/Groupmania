@@ -1,0 +1,9 @@
+.news-feed-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px;
+}
+
+.news-feed-wrapper>h2{
+    margin: 30px auto 0;
+}
