@@ -43,8 +43,11 @@ footer{
         align-items: flex-start;
         margin-left : 25%
     }
-
-    .footer-container__list{
+    .footer-container__title {
+        font-size: 16px;
+    }
+    .footer-container__link>a{
         margin-bottom: 40px;
+        font-size: 14px;
     }
 } 

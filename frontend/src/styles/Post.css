@@ -56,3 +56,9 @@
 .post__content {
     margin-bottom: 10px;
 }
+
+@media (max-width: 412px) {
+    .post {
+        font-size: 14px;
+    }
+}

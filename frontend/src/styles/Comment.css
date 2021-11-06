@@ -32,3 +32,9 @@
     max-width: 80px;
     margin-right: 20px
 }
+
+@media (max-width: 412px) {
+    .comment {
+        font-size: 14px;
+    }
+}
