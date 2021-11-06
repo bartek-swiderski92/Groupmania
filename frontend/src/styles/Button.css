@@ -31,9 +31,6 @@ button.delete {
     border-radius: 3px;
 }
 
-button.delete-comment {
-    font-size: 10px;
-}
 
 button.delete:hover {
     background-color: rgba(253, 44, 44, 0.678);
