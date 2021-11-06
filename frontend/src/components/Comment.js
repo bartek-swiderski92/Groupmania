@@ -1,4 +1,4 @@
-// import LikeBar from './LikeBar';
+import Button from './Button';
 import '../styles/Comment.css';
 
 function Comment({ media }) {
@@ -15,7 +15,7 @@ function Comment({ media }) {
                 </div>
                 <div className="comment-content">
                     {media ? (<div className="comment-content__media">
-                    <img src={media} alt={media} />
+                        <img src={media} alt={media} />
                     </div>) : (null)
                     }
                     <div className="comment-content__text">
@@ -24,7 +24,7 @@ function Comment({ media }) {
                 </div>
 
             </div>
-            {/* <LikeBar /> */}
+            <Button className="delete delete-comment" buttonContent="Delete Comment" />
         </div>
     )
 }
