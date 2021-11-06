@@ -1,9 +1,9 @@
-.new-post-component{
+.new-post-wrapper{
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin: 10px 0 40px;
     padding:0 10px 15px;
-    align-items: center;
     border-radius: 15px;
     background-color: #ddd;
 
@@ -18,11 +18,12 @@ form.post-body{
 }
 
 .new-post-input{
-    min-width: 95%;
+    min-width: 100%;
     border: none;
     border-radius: 2px;
     font-family: sans-serif;
     font-size: 16px;
+    text-indent: 5px;
 }
 
 textarea.new-post-input {
@@ -33,6 +34,6 @@ form.post-body>*{
   margin:0  
 }
 
-/* #image-url {
+/* #image-url-new-post {
     display: none;
 } */

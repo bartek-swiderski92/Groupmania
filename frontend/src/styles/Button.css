@@ -28,10 +28,10 @@ button.header, button.login{
     align-self: center;
 }
 
-button.new-post {
+.new-post__button, .new-comment__button {
     border: none;
     background-color: rgba(82,132,234, 0.2);
-    min-width: 100%;
+    width: 100%;
     margin: 0 auto;
 }
 

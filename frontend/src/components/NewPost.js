@@ -12,14 +12,14 @@ function NewPost() {
     }
 
     return (
-        <div className="new-post-component">
+        <div className="new-post-wrapper">
             <h3>Tell us what's on your mind today!</h3>
             <form action="create-post" className="post-body">
                 <input type="text" id="post-title" placeholder="Post Title" className="new-post-input" />
                 <textarea placeholder="Post Content" className="new-post-input" />
-                <Button onClick={attachImage} buttonContent='Click here to add a picture' className='new-post' />
-                <input type="text" id="image-url" placeholder="Image path..." className="new-post-input" />
-                <Button onClick={submitPost} buttonContent='Add Post' className='new-post' />
+                <input type="text" id="image-url-new-post" placeholder="Image path..." className="new-post-input" />
+                <Button className='new-post__button' onClick={attachImage} buttonContent='Click here to add a picture' />
+                <Button className='new-post__button' onClick={submitPost} buttonContent='Add Post' />
             </form>
 
         </div>
