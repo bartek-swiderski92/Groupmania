@@ -1,7 +1,9 @@
 import LikeBar from './LikeBar';
 import Comment from './Comment.js';
+import NewComment from './NewComment.js';
 // import { api } from '../main'
 import '../styles/Post.css';
+
 
 function Post({ likes }) {
 
@@ -30,6 +32,7 @@ function Post({ likes }) {
 
             </div>
             <div className="comment-section">
+                <NewComment />
                 <Comment media={require('../media/emoji.png').default} />
                 <Comment />
                 <Comment />

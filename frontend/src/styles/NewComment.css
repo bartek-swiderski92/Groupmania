@@ -1,0 +1,28 @@
+.new-comment-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    margin: 0 25px 15px;
+    padding: 10px 5px 20px;
+    background-color: #eee;
+    border-radius: 2px;
+}
+
+.new-comment__header{
+    margin:0 0 10px;
+    padding:0;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.new-comment__input {
+    width: 100%;
+    border: none;
+    font-family: sans-serif;
+    text-indent: 5px;
+}
+
+/* #image-url-new-comment {
+    display: none;
+} */
