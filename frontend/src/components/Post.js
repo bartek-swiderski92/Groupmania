@@ -8,12 +8,12 @@ import NewComment from './NewComment.js';
 import '../styles/Post.css';
 
 function Post({ post, user }) {
-    const [userDetails, setUsers] = useState([]);
+    const [userDetails, setUsers] = useState({});
     useEffect(() => {
         getUserDetails(api.users + '/' + user).then((res) => {
             setUsers(res)
         })
-    }, [])
+    })
 
 
     return (
@@ -31,7 +31,8 @@ function Post({ post, user }) {
                     </div>
                     <div className="post-details-dates">
                         <div className="post-details__created-at">Post Created: {post.createdAt}</div>
-                        <div className="post-details__last-modified">Last Modified: {post.createdAt !== post.updatedAt ? post.updatedAt : null}</div>
+                        {post.createdAt !== post.updatedAt ? <div className="post-details__last-modified">Last Modified: {post.updatedAt}</div> : null}
+
                     </div>
                     {/* {post.media !== "empty" ? (<div className="post__media">
                         <img src={require(post.media).default} alt={'tablet'} />
