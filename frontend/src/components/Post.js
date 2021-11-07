@@ -1,4 +1,4 @@
-import { api, getUserDetails } from '../main';
+import { api, getUserDetails, getPosts } from '../main';
 import { useEffect, useState } from 'react';
 import LikeBar from './LikeBar';
 import Button from './Button';
@@ -10,6 +10,9 @@ import '../styles/Post.css';
 
 
 function Post({ post, user }) {
+    // if (!post) { post = document.URL[4] }
+
+
     const [userDetails, setUsers] = useState([]);
     useEffect(() => {
         getUserDetails(api.users + '/' + user).then((res) => {
