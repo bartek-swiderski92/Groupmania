@@ -2,10 +2,10 @@ import '../styles/NewPost.css'
 import Button from './Button'
 
 function NewPost() {
-    function attachImage(e) {
-        e.preventDefault();
-        console.log('attaching');
-    }
+    // function attachImage(e) {
+    //     e.preventDefault();
+    //     console.log('attaching');
+    // }
     function submitPost(e) {
         e.preventDefault();
         console.log('submitting');
