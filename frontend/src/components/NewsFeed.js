@@ -1,4 +1,4 @@
-import { api, getPosts } from '../main';
+import { api, getPosts, ShowPost } from '../main';
 import { useEffect, useState } from 'react';
 import Post from './Post';
 import NewPost from './NewPost';
@@ -14,17 +14,19 @@ import '../styles/NewsFeed.css';
 //     })
 // }
 
-function ShowPost({ post }) {
-    return (
-        <div>
-            {
-                post.map((singlePost) => {
-                    return <Post key={'post-' + singlePost.id} post={singlePost} user={singlePost.UserId} />
-                })
-            }
-        </div>
-    )
-}
+// function ShowPost({ post }) {
+//     return (
+//         <div>
+//             {Array.isArray(post) ? (
+
+//                 post.map((singlePost) => {
+//                     return <Post key={'post-' + singlePost.id} post={singlePost} user={singlePost.UserId} />
+//                 })
+//             ) : <Post key={'post-' + post.id} post={post} user={post.UserId} />
+//             }
+//         </div>
+//     )
+// }
 
 function NewsFeed() {
     const [posts, setPosts] = useState([]);

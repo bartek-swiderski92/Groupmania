@@ -1,3 +1,4 @@
+import Post from './components/Post';
 const apiUrl = `http://localhost:5000/api`;
 
 // export const postsApi = `${api}/posts`;
@@ -20,11 +21,27 @@ export async function getContent(query) {
     return data;
 }
 
+export function ShowPost({ post }) {
+    return (
+        <div>
+            {Array.isArray(post) ? (
+
+                post.map((singlePost) => {
+                    return <Post key={'post-' + singlePost.id} post={singlePost} user={singlePost.UserId} />
+                })
+            ) :
+                (<Post key={'post-' + post.id} post={post} user={post.UserId} />)
+            }
+        </div>
+    )
+}
+{/* (<div>{post.status}</div>) */ }
+
 export async function getPosts(query) {
     // let Posts = []
     return await getContent(query).then(items => {
         console.log(items);
-        return [...items]
+        return items
     }).catch((error) => {
         console.log(error);
     })
