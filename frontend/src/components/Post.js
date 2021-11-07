@@ -7,13 +7,16 @@ import NewComment from './NewComment.js';
 // import { api } from '../main'
 import '../styles/Post.css';
 
+
+
 function Post({ post, user }) {
-    const [userDetails, setUsers] = useState({});
+    const [userDetails, setUsers] = useState([]);
     useEffect(() => {
         getUserDetails(api.users + '/' + user).then((res) => {
             setUsers(res)
         })
-    })
+        //TODO:   Line 18:8:  React Hook useEffect has a missing dependency: 'user'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+    }, [])
 
 
     return (
