@@ -6,7 +6,7 @@ import NewComment from './NewComment.js';
 import '../styles/Post.css';
 
 
-function Post({ likes }) {
+function Post({ post, user }) {
 
     return (
         <div className="post-wrapper">
@@ -16,21 +16,23 @@ function Post({ likes }) {
                         <div className="post-details__user-picture">
                             <img src={require('../media/default-picture.png').default} alt="profile" />
                         </div>
-                        <div className="post-details__title">Post Title</div>
-                        <div className="post-details__user-name">John Doe</div>
+                        {/* <div className="post-details__title">Post Title</div> */}
+                        <div className="post-details__title">{post.postTitle}</div>
+                        <div className="post-details__user-name">User ID : {user}</div>
 
                     </div>
                     <div className="post-details-dates">
-                        <div className="post-details__created-at">Post Created: {new Date().toLocaleDateString()}</div>
-                        <div className="post-details__last-modified">Last Modified: {new Date().toLocaleDateString()}</div>
+                        <div className="post-details__created-at">Post Created: {post.createdAt}</div>
+                        <div className="post-details__last-modified">Last Modified: {post.createdAt !== post.updatedAt ? post.updatedAt : null}</div>
                     </div>
-                    <div className="post__media">
-                        <img src={require('../media/photo.jpg').default} alt={'tablet'} />
-                    </div>
-                    <div className="post__content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia ipsam, quia aspernatur quis asperiores id. Perferendis unde modi, maiores, dicta possimus ducimus ipsa neque, nostrum aliquam provident aperiam eum magnam dolorem id? Beatae id tempore iure sed voluptatum similique veniam inventore quia eos adipisci, repellendus, deleniti, explicabo accusamus harum porro!</div>
+                    {/* {post.media !== "empty" ? (<div className="post__media">
+                        <img src={require(post.media).default} alt={'tablet'} />
+                    </div>) : null} */}
+
+                    <div className="post__content">{post.postContent}</div>
                     <Button className="delete" buttonContent="Delete Post" />
                 </div>
-                <LikeBar likes={likes} />
+                <LikeBar likes={post.Likes.length} />
 
             </div>
             <div className="comment-section">

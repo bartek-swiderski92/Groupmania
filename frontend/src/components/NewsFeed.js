@@ -1,26 +1,50 @@
-// import { api, getContent } from '../main';
+import { api, getContent, getUserDetails } from '../main';
+import { useEffect, useState } from 'react';
 import Post from './Post';
 import NewPost from './NewPost';
 import '../styles/NewsFeed.css';
 
-function NewsFeed() {
+async function getPosts(query) {
     // let Posts = []
-    // async function getPosts(query) {
-    //     await getContent(query).then(items => {
-    //         Posts = [...items]
-    //         console.log(Posts);
-    //     }).catch((error) => {
-    //         console.log(error);
-    //     })
-    // }
-    // getPosts(api.posts)
+    return await getContent(query).then(items => {
+        console.log(items);
+        return [...items]
+    }).catch((error) => {
+        console.log(error);
+    })
+}
+
+function ShowPost({ post }) {
+    return (
+        <div>
+            {
+                post.map((singlePost) => {
+                    return <Post key={'post-' + singlePost.id} post={singlePost} user={getUserDetails(singlePost.UserId)} />
+                })
+            }
+        </div>
+    )
+}
+
+function NewsFeed() {
+    const [posts, setPosts] = useState([]);
+    useEffect(() => {
+        getPosts(api.posts).then((res) => {
+            setPosts(res)
+        })
+    }, [])
+
+
     return (
         <div className="news-feed-wrapper">
             <h2>Welcome back!</h2>
+
             <NewPost />
-            <Post likes='24' />
+            <ShowPost post={posts} />
+
+            {/* <Post likes='24' />
             <Post likes='14' />
-            <Post likes='124' />
+            <Post likes='124' /> */}
         </div>
 
     )
