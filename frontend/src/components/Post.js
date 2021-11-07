@@ -49,11 +49,9 @@ function Post({ post, user }) {
             </div>
             <div className="comment-section">
                 <NewComment />
-                <Comment media={require('../media/emoji.png').default} />
-                <Comment />
-                <Comment />
-                <Comment />
-
+                {post.Comments.map((comment) => (
+                    <Comment key={'comment-' + comment.id} comment={comment} user={user} />
+                ))}
             </div>
         </div>
     )

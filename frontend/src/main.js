@@ -23,6 +23,7 @@ export async function getContent(query) {
 export async function getPosts(query) {
     // let Posts = []
     return await getContent(query).then(items => {
+        console.log(items);
         return [...items]
     }).catch((error) => {
         console.log(error);
