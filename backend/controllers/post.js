@@ -5,6 +5,7 @@ const fs = require('fs');
 const {
     secureHeapUsed
 } = require('crypto');
+const { post } = require('../routes/post');
 
 // const {
 //     Z_FIXED
@@ -81,15 +82,16 @@ exports.showAllUnreadPosts = (req, res, next) => {
 
 exports.createAPost = (req, res, next) => {
     console.log(req.body)
-    // const postObject = req.body;
-    const postObject = JSON.parse(req.body.post);
+    const postObject = req.body;
+    // const postObject = JSON.parse(req.body.post);
     const url = req.protocol + '://' + req.get('host')
     // console.log(req.body);
     const post = db.Post.create({
         UserId: res.locals.userId,
         postTitle: postObject.postTitle,
         postContent: postObject.postContent,
-        media: url + '/images/' + req.file.filename
+        // media: url + '/images/' + req.file.filename
+        media: postObject.media
     }).then((post) => {
         res.status(201).json({
             success: 'Post has been successfully created!',
