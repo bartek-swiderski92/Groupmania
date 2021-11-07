@@ -20,6 +20,25 @@ export async function getContent(query) {
     return data;
 }
 
+export async function getPosts(query) {
+    // let Posts = []
+    return await getContent(query).then(items => {
+        console.log(items);
+        return [...items]
+    }).catch((error) => {
+        console.log(error);
+    })
+}
+
+export async function getUserDetails(query) {
+    // let Posts = []
+    return await getContent(query).then(item => {
+        console.log(item)
+        return item
+    }).catch((error) => {
+        console.log(error);
+    })
+}
     // const [users, setUsers] = useState([]);
 
 // async function getPosts(query) {

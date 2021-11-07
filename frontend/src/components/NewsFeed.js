@@ -1,18 +1,8 @@
-import { api, getContent, getUserDetails } from '../main';
+import { api, getPosts } from '../main';
 import { useEffect, useState } from 'react';
 import Post from './Post';
 import NewPost from './NewPost';
 import '../styles/NewsFeed.css';
-
-async function getPosts(query) {
-    // let Posts = []
-    return await getContent(query).then(items => {
-        console.log(items);
-        return [...items]
-    }).catch((error) => {
-        console.log(error);
-    })
-}
 
 // async function getUsers(query) {
 //     // let Posts = []
@@ -49,12 +39,21 @@ function NewsFeed() {
             <h2>Welcome back!</h2>
 
             <NewPost />
-            <ShowPost post={posts} />
+            {posts ? (<ShowPost post={posts} />) : (
+                <div>
+                    <h2 style={{
+                        textAlign: 'center',
+                        marginBottom: '140px'
+                    }}>
+                        No posts to display
+                    </h2>
+                </div>)
+            }
 
             {/* <Post likes='24' />
             <Post likes='14' />
             <Post likes='124' /> */}
-        </div>
+        </div >
 
     )
 }

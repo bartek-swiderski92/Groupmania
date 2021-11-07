@@ -1,4 +1,4 @@
-import { api, getContent, getUserDetails } from '../main';
+import { api, getUserDetails } from '../main';
 import { useEffect, useState } from 'react';
 import LikeBar from './LikeBar';
 import Button from './Button';
@@ -7,20 +7,10 @@ import NewComment from './NewComment.js';
 // import { api } from '../main'
 import '../styles/Post.css';
 
-async function getUsers(query) {
-    // let Posts = []
-    return await getContent(query).then(item => {
-        console.log(item)
-        return item
-    }).catch((error) => {
-        console.log(error);
-    })
-}
-
 function Post({ post, user }) {
     const [userDetails, setUsers] = useState([]);
     useEffect(() => {
-        getUsers(api.users + '/' + user).then((res) => {
+        getUserDetails(api.users + '/' + user).then((res) => {
             setUsers(res)
         })
     }, [])
