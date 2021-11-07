@@ -1,3 +1,5 @@
+import { api, getContent, getUserDetails } from '../main';
+import { useEffect, useState } from 'react';
 import LikeBar from './LikeBar';
 import Button from './Button';
 import Comment from './Comment.js';
@@ -5,8 +7,24 @@ import NewComment from './NewComment.js';
 // import { api } from '../main'
 import '../styles/Post.css';
 
+async function getUsers(query) {
+    // let Posts = []
+    return await getContent(query).then(item => {
+        console.log(item)
+        return item
+    }).catch((error) => {
+        console.log(error);
+    })
+}
 
 function Post({ post, user }) {
+    const [userDetails, setUsers] = useState([]);
+    useEffect(() => {
+        getUsers(api.users + '/' + user).then((res) => {
+            setUsers(res)
+        })
+    }, [])
+
 
     return (
         <div className="post-wrapper">
@@ -18,7 +36,7 @@ function Post({ post, user }) {
                         </div>
                         {/* <div className="post-details__title">Post Title</div> */}
                         <div className="post-details__title">{post.postTitle}</div>
-                        <div className="post-details__user-name">User ID : {user}</div>
+                        <div className="post-details__user-name">{userDetails.firstName + ' ' + userDetails.secondName}</div>
 
                     </div>
                     <div className="post-details-dates">

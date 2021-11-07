@@ -19,3 +19,38 @@ export async function getContent(query) {
     const data = await response.json();
     return data;
 }
+
+    // const [users, setUsers] = useState([]);
+
+// async function getPosts(query) {
+//     // let Posts = []
+//     return await getContent(query).then(items => {
+//         console.log(items);
+//         return [...items]
+//     }).catch((error) => {
+//         console.log(error);
+//     })
+// }
+
+// function ShowPost({ post }) {
+//     return (
+//         <div>
+//             {
+//                 post.map((singlePost) => {
+//                     return <Post post={singlePost} />
+//                 })
+//             }
+//         </div>
+//     )
+// }
+
+// export function getUserDetails(user) {
+//     // const [users, setUsers] = useState([]);
+//     getContent(api.users + '/' + user).then((user) => {
+//         return user
+
+//     }).catch((error) => {
+//         console.log(error)
+//     })
+
+// }

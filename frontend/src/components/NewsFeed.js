@@ -14,12 +14,22 @@ async function getPosts(query) {
     })
 }
 
+// async function getUsers(query) {
+//     // let Posts = []
+//     return await getContent(query).then(items => {
+//         console.log(items);
+//         return [...items]
+//     }).catch((error) => {
+//         console.log(error);
+//     })
+// }
+
 function ShowPost({ post }) {
     return (
         <div>
             {
                 post.map((singlePost) => {
-                    return <Post key={'post-' + singlePost.id} post={singlePost} user={getUserDetails(singlePost.UserId)} />
+                    return <Post key={'post-' + singlePost.id} post={singlePost} user={singlePost.UserId} />
                 })
             }
         </div>
@@ -33,7 +43,6 @@ function NewsFeed() {
             setPosts(res)
         })
     }, [])
-
 
     return (
         <div className="news-feed-wrapper">
