@@ -12,10 +12,11 @@ const {
 
 exports.getAllPosts = (req, res, next) => {
     db.Post.findAll({
-            include: [db.Comment, db.Like, db.ReadPost]
-        }).then((posts) => {
-            res.status(200).json(posts);
-        })
+        include: [db.User, db.Comment, db.Like, db.ReadPost]
+        //TODO: add user + comment
+    }).then((posts) => {
+        res.status(200).json(posts);
+    })
         .catch((error) => {
             res.status(400).json({
                 error: error
@@ -28,7 +29,7 @@ exports.getOnePost = (req, res, next) => {
         where: {
             id: req.params.id
         },
-        include: [db.Comment, db.Like, db.ReadPost]
+        include: [db.User, db.Comment, db.Like, db.ReadPost]
         // attributes: {
         //     exclude: ['userUserId']
         // }
@@ -50,25 +51,25 @@ exports.getOnePost = (req, res, next) => {
 exports.showAllUnreadPosts = (req, res, next) => {
     // console.log(res)
     db.Post.findAll({
+        // attributes: ['id'],
+        include: [{
+            model: [db.ReadPost, db.User],
+            required: false,
+            // right: true,
             // attributes: ['id'],
-            include: [{
-                model: db.ReadPost,
-                required: false,
-                // right: true,
-                // attributes: ['id'],
-                where: {
-                    // UserId: res.locals.userId,
-                    PostId: !null
-                }
-            }],
             where: {
-                // id: db.ReadPost.PostId
-                id: null
+                // UserId: res.locals.userId,
+                PostId: !null
+            }
+        }],
+        where: {
+            // id: db.ReadPost.PostId
+            id: null
 
-            },
-            // required: false,
-            // right: true
-        })
+        },
+        // required: false,
+        // right: true
+    })
         .then(unReadPosts => {
             res.status(200).json(unReadPosts)
         }).catch(error => {
