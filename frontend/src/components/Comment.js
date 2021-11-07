@@ -1,25 +1,38 @@
+import { api, getUserDetails } from '../main';
+import { useEffect, useState } from 'react';
 import Button from './Button';
 import '../styles/Comment.css';
 
-function Comment({ media }) {
+function Comment({ comment, media, user }) {
+    const [userDetails, setUsers] = useState([]);
+    useEffect(() => {
+        getUserDetails(api.users + '/' + user).then((res) => {
+            setUsers(res)
+        })
+        //TODO:   Line 18:8:  React Hook useEffect has a missing dependency: 'user'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+    }, [])
+
+
     return (
         <div className="comment-wrapper">
             <div className="comment">
                 <div className="comment-details">
                     <div className="comment-details__user-picture">
+                        {/*TODO: add profile picture handling*/}
                         <img src={require('../media/default-picture.png').default} alt="profile" />
                     </div>
                     <div className="comment-details__user-name">
-                        Jane Smith
+                        {userDetails.firstName + ' ' + userDetails.secondName}
                     </div>
                 </div>
                 <div className="comment-content">
-                    {media ? (<div className="comment-content__media">
-                        <img src={media} alt={media} />
+                    {/*TODO: add media handling*/}
+                    {comment.media ? (<div className="comment-content__media">
+                        <img src={comment.media} alt={comment.media} />
                     </div>) : (null)
                     }
                     <div className="comment-content__text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum aspernatur eveniet non exercitationem quas itaque illo recusandae impedit aliquam dicta.
+                        {comment.commentContent}
                     </div>
                 </div>
 
