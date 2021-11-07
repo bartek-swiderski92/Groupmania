@@ -13,8 +13,10 @@ function App() {
             <Header />
             <BrowserRouter>
                 <Switch>
-                    <React.Suspense fallback={<span>Loading...</span>} />
-                    <Route path="/login" component={Login} />
+                    <div>
+                        <React.Suspense fallback={<span>Loading...</span>} />
+                        <Route path="/login" component={Login} />
+                    </div>
                 </Switch>
             </BrowserRouter>
 
