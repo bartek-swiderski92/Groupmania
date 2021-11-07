@@ -4,6 +4,7 @@ import React from 'react'
 import Header from './Header'
 import Login from './Login'
 import NewsFeed from './NewsFeed';
+import SinglePost from './SinglePost';
 import Footer from './Footer';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
@@ -13,17 +14,14 @@ function App() {
             <Header />
             <BrowserRouter>
                 <Switch>
-                    <div>
+                    <div className="main-content">
                         <React.Suspense fallback={<span>Loading...</span>} />
                         <Route path="/login" component={Login} />
+                        <Route exact path="/" component={NewsFeed} />
+                        <Route path="/post/:id" component={SinglePost} />
                     </div>
                 </Switch>
             </BrowserRouter>
-
-            <div className="main-content">
-                {/* <Login /> */}
-                <NewsFeed />
-            </div>
             <Footer />
         </div>
     )
