@@ -1,6 +1,9 @@
 import Post from './components/Post';
 import './styles/Main.css'
+
 const apiUrl = `http://localhost:5000/api`;
+
+export const appUrl = `http://localhost:3000/`;
 
 // export const postsApi = `${api}/posts`;
 // export const usersApi = `${api}/users`;
