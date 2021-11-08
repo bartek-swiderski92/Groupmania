@@ -10,7 +10,7 @@ function SinglePost() {
         })
     }, [])
 
-    return <ShowPost post={post} />
+    return <ShowPost post={post} displayLikes={true} displayComments={true} />
 }
 
 export default SinglePost;

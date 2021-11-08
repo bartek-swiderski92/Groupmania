@@ -41,7 +41,7 @@ function NewsFeed() {
             <h2>Welcome back!</h2>
 
             <NewPost />
-            {posts ? (<ShowPost post={posts} />) : (
+            {posts ? (<ShowPost post={posts} displayLikes={true} displayComment={true}/>) : (
                 <div>
                     <h2 className='error-message'>
                         No posts to display

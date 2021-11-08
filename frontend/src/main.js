@@ -26,18 +26,18 @@ export async function getContent(query) {
     return data;
 }
 
-export function ShowPost({ post }) {
+export function ShowPost({ post, displayLikes, displayComments }) {
     return (
         <>
             {(() => {
                 if (Array.isArray(post)) {
                     return post.map((singlePost) => {
-                        return <Post key={'post-' + singlePost.id} post={singlePost} user={singlePost.UserId} />
+                        return <Post key={'post-' + singlePost.id} post={singlePost} user={singlePost.UserId} displayLikes={displayLikes} displayComments={true} />
                     })
                 } else if (post.status === 404) {
                     return <h2 className='error-message'>{post.message}</h2>
                 } else {
-                    return <Post key={'post-' + post.id} post={post} user={post.UserId} />
+                    return <Post key={'post-' + post.id} post={post} user={post.UserId} displayLikes={displayLikes} displayComments={true} />
                 }
             })()}
         </>

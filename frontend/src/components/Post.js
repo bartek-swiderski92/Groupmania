@@ -7,7 +7,7 @@ import NewComment from './NewComment.js';
 import '../styles/Post.css';
 import '../styles/Main.css';
 
-function Post({ post, user }) {
+function Post({ post, user, displayLikes, displayComments }) {
     // if (!post) { post = document.URL[4] }
     const [userDetails, setUsers] = useState([]);
     useEffect(() => {
@@ -42,15 +42,17 @@ function Post({ post, user }) {
                     <div className="post__content">{post.postContent}</div>
                     <Button className="delete" buttonContent="Delete Post" />
                 </div>
-                <LikeBar likes={post.Likes.length} />
+                {displayLikes ? <LikeBar likes={post.Likes.length} /> : null}
+
 
             </div>
-            <div className="comment-section">
+            {displayComments ? (<div className="comment-section">
                 <NewComment />
                 {post.Comments.map((comment) => (
                     <Comment key={'comment-' + comment.id} comment={comment} user={user} />
                 ))}
-            </div>
+            </div>) : null}
+
         </div>
     )
 }
