@@ -20,15 +20,17 @@
 
 .post-details {
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    flex-direction: row;
     align-content: flex-start;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 10px;
-    height: 60px;
+    min-height: 60px;
     border: 1px solid #aaa;
     border-radius: 15px;    
     overflow: hidden;
+}
+.post-details__user-picture {
+    height: 100%;
 }
     
 .post-details__title {
@@ -43,7 +45,6 @@
 
 .post-details-dates{
     font-size: 10px;
-
 }
 
 .post__media img {
