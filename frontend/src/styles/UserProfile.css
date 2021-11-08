@@ -1,0 +1,34 @@
+.user-profile-wrapper {
+    margin: 20px 0;
+}
+
+.user-details {
+    border: 2px solid #ddd;
+    border-radius: 15px;
+}
+
+.user-details-main{
+    display: flex;
+    align-items: center;
+    background-color: #ddd;
+    border-radius: 15px;
+    overflow: hidden;
+    }
+
+    .user-details-main__picture {
+        display: flex;
+    }
+
+    .user-details-main__name {
+        margin-left: 30px;
+    }
+
+    .user-info {
+        background-color: #fff;
+        margin: 20px 0 40px 80px;
+    }
+
+    /* .user-post { */
+
+        
+    /* } */
