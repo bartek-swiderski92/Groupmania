@@ -39,12 +39,13 @@ exports.getOnePost = (req, res, next) => {
             res.status(200).json(post);
         } else {
             res.status(404).json({
-                status: 'The post could not be found.'
+                status: 404,
+                message: 'The post could not be found.'
             })
         }
     }).catch((error) => {
         res.status(500).json({
-            error: 'Error: ' + error
+            error: 'Error: ' + error,
         })
     })
 }
