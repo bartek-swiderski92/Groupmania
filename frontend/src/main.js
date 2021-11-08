@@ -1,4 +1,5 @@
 import Post from './components/Post';
+import './styles/Main.css'
 const apiUrl = `http://localhost:5000/api`;
 
 // export const postsApi = `${api}/posts`;
@@ -23,19 +24,21 @@ export async function getContent(query) {
 
 export function ShowPost({ post }) {
     return (
-        <div>
-            {Array.isArray(post) ? (
-
-                post.map((singlePost) => {
-                    return <Post key={'post-' + singlePost.id} post={singlePost} user={singlePost.UserId} />
-                })
-            ) :
-                (<Post key={'post-' + post.id} post={post} user={post.UserId} />)
-            }
-        </div>
+        <>
+            {(() => {
+                if (Array.isArray(post)) {
+                    return post.map((singlePost) => {
+                        return <Post key={'post-' + singlePost.id} post={singlePost} user={singlePost.UserId} />
+                    })
+                } else if (post.status === 404) {
+                    return <h2 className='error-message'>{post.message}</h2>
+                } else {
+                    return <Post key={'post-' + post.id} post={post} user={post.UserId} />
+                }
+            })()}
+        </>
     )
 }
-{/* (<div>{post.status}</div>) */ }
 
 export async function getPosts(query) {
     // let Posts = []
