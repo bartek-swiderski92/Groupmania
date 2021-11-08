@@ -37,6 +37,7 @@ function Comment({ comment, media, user }) {
 
             </div>
             <Button className="delete delete-comment" buttonContent="Delete Comment" />
+            <Button className="edit edit-comment" buttonContent="Edit Comment" />
         </div>
     )
 }

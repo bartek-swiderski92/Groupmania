@@ -22,21 +22,29 @@ button.liked {
     background-color: rgba(82,132,234) 
 }
 
-button.delete {
+button.delete, button.edit  {
     padding: 2px 6px;
+    margin: 4px 5px 20px;
     font-size: 12px;
     background-color: white;
     color: rgba(253, 44, 44, 0.678);
     border: 2px solid rgba(253, 44, 44, 0.678);
     border-radius: 3px;
 }
+button.edit {
+    border: 2px solid rgb(255, 159, 68);
+    color: rgb(255, 159, 68);
+}
 
-
-button.delete:hover {
+button.delete:hover, button.edit:hover {
     background-color: rgba(253, 44, 44, 0.678);
     color: white;
+}
+button.edit:hover {
+    background-color: rgb(255, 159, 68);
 
 }
+
 
 button.header, button.login{
     color:white;
