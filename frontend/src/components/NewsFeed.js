@@ -43,10 +43,7 @@ function NewsFeed() {
             <NewPost />
             {posts ? (<ShowPost post={posts} />) : (
                 <div>
-                    <h2 style={{
-                        textAlign: 'center',
-                        marginBottom: '140px'
-                    }}>
+                    <h2 className='error-message'>
                         No posts to display
                     </h2>
                 </div>)
