@@ -27,8 +27,10 @@ function Post({ post, user, displayLikes, displayComments }) {
 
                         </div>
                         {/* <div className="post-details__title">Post Title</div> */}
-                        <h2 className="post-details__title"><a className="link" href={appUrl + 'post/' + post.id}>{post.postTitle}</a></h2>
-                        <h3 className="post-details__user-name"><a className="link" href={appUrl + 'user/' + post.UserId}>{userDetails.firstName + ' ' + userDetails.secondName}</a></h3>
+                        <div class="post-details__info-div">
+                            <h2 className="post-details__title"><a className="link" href={appUrl + 'post/' + post.id}>{post.postTitle}</a></h2>
+                            <h3 className="post-details__user-name"><a className="link" href={appUrl + 'user/' + post.UserId}>{userDetails.firstName + ' ' + userDetails.secondName}</a></h3>
+                        </div>
 
                     </div>
                     <div className="post-details-dates">
