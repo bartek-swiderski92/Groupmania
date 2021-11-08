@@ -7,12 +7,8 @@ import NewComment from './NewComment.js';
 import '../styles/Post.css';
 import '../styles/Main.css';
 
-
-
 function Post({ post, user }) {
     // if (!post) { post = document.URL[4] }
-
-
     const [userDetails, setUsers] = useState([]);
     useEffect(() => {
         getUserDetails(api.users + '/' + user).then((res) => {
@@ -20,7 +16,6 @@ function Post({ post, user }) {
         })
         //TODO:   Line 18:8:  React Hook useEffect has a missing dependency: 'user'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
     }, [])
-
 
     return (
         <div className="post-wrapper">
@@ -56,7 +51,7 @@ function Post({ post, user }) {
                     <Comment key={'comment-' + comment.id} comment={comment} user={user} />
                 ))}
             </div>
-        </div >
+        </div>
     )
 }
 
