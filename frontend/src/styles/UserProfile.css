@@ -5,24 +5,27 @@
 .user-details {
     border: 2px solid #ddd;
     border-radius: 15px;
+    overflow: hidden;
+
 }
 
 .user-details-main{
     display: flex;
     align-items: center;
     background-color: #ddd;
-    border-radius: 15px;
+    border: 2px solid #ddd;
+    border-radius: 0px;
     overflow: hidden;
     }
 
 .user-details-main__picture {
-        display: flex;
+    margin: 10px;
+    display: flex;
     }
 
 .user-details-main__name {
         margin-left: 30px;
         font-size: 22px;
-        font-weight: normal;
     }
 
 .user-info {
