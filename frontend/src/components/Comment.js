@@ -1,4 +1,4 @@
-import { api, getUserDetails } from '../main';
+import { api, getUserDetails, appUrl } from '../main';
 import { useEffect, useState } from 'react';
 import Button from './Button';
 import '../styles/Comment.css';
@@ -19,10 +19,9 @@ function Comment({ comment, media, user }) {
                 <div className="comment-details">
                     <div className="comment-details__user-picture">
                         {/*TODO: add profile picture handling*/}
-                        <img src={require('../media/default-picture.png').default} alt="profile" />
-                    </div>
+                        <a className="link" href={appUrl + 'user/' + comment.UserId}><img src={require('../media/default-picture.png').default} alt={userDetails.firstName + ' ' + userDetails.secondName + "'s profile picture"} /></a></div>
                     <div className="comment-details__user-name">
-                        {userDetails.firstName + ' ' + userDetails.secondName}
+                        <a className="link" href={appUrl + 'user/' + comment.UserId}>{userDetails.firstName + ' ' + userDetails.secondName}</a>
                     </div>
                 </div>
                 <div className="comment-content">
