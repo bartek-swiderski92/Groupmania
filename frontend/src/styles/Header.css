@@ -1,9 +1,14 @@
 header {
     display: flex;
     justify-content: space-between;
-    color: white;
     background-color: #5284ea;
     padding: .1rem .4rem;
+}
+
+@media (max-width: 425px) {
+    header {
+        flex-direction: column;
+    }
 }
 
 h1 {
@@ -11,4 +16,8 @@ h1 {
     font-size: 1.5em;
     font-weight: normal;
     font-style: italic;
+}
+
+.logo{
+    color: white;
 }
