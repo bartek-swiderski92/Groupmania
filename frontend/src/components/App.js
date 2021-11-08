@@ -7,6 +7,7 @@ import NewsFeed from './NewsFeed';
 import SinglePost from './SinglePost';
 import Footer from './Footer';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import UserProfile from './UserProfile';
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                         <Route path="/login" component={Login} />
                         <Route exact path="/" component={NewsFeed} />
                         <Route path="/post/:id" component={SinglePost} />
+                        <Route path="/user/:id" component={UserProfile} />
                     </div>
                 </Switch>
             </BrowserRouter>
