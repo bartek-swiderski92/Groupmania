@@ -14,14 +14,14 @@ process.env.SECRET_KEY = 'secret';
 exports.register = (req, res, next) => {
   const userObject = req.body;
   db.User.findOne({
-      where: {
-        email: userObject.email
-      }
-      // ,
-      // attributes: {
-      //   exclude: ['postPostId']
-      // }
-    })
+    where: {
+      email: userObject.email
+    }
+    // ,
+    // attributes: {
+    //   exclude: ['postPostId']
+    // }
+  })
     .then(user => {
       if (!user) {
         bcrypt.hash(userObject.password, 10, (err, hash) => {
@@ -51,10 +51,10 @@ exports.register = (req, res, next) => {
 exports.login = (req, res, next) => {
   const userObject = req.body
   db.User.findOne({
-      where: {
-        email: userObject.email
-      }
-    })
+    where: {
+      email: userObject.email
+    }
+  })
     .then(user => {
       if (user) {
         if (bcrypt.compareSync(userObject.password, user.password)) {
@@ -87,20 +87,21 @@ exports.login = (req, res, next) => {
 
 exports.displayProfile = (req, res, next) => {
   db.User.findOne({
-      where: {
-        id: req.params.id
-        // },
-        // attributes: {
-        //   exclude: ['postPostId']
-      },
-      include: [db.Post, db.Comment, db.Like, db.ReadPost]
-    })
+    where: {
+      id: req.params.id
+      // },
+      // attributes: {
+      //   exclude: ['postPostId']
+    },
+    include: [db.Post, db.Comment, db.Like, db.ReadPost]
+  })
     .then((user) => {
       if (user) {
         res.status(200).json(user)
       } else {
         res.status(404).json({
-          status: 'User does not exist',
+          status: 404,
+          message: 'User does not exist'
         });
       }
     })
@@ -146,32 +147,32 @@ exports.updateProfile = (req, res, next) => {
 exports.changePassword = (req, res, next) => {
   const userObject = req.body
   db.User.findOne({
-      where: {
-        id: res.locals.userId,
-      }
-    }).then(user => {
-      if (user) {
-        if (bcrypt.compareSync(userObject.password, user.password)) {
-          bcrypt.hash(userObject.newPassword, 10, (err, hash) => {
-            console.log(hash)
-            user.update({
-              password: hash
-            })
+    where: {
+      id: res.locals.userId,
+    }
+  }).then(user => {
+    if (user) {
+      if (bcrypt.compareSync(userObject.password, user.password)) {
+        bcrypt.hash(userObject.newPassword, 10, (err, hash) => {
+          console.log(hash)
+          user.update({
+            password: hash
           })
-          res.status(200).json({
-            status: 'Password has been successfully changed!'
-          })
-        } else {
-          return res.status(401).json({
-            error: 'Incorrect password!'
-          })
-        }
+        })
+        res.status(200).json({
+          status: 'Password has been successfully changed!'
+        })
       } else {
-        return res.status(404).json({
-          error: 'User does not exist'
+        return res.status(401).json({
+          error: 'Incorrect password!'
         })
       }
-    })
+    } else {
+      return res.status(404).json({
+        error: 'User does not exist'
+      })
+    }
+  })
     .catch(err => {
       res.status(400).json({
         error: "" + err
@@ -181,10 +182,10 @@ exports.changePassword = (req, res, next) => {
 
 exports.deleteAccount = (req, res, next) => {
   db.User.destroy({
-      where: {
-        id: res.locals.userId,
-      }
-    })
+    where: {
+      id: res.locals.userId,
+    }
+  })
     .then((user) => {
       if (user) {
         res.status(200).json({
