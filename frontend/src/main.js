@@ -1,4 +1,5 @@
 import Post from './components/Post';
+import UserProfile from './components/UserProfile';
 import './styles/Main.css'
 
 const apiUrl = `http://localhost:5000/api`;
@@ -37,6 +38,20 @@ export function ShowPost({ post }) {
                     return <h2 className='error-message'>{post.message}</h2>
                 } else {
                     return <Post key={'post-' + post.id} post={post} user={post.UserId} />
+                }
+            })()}
+        </>
+    )
+}
+
+export function showUser({ user }) {
+    return (
+        <>
+            {(() => {
+                if (user.status === 404) {
+                    return <h2 className='error-message'>{user.message}</h2>
+                } else {
+                    return <UserProfile key={'post-' + user.id} user={user.id} />
                 }
             })()}
         </>
