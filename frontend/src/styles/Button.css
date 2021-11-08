@@ -42,14 +42,13 @@ button.delete:hover, button.edit:hover {
 }
 button.edit:hover {
     background-color: rgb(255, 159, 68);
-
 }
-
 
 button.header, button.login{
     color:white;
     background-color :rgb(34, 104, 253);
     align-self: center;
+    margin-left: 5px;
 }
 
 .new-post__button, .new-comment__button {
