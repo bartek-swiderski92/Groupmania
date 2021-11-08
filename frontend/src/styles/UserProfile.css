@@ -1,5 +1,5 @@
 .user-profile-wrapper {
-    margin: 20px 0;
+    margin: 20px 5px;
 }
 
 .user-details {
@@ -15,20 +15,31 @@
     overflow: hidden;
     }
 
-    .user-details-main__picture {
+.user-details-main__picture {
         display: flex;
     }
 
-    .user-details-main__name {
+.user-details-main__name {
         margin-left: 30px;
+        font-size: 22px;
+        font-weight: normal;
     }
 
-    .user-info {
+.user-info {
         background-color: #fff;
         margin: 20px 0 40px 80px;
     }
 
-    /* .user-post { */
+.user-posts {
+        margin: 20px 20px;
+        background-color: #eee;
+        border-radius: 5px;
+        padding: 10px 0 20px 0;
+    }
+.posts-heading{
+    margin-left: 20px;
+}
 
-        
-    /* } */
+.user-posts>.post-wrapper {
+    margin: 5px 5px;
+}

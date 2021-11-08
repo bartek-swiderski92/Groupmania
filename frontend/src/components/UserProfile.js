@@ -20,7 +20,7 @@ function UserProfile() {
                     <div class="user-details-main__picture">
                         <img src={require('../media/default-picture.png').default} alt="profile" />
                     </div>
-                    <div class="user-details-main__name">{userDetails.firstName + ' ' + userDetails.secondName}</div>
+                    <h2 class="user-details-main__name">{userDetails.firstName + ' ' + userDetails.secondName}</h2>
                 </div>
                 <div class="user-info">
 
@@ -30,6 +30,7 @@ function UserProfile() {
                 </div>
             </div>
             <div class="user-posts">
+                <h3 className="posts-heading">{userDetails.firstName}'s posts:</h3>
                 {(() => {
                     if (userDetails.Posts) {
                         return (userDetails.Posts.map((post) => (
