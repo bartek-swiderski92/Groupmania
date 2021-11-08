@@ -23,11 +23,12 @@ function Post({ post, user, displayLikes, displayComments }) {
                 <div className="post-section">
                     <div className="post-details">
                         <div className="post-details__user-picture">
-                            <img src={require('../media/default-picture.png').default} alt="profile" />
+                            <a className="link" href={appUrl + 'user/' + post.UserId}><img src={require('../media/default-picture.png').default} alt={userDetails.firstName + ' ' + userDetails.secondName + "'s profile picture"} /></a>
+
                         </div>
                         {/* <div className="post-details__title">Post Title</div> */}
-                        <div className="post-details__title"><a className="link" href={appUrl + 'post/' + post.id}>{post.postTitle}</a></div>
-                        <div className="post-details__user-name">{userDetails.firstName + ' ' + userDetails.secondName}</div>
+                        <h2 className="post-details__title"><a className="link" href={appUrl + 'post/' + post.id}>{post.postTitle}</a></h2>
+                        <h3 className="post-details__user-name"><a className="link" href={appUrl + 'user/' + post.UserId}>{userDetails.firstName + ' ' + userDetails.secondName}</a></h3>
 
                     </div>
                     <div className="post-details-dates">
