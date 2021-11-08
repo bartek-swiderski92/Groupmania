@@ -18,7 +18,7 @@ function UserProfile() {
             <div class="user-details">
                 <div class="user-details-main">
                     <div class="user-details-main__picture">
-                        <img src={require('../media/default-picture.png').default} alt="profile" />
+                        <img src={require('../media/default-picture.png').default} alt={userDetails.firstName + ' ' + userDetails.secondName + "'s profile picture"}/>
                     </div>
                     <h2 class="user-details-main__name">{userDetails.firstName + ' ' + userDetails.secondName}</h2>
                 </div>
