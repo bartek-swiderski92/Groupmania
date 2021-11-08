@@ -1,11 +1,11 @@
-import { api, getUserDetails, getPosts } from '../main';
+import { api, getUserDetails, appUrl } from '../main';
 import { useEffect, useState } from 'react';
 import LikeBar from './LikeBar';
 import Button from './Button';
 import Comment from './Comment.js';
 import NewComment from './NewComment.js';
-// import { api } from '../main'
 import '../styles/Post.css';
+import '../styles/Main.css';
 
 
 
@@ -31,7 +31,7 @@ function Post({ post, user }) {
                             <img src={require('../media/default-picture.png').default} alt="profile" />
                         </div>
                         {/* <div className="post-details__title">Post Title</div> */}
-                        <div className="post-details__title">{post.postTitle}</div>
+                        <div className="post-details__title"><a className="link" href={appUrl + 'post/' + post.id}>{post.postTitle}</a></div>
                         <div className="post-details__user-name">{userDetails.firstName + ' ' + userDetails.secondName}</div>
 
                     </div>
@@ -56,7 +56,7 @@ function Post({ post, user }) {
                     <Comment key={'comment-' + comment.id} comment={comment} user={user} />
                 ))}
             </div>
-        </div>
+        </div >
     )
 }
 
