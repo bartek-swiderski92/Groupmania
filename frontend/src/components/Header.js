@@ -7,7 +7,7 @@ function Header() {
     return (
         <header>
             <h1><a className="logo link" href={appUrl}>Groupmania</a></h1>
-            <div class="button-conteiner">
+            <div className="button-conteiner">
                 <Button buttonContent="My profile" className='header' />
                 <Button buttonContent="Logout" className='header' />
             </div>
