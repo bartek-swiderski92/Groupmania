@@ -1,6 +1,5 @@
 import { api, getPosts, ShowPost } from '../main';
 import { useEffect, useState } from 'react';
-import Post from './Post';
 import NewPost from './NewPost';
 import '../styles/NewsFeed.css';
 
@@ -48,12 +47,7 @@ function NewsFeed() {
                     </h2>
                 </div>)
             }
-
-            {/* <Post likes='24' />
-            <Post likes='14' />
-            <Post likes='124' /> */}
-        </div >
-
+        </div>
     )
 }
 

@@ -1,16 +1,8 @@
-import { api, getUserDetails, appUrl } from '../main';
-import { useEffect, useState } from 'react';
+import { appUrl } from '../main';
 import Button from './Button';
 import '../styles/Comment.css';
 
 function Comment({ comment, media, user }) {
-    const [userDetails, setUsers] = useState([]);
-    useEffect(() => {
-        getUserDetails(api.users + '/' + user).then((res) => {
-            setUsers(res)
-        })
-        //TODO:   Line 18:8:  React Hook useEffect has a missing dependency: 'user'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-    }, [])
 
 
     return (
@@ -19,9 +11,9 @@ function Comment({ comment, media, user }) {
                 <div className="comment-details">
                     <div className="comment-details__user-picture">
                         {/*TODO: add profile picture handling*/}
-                        <a className="link" href={appUrl + 'user/' + comment.UserId}><img src={require('../media/default-picture.png').default} alt={userDetails.firstName + ' ' + userDetails.secondName + "'s profile picture"} /></a></div>
+                        <a className="link" href={appUrl + 'user/' + comment.UserId}><img src={require('../media/default-picture.png').default} alt={user.firstName + ' ' + user.secondName + "'s profile picture"} /></a></div>
                     <div className="comment-details__user-name">
-                        <a className="link" href={appUrl + 'user/' + comment.UserId}>{userDetails.firstName + ' ' + userDetails.secondName}</a>
+                        <a className="link" href={appUrl + 'user/' + comment.UserId}>{user.firstName + ' ' + user.secondName}</a>
                     </div>
                 </div>
                 <div className="comment-content">
