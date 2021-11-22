@@ -2,7 +2,7 @@ import Post from './components/Post';
 import UserProfile from './components/UserProfile';
 import './styles/Main.css'
 
-const apiUrl = `http://localhost:5000/api`;
+export const apiUrl = `http://localhost:5000/api`;
 
 export const appUrl = `http://localhost:3000/`;
 
