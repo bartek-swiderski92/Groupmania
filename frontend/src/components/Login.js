@@ -1,13 +1,21 @@
-import Button from './Button'
-import '../styles/Login.css'
+import { apiUrl } from '../main';
+import axios from 'axios';
+import Button from './Button';
+import '../styles/Login.css';
 
 function Login() {
 
-    function loginUser(e) {
-        e.preventDefault();
-        const email = document.getElementById('login-email').value
-        const password = document.getElementById('login-password').value
-        console.log(email, password);
+    function loginUser(event) {
+        event.preventDefault();
+        const [email, password] = event.target.elements
+        // const email = document.getElementById('login-email').value
+        // const password = document.getElementById('login-password').value
+        console.log(email.value, password.value);
+        // axios.post(`${apiUrl}/users/login`, {
+        //     "email": email,
+        //     "password": password
+        // })
+        //     .then(res => console.log(res))
     }
 
     function registerUser(e) {
@@ -28,13 +36,13 @@ function Login() {
             <div className="forms">
                 <div className="login">
                     <h2>Login</h2>
-                    <form action="submit" className="login-form">
+                    <form action="submit" onSubmit={loginUser} className="login-form">
                         <label htmlFor="login-email">Email:</label>
                         <input type="email" id="login-email" placeholder="example@email.com" name="login-email" required />
 
                         <label htmlFor="login-password">Password:</label>
                         <input type="password" id="login-password" placeholder="•••••••••••" name="login-password" required />
-                        <Button type='submit' onClick={loginUser} className='login' buttonContent='Login' />
+                        <Button type='submit'  className='login' buttonContent='Login' />
                     </form>
                 </div>
                 <div className="register">
