@@ -38,8 +38,8 @@ exports.register = (req, res, next) => {
             })
         })
       } else {
-        res.status(400).json({
-          error: "User already exists."
+        res.status(200).json({
+          status: "Email already in use, please try again or login."
         })
       }
     })
