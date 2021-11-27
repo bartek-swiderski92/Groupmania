@@ -19,6 +19,11 @@ export const api = {
     comments: `${apiUrl}/comments`,
     readPosts: `${apiUrl}/readPosts`
 }
+export function capitalizeFirstLetter(string) {
+    string = string.toLowerCase();
+    string = string.charAt(0).toUpperCase() + string.slice(1)
+    return string
+}
 
 export async function getContent(query) {
     const response = await fetch(query);
