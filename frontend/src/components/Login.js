@@ -1,4 +1,4 @@
-import { apiUrl } from '../main';
+import { apiUrl, capitalizeFirstLetter } from '../main';
 import axios from 'axios';
 import Button from './Button';
 import '../styles/Login.css';
@@ -11,24 +11,38 @@ function Login() {
         // const email = document.getElementById('login-email').value
         // const password = document.getElementById('login-password').value
         console.log(email.value, password.value);
-        // axios.post(`${apiUrl}/users/login`, {
-        //     "email": email,
-        //     "password": password
-        // })
-        //     .then(res => console.log(res))
+        axios.post(`${apiUrl}/users/login`, {
+            "email": email.value,
+            "password": password.value
+        })
+            .then(res => {
+                let accessToken = res.data.token
+                axios.create({
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                })
+            })
     }
 
-    function registerUser(e) {
-        e.preventDefault();
-        // const email = document.getElementById('register-email').value
-        // const firstName = document.getElementById('register-fist-name').value
-        // const secondName = document.getElementById('register-second-name').value
-        // const password = document.getElementById('register-password').value
-        // const rePassword = document.getElementById('register-repeat-password').value
-        // password === rePassword ? console.log('Correct password') : console.log('Wrong password');
-
+    function registerUser(event) {
+        event.preventDefault();
+        const [email, firstName, secondName, password, rePassword] = event.target.elements;
+        if (password.value !== rePassword.value) {
+            return alert("Passwords don't match!")
+        }
+        axios.post(`${apiUrl}/users/register`, {
+            "email": email.value,
+            "password": password.value,
+            "firstName": capitalizeFirstLetter(firstName.value),
+            "secondName": capitalizeFirstLetter(secondName.value)
+        }).then(res => {
+            console.log(res)
+            alert(res.data.status)
+        }).catch(error => {
+            console.log(error)
+        })
     }
-
     return (
         <div className="login-wrapper">
             <h2 className='login-text'>Welcome in Groupmania!</h2>
@@ -42,12 +56,12 @@ function Login() {
 
                         <label htmlFor="login-password">Password:</label>
                         <input type="password" id="login-password" placeholder="•••••••••••" name="login-password" required />
-                        <Button type='submit'  className='login' buttonContent='Login' />
+                        <Button type='submit' className='login' buttonContent='Login' />
                     </form>
                 </div>
                 <div className="register">
                     <h2>Register</h2>
-                    <form action="submit" className="register-form">
+                    <form action="submit" onSubmit={registerUser} className="register-form">
                         <label htmlFor="register-email">Email: </label>
                         <input type="email" id="register-email" placeholder="example@email.com" name="register-email" required />
 
@@ -63,7 +77,7 @@ function Login() {
                         <label htmlFor="register-repeat-password">Repeat Password: </label>
                         <input type="password" id="register-repeat-password" placeholder="•••••••••••" name="register-repeat-password" required />
 
-                        <Button type='submit' onClick={registerUser} className='login' buttonContent='Register' />
+                        <Button type='submit' className='login' buttonContent='Register' />
                     </form>
                 </div>
             </div>
