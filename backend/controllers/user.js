@@ -53,7 +53,7 @@ exports.login = (req, res, next) => {
   db.User.findOne({
     where: {
       email: userObject.email
-    }
+    },
   })
     .then(user => {
       if (user) {
@@ -64,8 +64,9 @@ exports.login = (req, res, next) => {
             expiresIn: '24h'
           });
           res.status(200).json({
-            id: user.id,
+            user: user,
             token: token
+
           });
         } else {
           return res.status(401).json({
@@ -80,7 +81,7 @@ exports.login = (req, res, next) => {
     })
     .catch(err => {
       res.status(400).json({
-        error: err
+        error: 'Error: ' + err
       })
     })
 }
