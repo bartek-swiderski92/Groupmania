@@ -10,31 +10,31 @@ function UserProfile() {
             setUser(res)
         })
         console.log(userDetails)
-    }, '')
+    }, [])
     console.log(userDetails)
 
     return (
-        <div class="user-profile-wrapper">
-            <div class="user-details">
-                <div class="user-details-main">
-                    <div class="user-details-main__picture">
-                        <img src={require('../media/default-picture.png').default} alt={userDetails.firstName + ' ' + userDetails.secondName + "'s profile picture"}/>
+        <div className="user-profile-wrapper">
+            <div className="user-details">
+                <div className="user-details-main">
+                    <div className="user-details-main__picture">
+                        <img src={require('../media/default-picture.png').default} alt={userDetails.firstName + ' ' + userDetails.secondName + "'s profile picture"} />
                     </div>
-                    <h2 class="user-details-main__name">{userDetails.firstName + ' ' + userDetails.secondName}</h2>
+                    <h2 className="user-details-main__name">{userDetails.firstName + ' ' + userDetails.secondName}</h2>
                 </div>
-                <div class="user-info">
+                <div className="user-info">
 
                     Email: {userDetails.email} <br />
                     Gender: {userDetails.gender}  <br />
                     Birthday: {userDetails.dob} <br />
                 </div>
             </div>
-            <div class="user-posts">
+            <div className="user-posts">
                 <h3 className="posts-heading">{userDetails.firstName}'s posts:</h3>
                 {(() => {
                     if (userDetails.Posts) {
                         return (userDetails.Posts.map((post) => (
-                            <Post key={'post-' + post.id} post={post} user={post.UserId} displayLikes={false} />
+                            <Post key={'post-' + post.id} post={post} user={userDetails} displayLikes={false} />
                         ))
                         )
                     } else {
