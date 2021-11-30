@@ -6,21 +6,21 @@ import NewComment from './NewComment.js';
 import '../styles/Post.css';
 import '../styles/Main.css';
 
-function Post({ post, displayLikes, displayComments }) {
-    
+function Post({ post, user, displayLikes, displayComments }) {
+
     return (
         <div className="post-wrapper">
             <div className="post">
                 <div className="post-section">
                     <div className="post-details">
                         <div className="post-details__user-picture">
-                            <a className="link" href={appUrl + 'user/' + post.UserId}><img src={require('../media/default-picture.png').default} alt={post.User.firstName + ' ' + post.User.secondName + "'s profile picture"} /></a>
+                            <a className="link" href={appUrl + 'user/' + post.UserId}><img src={require('../media/default-picture.png').default} alt={(post.User ? post.User.firstName : user.firstName) + ' ' + (post.User ?post.User.secondName : user.secondName) + "'s profile picture"} /></a>
 
                         </div>
                         {/* <div className="post-details__title">Post Title</div> */}
                         <div className="post-details__info-div">
                             <h2 className="post-details__title"><a className="link" href={appUrl + 'post/' + post.id}>{post.postTitle}</a></h2>
-                            <h3 className="post-details__user-name"><a className="link" href={appUrl + 'user/' + post.UserId}>{post.User.firstName + ' ' + post.User.secondName}</a></h3>
+                            <h3 className="post-details__user-name"><a className="link" href={appUrl + 'user/' + (post.User ? post.User.firstName : user.firstName) + ' ' + (post.User ?post.User.secondName : user.secondName) }></a></h3>
                         </div>
 
                     </div>
