@@ -1,4 +1,12 @@
-import {createContext, useContext} from 'react';
+import React, { useEffect } from 'react';
 
-export const UserContext = createContext();
-export const useUser = () => useContext(UserContext);
+export function usePersistedState(key) {
+    const [state, setState] = React.useState(
+        () => localStorage.getItem(key) || null
+    );
+    useEffect(() => {
+        localStorage.setItem(key, state);
+    }, [key, state])
+
+    return [state, setState]
+}
