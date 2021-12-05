@@ -1,27 +1,27 @@
 import { apiUrl, capitalizeFirstLetter } from '../main';
+import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { usePersistedState } from '../store';
 import Button from './Button';
 import '../styles/Login.css';
 
 function Login() {
+    const history = useHistory();
 
     function loginUser(event) {
         event.preventDefault();
         const [email, password] = event.target.elements
         // const email = document.getElementById('login-email').value
         // const password = document.getElementById('login-password').value
-        console.log(email.value, password.value);
         axios.post(`${apiUrl}/users/login`, {
             "email": email.value,
             "password": password.value
         })
             .then(res => {
-                let accessToken = res.data.token
-                axios.create({
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`
-                    }
-                })
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('userName', res.data.user.firstName);
+                setTimeout(history.push("/newsfeed"), 2000 )
+                // history.push("/newsfeed");
             })
     }
 
