@@ -6,7 +6,7 @@ import Login from './Login'
 import NewsFeed from './NewsFeed';
 import SinglePost from './SinglePost';
 import Footer from './Footer';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import UserProfile from './UserProfile';
 
 function App() {
@@ -18,9 +18,18 @@ function App() {
                     <div className="main-content">
                         <React.Suspense fallback={<span>Loading...</span>} />
                         <Route path="/login" component={Login} />
-                        <Route exact path="/" component={NewsFeed} />
-                        <Route path="/post/:id" component={SinglePost} />
-                        <Route path="/user/:id" component={UserProfile} />
+                        <Route exact path="/">
+                            {localStorage.getItem('token') ? <Redirect to="/newsfeed" /> : <Login />}
+                        </Route>
+                        <Route exact path="/newsfeed" >
+                            {!localStorage.getItem('token') ? <Redirect to="/login" /> : <NewsFeed />}
+                        </Route>
+                        <Route path="/post/:id" >
+                            {!localStorage.getItem('token') ? <Redirect to="/login" /> : <SinglePost />}
+                        </Route>
+                        <Route path="/user/:id" component={UserProfile} >
+                            {!localStorage.getItem('token') ? <Redirect to="/login" /> : <UserProfile />}
+                        </Route>
                     </div>
                 </Switch>
             </BrowserRouter>
