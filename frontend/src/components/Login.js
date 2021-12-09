@@ -1,11 +1,15 @@
+import React, { useState } from 'react';
 import { apiUrl, capitalizeFirstLetter } from '../main';
-import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
+// import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { usePersistedState } from '../store';
+// import { usePersistedState } from '../store';
 import Button from './Button';
 import '../styles/Login.css';
 
 function Login() {
+    const [loginState, login] = useState(false);
+
     const history = useHistory();
 
     function loginUser(event) {
@@ -20,7 +24,12 @@ function Login() {
             .then(res => {
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('userName', res.data.user.firstName);
-                setTimeout(history.push("/newsfeed"), 2000 )
+                // login(true)
+                history.push('/newsfeed')
+
+                // if (loginState) {
+                // }
+                // setTimeout(history.push("/newsfeed"), 2000)
                 // history.push("/newsfeed");
             })
     }

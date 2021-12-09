@@ -1,6 +1,6 @@
-import '../styles/UserProfile.css';
 import { useEffect, useState } from 'react';
 import { getUserDetails, api } from '../main'
+import '../styles/UserProfile.css';
 import Post from './Post';
 
 function UserProfile() {

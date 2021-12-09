@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import '../styles/App.css';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import Login from './Login'
 import NewsFeed from './NewsFeed';
@@ -10,6 +10,15 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import UserProfile from './UserProfile';
 
 function App() {
+    const [loggedin, userLoggedin] = useState(false)
+    useEffect(() => {
+        if (localStorage.getItem('token') != null) {
+            userLoggedin(true)
+        } else {
+            userLoggedin(false)
+        }
+    }, [])
+
     return (
         <div className="groupmania">
             <Header />
@@ -18,18 +27,19 @@ function App() {
                     <div className="main-content">
                         <React.Suspense fallback={<span>Loading...</span>} />
                         <Route path="/login" component={Login} />
-                        <Route exact path="/">
-                            {localStorage.getItem('token') ? <Redirect to="/newsfeed" /> : <Login />}
-                        </Route>
-                        <Route exact path="/newsfeed" >
-                            {!localStorage.getItem('token') ? <Redirect to="/login" /> : <NewsFeed />}
+                        <Route exact path="/newsfeed" component={NewsFeed} />
+                        {/* <Route exact path="/">
+                            {loggedin ? <Redirect to="/newsfeed" /> : <Login />}
+                        </Route> */}
+                        {/* <Route exact path="/newsfeed" > */}
+                        {/* {!loggedin ? <Redirect to="/login" /> : <NewsFeed />}
                         </Route>
                         <Route path="/post/:id" >
-                            {!localStorage.getItem('token') ? <Redirect to="/login" /> : <SinglePost />}
-                        </Route>
-                        <Route path="/user/:id" component={UserProfile} >
-                            {!localStorage.getItem('token') ? <Redirect to="/login" /> : <UserProfile />}
-                        </Route>
+                            {!loggedin ? <Redirect to="/login" /> : <SinglePost />}
+                        </Route> */}
+                        {/* <Route path="/user/:id" component={UserProfile} >
+                            {!loggedin ? <Redirect to="/login" /> : <UserProfile />}
+                        </Route> */}
                     </div>
                 </Switch>
             </BrowserRouter>
