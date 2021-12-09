@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
+import React from 'react';
 import { apiUrl, capitalizeFirstLetter } from '../main';
 // import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
@@ -8,7 +9,7 @@ import Button from './Button';
 import '../styles/Login.css';
 
 function Login() {
-    const [loginState, login] = useState(false);
+    // const [loginState, login] = useState(false);
 
     const history = useHistory();
 

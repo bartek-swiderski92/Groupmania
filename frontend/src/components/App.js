@@ -1,23 +1,25 @@
 // import logo from './logo.svg';
 import '../styles/App.css';
-import React, { useEffect, useState } from 'react'
+// import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Header from './Header'
 import Login from './Login'
 import NewsFeed from './NewsFeed';
-import SinglePost from './SinglePost';
+// import SinglePost from './SinglePost';
 import Footer from './Footer';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import UserProfile from './UserProfile';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+// import { BrowserRouter, Switch, Routecls, Redirect } from 'react-router-dom';
+// import UserProfile from './UserProfile';
 
 function App() {
-    const [loggedin, userLoggedin] = useState(false)
-    useEffect(() => {
-        if (localStorage.getItem('token') != null) {
-            userLoggedin(true)
-        } else {
-            userLoggedin(false)
-        }
-    }, [])
+    // const [loggedin, userLoggedin] = useState(false)
+    // useEffect(() => {
+    //     if (localStorage.getItem('token') != null) {
+    //         userLoggedin(true)
+    //     } else {
+    //         userLoggedin(false)
+    //     }
+    // }, [])
 
     return (
         <div className="groupmania">
