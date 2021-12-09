@@ -1,15 +1,15 @@
-// import logo from './logo.svg';
-import '../styles/App.css';
-// import React, { useEffect, useState } from 'react'
 import React from 'react'
+// import logo from './logo.svg';
+// import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import Login from './Login'
 import NewsFeed from './NewsFeed';
-// import SinglePost from './SinglePost';
+import SinglePost from './SinglePost';
+import UserProfile from './UserProfile';
 import Footer from './Footer';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 // import { BrowserRouter, Switch, Routecls, Redirect } from 'react-router-dom';
-// import UserProfile from './UserProfile';
+import '../styles/App.css';
 
 function App() {
     // const [loggedin, userLoggedin] = useState(false)
@@ -29,7 +29,10 @@ function App() {
                     <div className="main-content">
                         <React.Suspense fallback={<span>Loading...</span>} />
                         <Route path="/login" component={Login} />
-                        <Route exact path="/newsfeed" component={NewsFeed} />
+                        <Route exact path="/" component={NewsFeed} />
+                        <Route path="/newsfeed" component={NewsFeed} />
+                        <Route path="/post/:id" component={SinglePost} />
+                        <Route path="/user/:id" component={UserProfile} />
                         {/* <Route exact path="/">
                             {loggedin ? <Redirect to="/newsfeed" /> : <Login />}
                         </Route> */}
