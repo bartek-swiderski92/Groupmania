@@ -26,7 +26,7 @@ function Login() {
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('userName', res.data.user.firstName);
                 // login(true)
-                history.push('/newsfeed')
+                history.push('/redirect')
 
                 // if (loginState) {
                 // }
