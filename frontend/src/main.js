@@ -37,12 +37,12 @@ export function ShowPost({ post, displayLikes, displayComments }) {
             {(() => {
                 if (Array.isArray(post)) {
                     return post.map((singlePost) => {
-                        return <Post key={'post-' + singlePost.id} post={singlePost} user={singlePost.UserId} displayLikes={displayLikes} displayComments={true} />
+                        return <Post key={'post-' + singlePost.id} post={singlePost} user={singlePost.User} displayLikes={displayLikes} displayComments={true} />
                     })
                 } else if (post.status === 404) {
                     return <h2 className='error-message'>{post.message}</h2>
                 } else {
-                    return <Post key={'post-' + post.id} post={post} user={post.UserId} displayLikes={displayLikes} displayComments={true} />
+                    return <Post key={'post-' + post.id} post={post} user={post.User} displayLikes={displayLikes} displayComments={true} />
                 }
             })()}
         </>
@@ -66,7 +66,6 @@ export function showUser({ user }) {
 export async function getPosts(query) {
     // let Posts = []
     return await getContent(query).then(items => {
-        console.log(items);
         return items
     }).catch((error) => {
         console.log(error);
