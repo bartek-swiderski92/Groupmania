@@ -9,9 +9,8 @@ function UserProfile() {
         getUserDetails(api.users + '/' + document.URL.split('/')[4]).then((res) => {
             setUser(res)
         })
-        console.log(userDetails)
+        // console.log(userDetails)
     }, [])
-    console.log(userDetails)
 
     return (
         <div className="user-profile-wrapper">
@@ -30,7 +29,8 @@ function UserProfile() {
                 </div>
             </div>
             <div className="user-posts">
-                <h3 className="posts-heading">{userDetails.firstName}'s posts:</h3>
+                {userDetails.Posts && userDetails.Posts.length ? <h3 className="posts-heading">{userDetails.firstName}'s posts:</h3> : <h3 className="posts-heading">{userDetails.firstName} has no posts</h3>}
+
                 {(() => {
                     if (userDetails.Posts) {
                         return (userDetails.Posts.map((post) => (
