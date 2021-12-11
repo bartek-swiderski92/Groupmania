@@ -1,6 +1,7 @@
 header {
     display: flex;
     justify-content: space-between;
+    min-height: 5rem;
     background-color: #5284ea;
     padding: .1rem .4rem;
 }
