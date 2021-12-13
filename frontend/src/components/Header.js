@@ -9,7 +9,7 @@ import '../styles/Main.css'
 
 import Button from './Button';
 
-function Header(userLoggedIn) {
+function Header({userLoggedIn}) {
     console.log(userLoggedIn)
     const history = useHistory();
 
@@ -24,7 +24,7 @@ function Header(userLoggedIn) {
         <header>
             <h1><a className="logo link" href={appUrl}>Groupmania</a></h1>
             {(() => {
-                if (userLoggedIn === 1) {
+                if (userLoggedIn === true) {
                     return (
                         <div>
                             <div className="button-container">
@@ -33,7 +33,7 @@ function Header(userLoggedIn) {
                             </div>
                         </div>
                     )
-                } else if (userLoggedIn === 0) {
+                } else if (userLoggedIn === false) {
                     return <button>BUTTON</button>
                 }
             })()
