@@ -12,12 +12,12 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import '../styles/App.css';
 
 function App() {
-    const [userLoggedIn, setUserLoggedIn] = useState('0')
+    const [userLoggedIn, setUserLoggedIn] = useState(false)
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            setUserLoggedIn(0)
+            setUserLoggedIn(true)
         } else {
-            setUserLoggedIn(1)
+            setUserLoggedIn(false)
         }
     }, [])
 
