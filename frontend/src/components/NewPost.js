@@ -1,10 +1,13 @@
 import axios from 'axios';
 import { apiUrl } from '../main';
+import { useHistory } from 'react-router-dom';
 
 import Button from './Button'
 import '../styles/NewPost.css'
 
 function NewPost() {
+
+    const history = useHistory();
     // function attachImage(e) {
     //     e.preventDefault();
     //     console.log('attaching');
@@ -26,6 +29,8 @@ function NewPost() {
         })
             .then(res => {
                 console.log(res)
+                window.alert(res.data.success)
+                history.push(`/post/${res.data.post.id}`)
             })
             .catch(err => console.log(err))
 
