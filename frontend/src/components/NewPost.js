@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { apiUrl } from '../main';
 
 import Button from './Button'
 import '../styles/NewPost.css'
@@ -9,8 +10,25 @@ function NewPost() {
     //     console.log('attaching');
     // }
     function submitPost(event) {
+        const token = localStorage.getItem('token');
         event.preventDefault();
-        const [postTitle, postContent, postMedia] = event.targets.elements
+        const [postTitle, postContent, postMedia] = event.target.elements;
+        console.log(postTitle.value, postContent.value, postMedia.value);
+        console.log(token)
+        axios.post(`${apiUrl}/posts`, {
+            "postTitle": postTitle.value,
+            "postContent": postContent.value,
+            "media": postMedia.value
+        }, {
+            headers: {
+                "Authorization": `Bearer: ${token}`
+            }
+        })
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => console.log(err))
+
     }
 
     return (
