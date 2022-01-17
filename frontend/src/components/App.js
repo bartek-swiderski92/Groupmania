@@ -43,7 +43,8 @@ function App() {
                                 {!userLoggedIn ? <Redirect to="/login" /> : <SinglePost />}
                             </Route>
                             <Route path="/user/:id">
-                                {!userLoggedIn ? <Redirect to="/login" /> : <UserProfile />}
+                                {/* {!userLoggedIn ? <Redirect to="/login" /> :  */}
+                                <UserProfile />
                             </Route>
                             <Route path="/login">
                                 {userLoggedIn ? <Redirect to="/newsfeed" /> : <Login />}
