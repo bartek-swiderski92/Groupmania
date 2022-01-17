@@ -25,6 +25,7 @@ function Login() {
             .then(res => {
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('userName', res.data.user.firstName);
+                localStorage.setItem('userId', res.data.user.id);
                 // login(true)
                 history.push('/redirect')
 
