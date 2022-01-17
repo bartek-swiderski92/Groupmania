@@ -37,10 +37,10 @@ function NewsFeed() {
 
     return (
         <div className="news-feed-wrapper">
-            <h2>Welcome back!</h2>
+            <h2>Welcome back {localStorage.getItem('userName')}!</h2>
 
             <NewPost />
-            {posts ? (<ShowPost post={posts} displayLikes={true} displayComment={true}/>) : (
+            {posts ? (<ShowPost post={posts} displayLikes={true} displayComment={true} />) : (
                 <div>
                     <h2 className='error-message'>
                         No posts to display
