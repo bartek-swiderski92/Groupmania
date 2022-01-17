@@ -95,7 +95,7 @@ exports.createAPost = (req, res, next) => {
         media: postObject.media
     }).then((post) => {
         res.status(201).json({
-            success: 'Post has been successfully created!',
+            success: 'Post has been created successfully!',
             post
         });
     }).catch((error) => {
