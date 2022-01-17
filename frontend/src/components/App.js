@@ -29,24 +29,26 @@ function App() {
                         <Header userLoggedIn={userLoggedIn} />
                         <div className="main-content">
                             <React.Suspense fallback={<span>Loading...</span>} />
-                            <Route path="/login" component={Login} />
-                            <Route exact path="/" component={NewsFeed} />
-                            <Route path="/newsfeed" component={NewsFeed} />
-                            <Route path="/post/:id" component={SinglePost} />
-                            <Route path="/user/:id" component={UserProfile} />
+                            {/* <Route exact path="/" component={NewsFeed} /> */}
+                            {/* <Route path="/newsfeed" component={NewsFeed} /> */}
+                            {/* <Route path="/post/:id" component={SinglePost} /> */}
+                            {/* <Route path="/user/:id" component={UserProfile} /> */}
+                            <Route exact path="/">
+                                {!userLoggedIn ? <Redirect to="/login" /> : <NewsFeed />}
+                            </Route>
+                            <Route path="/newsfeed" >
+                                {!userLoggedIn ? <Redirect to="/login" /> : <NewsFeed />}
+                            </Route>
+                            <Route path="/post/:id" >
+                                {!userLoggedIn ? <Redirect to="/login" /> : <SinglePost />}
+                            </Route>
+                            <Route path="/user/:id">
+                                {!userLoggedIn ? <Redirect to="/login" /> : <UserProfile />}
+                            </Route>
+                            <Route path="/login">
+                                {userLoggedIn ? <Redirect to="/newsfeed" /> : <Login />}
+                            </Route>
                             <Route path="/redirect" component={Redirect} />
-                            {/* <Route exact path="/">
-                            {loggedin ? <Redirect to="/newsfeed" /> : <Login />}
-                        </Route> */}
-                            {/* <Route exact path="/newsfeed" > */}
-                            {/* {!loggedin ? <Redirect to="/login" /> : <NewsFeed />}
-                        </Route>
-                        <Route path="/post/:id" >
-                            {!loggedin ? <Redirect to="/login" /> : <SinglePost />}
-                        </Route> */}
-                            {/* <Route path="/user/:id" component={UserProfile} >
-                            {!loggedin ? <Redirect to="/login" /> : <UserProfile />}
-                        </Route> */}
                         </div>
                     </div>
                 </Switch>
