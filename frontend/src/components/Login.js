@@ -1,11 +1,13 @@
 // import React, { useState } from 'react';
 import React from 'react';
-import { apiUrl, capitalizeFirstLetter } from '../main';
-// import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+
+import { apiUrl, capitalizeFirstLetter } from '../main';
+// import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
 // import { usePersistedState } from '../store';
 import Button from './Button';
+
 import '../styles/Login.css';
 
 function Login() {
