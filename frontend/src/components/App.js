@@ -4,16 +4,18 @@ import Header from './Header'
 import Login from './Login'
 import NewsFeed from './NewsFeed';
 import SinglePost from './SinglePost';
+import NewPost from './NewPost';
 import UserProfile from './UserProfile';
 import Footer from './Footer';
-import Redirect from './Redirect';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import RedirectComponent from './RedirectComponent';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 // import { BrowserRouter, Switch, Routecls, Redirect } from 'react-router-dom';
 import '../styles/App.css';
 
 function App() {
     const [userLoggedIn, setUserLoggedIn] = useState(false)
     useEffect(() => {
+        console.log(userLoggedIn);
         if (localStorage.getItem('token')) {
             setUserLoggedIn(true)
         } else {
@@ -49,7 +51,8 @@ function App() {
                             <Route path="/login">
                                 {userLoggedIn ? <Redirect to="/newsfeed" /> : <Login />}
                             </Route>
-                            <Route path="/redirect" component={Redirect} />
+                            <Route path="/redirect" component={RedirectComponent} />
+                            <Route path="/edit/:id" component={NewPost} />
                         </div>
                     </div>
                 </Switch>
