@@ -33,8 +33,18 @@ function Post({ post, user, displayLikes, displayComments }) {
                     </div>) : null} */}
 
                     <div className="post__content">{post.postContent}</div>
-                    <Button className="delete" buttonContent="Delete Post" />
-                    <Button className="edit" buttonContent="Edit Post" />
+                    <div>
+                        {(() => {
+                            if (localStorage.getItem('userId') == user.id) {
+                                return (<>
+                                    <Button className="delete" buttonContent="Delete Post" />
+                                    <Button className="edit" buttonContent="Edit Post" />
+                                </>
+                                )
+                            }
+                        })()}
+
+                    </div>
                 </div>
                 {displayLikes ? <LikeBar likes={post.Likes.length} /> : null}
 

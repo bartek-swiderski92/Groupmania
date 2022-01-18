@@ -28,8 +28,18 @@ function Comment({ comment, media, user }) {
                 </div>
 
             </div>
-            <Button className="delete delete-comment" buttonContent="Delete Comment" />
-            <Button className="edit edit-comment" buttonContent="Edit Comment" />
+            <div>
+                {(() => {
+                    if (localStorage.getItem('userId') == user.id) {
+                        return (<>
+                            <Button className="delete delete-comment" buttonContent="Delete Comment" />
+                            <Button className="edit edit-comment" buttonContent="Edit Comment" />
+                        </>
+                        )
+                    }
+                })()}
+
+            </div>
         </div>
     )
 }
