@@ -10,6 +10,6 @@ const commentCtrl = require('../controllers/comment');
 // router.delete('/post/:id', auth, commentCtrl.removeAllCommentsOfAPost);
 router.post('/', commentCtrl.createAComment);
 router.put('/', auth, commentCtrl.editComment);
-router.delete('/', auth, commentCtrl.deleteComment);
+router.delete('/:id', auth, commentCtrl.deleteComment);
 
 module.exports = router;
