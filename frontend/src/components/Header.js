@@ -1,7 +1,7 @@
 import { appUrl } from '../main'
 // import { useHistory, BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 
 
 import '../styles/Header.css'
@@ -9,13 +9,14 @@ import '../styles/Main.css'
 
 import Button from './Button';
 
-function Header({userLoggedIn}) {
+function Header({ userLoggedIn }) {
     console.log(userLoggedIn)
     const history = useHistory();
 
     function logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('userName');
+        localStorage.removeItem('userId');
 
         history.push('/redirect');
     }
