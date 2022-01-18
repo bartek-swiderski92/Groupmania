@@ -1,12 +1,34 @@
-import { appUrl } from '../main';
+import axios from 'axios';
+
+import { apiUrl, appUrl } from '../main';
 import LikeBar from './LikeBar';
 import Button from './Button';
 import Comment from './Comment.js';
 import NewComment from './NewComment.js';
+
 import '../styles/Post.css';
 import '../styles/Main.css';
 
 function Post({ post, user, displayLikes, displayComments }) {
+    const token = localStorage.getItem('token');
+
+    function deletePost() {
+        if (window.confirm("Are you sure you want to delete this post?") === true) {
+            axios.delete(`${apiUrl}/posts/${post.id}`, {
+                headers:
+                {
+                    "Authorization": `Bearer: ${token}`
+                }
+            })
+                .then(res => {
+                    window.alert(res.data.message)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+    }
+
     return (
         <div className="post-wrapper">
             <div className="post">
@@ -37,7 +59,7 @@ function Post({ post, user, displayLikes, displayComments }) {
                         {(() => {
                             if (localStorage.getItem('userId') == user.id) {
                                 return (<>
-                                    <Button className="delete" buttonContent="Delete Post" />
+                                    <Button onClick={deletePost} className="delete" buttonContent="Delete Post" />
                                     <Button className="edit" buttonContent="Edit Post" />
                                 </>
                                 )
