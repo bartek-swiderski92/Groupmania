@@ -95,7 +95,7 @@ exports.createAPost = (req, res, next) => {
         media: postObject.media
     }).then((post) => {
         res.status(201).json({
-            success: 'Post has been created successfully!',
+            message: 'Post has been created successfully!',
             post
         });
     }).catch((error) => {
@@ -127,7 +127,7 @@ exports.editPost = (req, res, next) => {
                     media: url + '/images/' + req.file.filename
                 }).then((post) => {
                     res.status(201).json({
-                        success: 'Post has been updated successfully!',
+                        message: 'Post has been updated successfully!',
                         post
                     });
                 }).catch((error) => {
@@ -142,7 +142,7 @@ exports.editPost = (req, res, next) => {
                     media: postObject.media
                 }).then(() => {
                     res.status(200).json({
-                        success: 'Post has been updated successfully!',
+                        message: 'Post has been updated successfully!',
                         post
                     })
                 }).catch(err => {
@@ -168,11 +168,11 @@ exports.deletePost = (req, res, next) => {
     }).then((post) => {
         if (post) {
             res.status(200).json({
-                success: 'The post has been successfully deleted.'
+                message: 'The post has been deleted successfully!'
             })
         } else {
             res.status(401).json({
-                error: 'You cannot access this post.'
+                message: 'You cannot access this post.'
             });
         }
     }).catch((error) => {

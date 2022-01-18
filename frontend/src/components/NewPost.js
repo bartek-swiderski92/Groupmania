@@ -16,8 +16,6 @@ function NewPost() {
         const token = localStorage.getItem('token');
         event.preventDefault();
         const [postTitle, postContent, postMedia] = event.target.elements;
-        console.log(postTitle.value, postContent.value, postMedia.value);
-        console.log(token)
         axios.post(`${apiUrl}/posts`, {
             "postTitle": postTitle.value,
             "postContent": postContent.value,
@@ -28,8 +26,7 @@ function NewPost() {
             }
         })
             .then(res => {
-                console.log(res)
-                window.alert(res.data.success)
+                window.alert(res.data.message)
                 history.push(`/post/${res.data.post.id}`)
             })
             .catch(err => console.log(err))
