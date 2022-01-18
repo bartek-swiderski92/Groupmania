@@ -1,9 +1,29 @@
-import { appUrl } from '../main';
+import axios from 'axios';
+
+import { apiUrl, appUrl } from '../main';
 import Button from './Button';
 import '../styles/Comment.css';
 
 function Comment({ comment, media, user }) {
-
+    const token = localStorage.getItem('token');
+    function deleteComment() {
+        if (window.confirm("Are you sure you want to delete this post?") === true) {
+            console.log(comment.id)
+            axios.delete(`${apiUrl}/comments/${comment.id}`, {
+                headers: {
+                    "Authorization": `Bearer: ${token}`
+                }
+            })
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        } else {
+            console.log('not')
+        }
+    }
 
     return (
         <div className="comment-wrapper">
@@ -32,7 +52,7 @@ function Comment({ comment, media, user }) {
                 {(() => {
                     if (localStorage.getItem('userId') == user.id) {
                         return (<>
-                            <Button className="delete delete-comment" buttonContent="Delete Comment" />
+                            <Button onClick={deleteComment} className="delete delete-comment" buttonContent="Delete Comment" />
                             <Button className="edit edit-comment" buttonContent="Edit Comment" />
                         </>
                         )
