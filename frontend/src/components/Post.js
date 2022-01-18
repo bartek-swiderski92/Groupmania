@@ -57,7 +57,7 @@ function Post({ post, user, displayLikes, displayComments }) {
                     <div className="post__content">{post.postContent}</div>
                     <div>
                         {(() => {
-                            if (localStorage.getItem('userId') == user.id) {
+                            if (parseInt(localStorage.getItem('userId')) === user.id) {
                                 return (<>
                                     <Button onClick={deletePost} className="delete" buttonContent="Delete Post" />
                                     <Button className="edit" buttonContent="Edit Post" />
