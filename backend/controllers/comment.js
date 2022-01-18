@@ -80,7 +80,7 @@ exports.editComment = (req, res, next) => {
         }
     }).then((comment) => {
         if (comment) {
-            if(req.file) {
+            if (req.file) {
                 const commentObject = JSON.parse(req.body.post);
                 const url = req.protocol + '://' + req.get('host')
                 const comment = db.Comment.create({
@@ -123,7 +123,7 @@ exports.editComment = (req, res, next) => {
 exports.deleteComment = (req, res, next) => {
     db.Comment.destroy({
         where: {
-            id: req.body.id,
+            id: req.params.id,
             UserId: res.locals.userId
         }
     }).then((comment) => {
