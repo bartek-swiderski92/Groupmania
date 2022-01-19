@@ -8,6 +8,8 @@ import Button from './Button'
 import '../styles/NewPost.css'
 
 function NewPost({ editPost }) {
+    const history = useHistory();
+
     const [post, setPosts] = useState([]);
     useEffect(() => {
         getPosts(api.posts + '/' + document.URL.split('/')[4]).then((res) => {
@@ -15,33 +17,50 @@ function NewPost({ editPost }) {
         })
     }, [])
 
-    if (editPost === true) {
-
-    }
-    const history = useHistory();
     // function attachImage(e) {
     //     e.preventDefault();
     //     console.log('attaching');
     // }
+
     function submitPost(event) {
         const token = localStorage.getItem('token');
         event.preventDefault();
         const [postTitle, postContent, postMedia] = event.target.elements;
-        axios.post(`${apiUrl}/posts`, {
-            "postTitle": postTitle.value,
-            "postContent": postContent.value,
-            "media": postMedia.value
-        }, {
-            headers: {
-                "Authorization": `Bearer: ${token}`
-            }
-        })
-            .then(res => {
-                window.alert(res.data.message)
-                history.push(`/post/${res.data.post.id}`)
-            })
-            .catch(err => console.log(err))
 
+        if (editPost === true) {
+            console.log(post)
+            const id = post.id;
+            alert("this is post id" + id)
+            axios.put(`${apiUrl}/posts/` + id, {
+                "postTitle": postTitle.value,
+                "postContent": postContent.value,
+                "media": postMedia.value
+            }, {
+                headers: {
+                    "Authorization": `Bearer: ${token}`
+                }
+            })
+                .then(res => {
+                    window.alert(res.data.message)
+                    history.push(`/post/${res.data.post.id}`)
+                })
+                .catch(err => console.log(err))
+        } else {
+            axios.post(`${apiUrl}/posts`, {
+                "postTitle": postTitle.value,
+                "postContent": postContent.value,
+                "media": postMedia.value
+            }, {
+                headers: {
+                    "Authorization": `Bearer: ${token}`
+                }
+            })
+                .then(res => {
+                    window.alert(res.data.message)
+                    history.push(`/post/${res.data.post.id}`)
+                })
+                .catch(err => console.log(err))
+        }
     }
 
     return (
@@ -53,7 +72,7 @@ function NewPost({ editPost }) {
                 <textarea placeholder="Post Content" className="new-post-input" defaultValue={editPost ? post.postContent : ''} />
                 <input type="file" id="image-url-new-post" placeholder="Image path..." className="new-post-input" />
                 {/* <Button type="file" className='new-post__button' onClick={attachImage} buttonContent='Click here to add a picture' /> */}
-                <Button type='submit' className='new-post__button' buttonContent='Add Post' href="#" />
+                <Button type='submit' className='new-post__button' buttonContent='Add Post' />
             </form>
 
         </div>
