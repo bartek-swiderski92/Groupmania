@@ -75,7 +75,7 @@ exports.editComment = (req, res, next) => {
     const commentObject = req.body
     db.Comment.findOne({
         where: {
-            id: commentObject.id,
+            id: req.params.id,
             UserId: res.locals.userId
         }
     }).then((comment) => {
