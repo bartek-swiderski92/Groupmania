@@ -109,7 +109,7 @@ exports.editPost = (req, res, next) => {
     const postObject = req.body
     db.Post.findOne({
         where: {
-            id: postObject.id,
+            id: req.params.id,
             userId: res.locals.userId,
         },
         // attributes: {
