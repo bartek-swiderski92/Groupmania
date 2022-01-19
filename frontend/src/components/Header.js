@@ -9,7 +9,7 @@ import '../styles/Main.css'
 
 import Button from './Button';
 
-function Header({ userLoggedIn }) {
+function Header({ userLoggedIn, updatestate }) {
     console.log(userLoggedIn)
     const history = useHistory();
 
@@ -18,9 +18,13 @@ function Header({ userLoggedIn }) {
         localStorage.removeItem('userName');
         localStorage.removeItem('userId');
 
-        history.push('/redirect');
+        history.push({ pathname: '/redirect', state: { userLoggedIn: false } })
+        update(false)
     }
+    function update(val) {
 
+        updatestate(val)
+    }
     return (
         <header>
             <h1><a className="logo link" href={appUrl}>Groupmania</a></h1>

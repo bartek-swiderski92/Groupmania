@@ -10,11 +10,14 @@ import Button from './Button';
 
 import '../styles/Login.css';
 
-function Login() {
+function Login(props) {
     // const [loginState, login] = useState(false);
 
     const history = useHistory();
+    function update(val) {
 
+        props.updatestate(val)
+    }
     function loginUser(event) {
         event.preventDefault();
         const [email, password] = event.target.elements
@@ -29,7 +32,8 @@ function Login() {
                 localStorage.setItem('userName', res.data.user.firstName);
                 localStorage.setItem('userId', res.data.user.id);
                 // login(true)
-                history.push('/redirect')
+                update(true)
+                history.push({ pathname: '/redirect', state: { userLoggedIn: true } })
 
                 // if (loginState) {
                 // }

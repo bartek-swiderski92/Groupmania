@@ -15,20 +15,24 @@ import '../styles/App.css';
 function App() {
     const [userLoggedIn, setUserLoggedIn] = useState(false)
     useEffect(() => {
-        console.log(userLoggedIn);
+        console.log("app state ", userLoggedIn);
         if (localStorage.getItem('token')) {
             setUserLoggedIn(true)
         } else {
             setUserLoggedIn(false)
         }
-    }, [])
+    }, [userLoggedIn])
+
+    const updatestate = (vlaue) => {
+        setUserLoggedIn(vlaue)
+    }
 
     return (
         <div className="groupmania">
             <BrowserRouter>
                 <Switch>
                     <div>
-                        <Header userLoggedIn={userLoggedIn} />
+                        <Header userLoggedIn={userLoggedIn}  updatestate = {(val)=>updatestate(val)}/>
                         <div className="main-content">
                             <React.Suspense fallback={<span>Loading...</span>} />
                             {/* <Route exact path="/" component={NewsFeed} /> */}
@@ -36,22 +40,22 @@ function App() {
                             {/* <Route path="/post/:id" component={SinglePost} /> */}
                             {/* <Route path="/user/:id" component={UserProfile} /> */}
                             <Route exact path="/">
-                                {!userLoggedIn ? <Redirect to="/login" /> : <NewsFeed />}
+                                {!userLoggedIn ? <Redirect to="/login" updatestate={(val) => updatestate(val)} /> : <NewsFeed userLoggedIn={userLoggedIn} />}
                             </Route>
                             <Route path="/newsfeed" >
-                                {!userLoggedIn ? <Redirect to="/login" /> : <NewsFeed />}
+                                {userLoggedIn ? <NewsFeed userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updatestate={(val) => updatestate(val)} />}
                             </Route>
                             <Route path="/post/:id" >
-                                {!userLoggedIn ? <Redirect to="/login" /> : <SinglePost />}
+                                {!userLoggedIn ? <Redirect to="/login" updatestate={(val) => updatestate(val)} /> : <SinglePost />}
                             </Route>
                             <Route path="/user/:id">
                                 {/* {!userLoggedIn ? <Redirect to="/login" /> :  */}
                                 <UserProfile />
                             </Route>
-                            <Route path="/login">
-                                {userLoggedIn ? <Redirect to="/newsfeed" /> : <Login />}
+                            <Route path="/login" updatestate={(val) => updatestate(val)}>
+                                {userLoggedIn ? <Redirect to="/newsfeed" /> : <Login updatestate={(val) => updatestate(val)} />}
                             </Route>
-                            <Route path="/redirect" component={RedirectComponent} />
+                            <Route path="/redirect" component={RedirectComponent} userLoggedIn={userLoggedIn} />
                             <Route path="/edit/:id">
                                 <NewPost editPost={true} />
                             </Route>

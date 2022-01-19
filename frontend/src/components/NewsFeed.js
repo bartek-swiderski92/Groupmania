@@ -1,4 +1,6 @@
 import { api, getPosts, ShowPost } from '../main';
+import { useHistory } from 'react-router-dom';
+
 import { useEffect, useState } from 'react';
 import NewPost from './NewPost';
 import '../styles/NewsFeed.css';
@@ -27,14 +29,19 @@ import '../styles/NewsFeed.css';
 //     )
 // }
 
-function NewsFeed() {
+function NewsFeed(props) {
+    const history = useHistory();
+
     const [posts, setPosts] = useState([]);
     useEffect(() => {
         getPosts(api.posts).then((res) => {
             setPosts(res)
         })
     }, [])
-
+    console.log('passed data', props.userLoggedIn)
+    if (props.userLoggedIn !== true){
+    history.pushState('/login')
+    }
     return (
         <div className="news-feed-wrapper">
             <h2>Welcome back {localStorage.getItem('userName')}!</h2>
