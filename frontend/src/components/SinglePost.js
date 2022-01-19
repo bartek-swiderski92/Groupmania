@@ -1,5 +1,5 @@
-import { api, getPosts, ShowPost } from '../main';
 import { useEffect, useState } from 'react';
+import { api, getPosts, ShowPost } from '../main';
 
 
 function SinglePost() {
