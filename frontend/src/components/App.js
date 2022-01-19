@@ -52,7 +52,9 @@ function App() {
                                 {userLoggedIn ? <Redirect to="/newsfeed" /> : <Login />}
                             </Route>
                             <Route path="/redirect" component={RedirectComponent} />
-                            <Route path="/edit/:id" component={NewPost} />
+                            <Route path="/edit/:id">
+                                <NewPost editPost={true} />
+                            </Route>
                         </div>
                     </div>
                 </Switch>

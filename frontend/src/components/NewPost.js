@@ -1,12 +1,23 @@
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { apiUrl } from '../main';
+
+import { api, apiUrl, getPosts } from '../main';
 import { useHistory } from 'react-router-dom';
 
 import Button from './Button'
 import '../styles/NewPost.css'
 
-function NewPost() {
+function NewPost({ editPost }) {
+    const [post, setPosts] = useState([]);
+    useEffect(() => {
+        getPosts(api.posts + '/' + document.URL.split('/')[4]).then((res) => {
+            setPosts(res)
+        })
+    }, [])
 
+    if (editPost === true) {
+
+    }
     const history = useHistory();
     // function attachImage(e) {
     //     e.preventDefault();
@@ -35,13 +46,14 @@ function NewPost() {
 
     return (
         <div className="new-post-wrapper">
-            <h3>Tell us what's on your mind today!</h3>
+            {editPost ? <h3>Edit your post!</h3> : <h3>Tell us what's on your mind today!</h3>}
+            {/* <h3>Tell us what's on your mind today!</h3> */}
             <form action="create-post" className="post-body" onSubmit={submitPost}>
-                <input type="text" id="post-title" placeholder="Post Title" className="new-post-input" />
-                <textarea placeholder="Post Content" className="new-post-input" />
+                <input type="text" id="post-title" placeholder="Post Title" className="new-post-input" defaultValue={editPost ? post.postTitle : ''} />
+                <textarea placeholder="Post Content" className="new-post-input" defaultValue={editPost ? post.postContent : ''} />
                 <input type="file" id="image-url-new-post" placeholder="Image path..." className="new-post-input" />
                 {/* <Button type="file" className='new-post__button' onClick={attachImage} buttonContent='Click here to add a picture' /> */}
-                <Button type='submit' className='new-post__button' buttonContent='Add Post' />
+                <Button type='submit' className='new-post__button' buttonContent='Add Post' href="#" />
             </form>
 
         </div>

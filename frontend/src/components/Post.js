@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import { apiUrl, appUrl } from '../main';
 import LikeBar from './LikeBar';
@@ -60,7 +61,9 @@ function Post({ post, user, displayLikes, displayComments }) {
                             if (parseInt(localStorage.getItem('userId')) === user.id) {
                                 return (<>
                                     <Button onClick={deletePost} className="delete" buttonContent="Delete Post" />
-                                    <Button className="edit" buttonContent="Edit Post" />
+                                    <Link to={`edit/${post.id}`}>
+                                        <Button className="edit" buttonContent="Edit Post" />
+                                    </Link>
                                 </>
                                 )
                             }
