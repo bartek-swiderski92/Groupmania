@@ -10,7 +10,7 @@ router.get('/', postCtrl.getAllPosts);
 router.get('/unread', auth, postCtrl.showAllUnreadPosts);
 router.get('/:id', postCtrl.getOnePost);
 router.post('/', auth, postCtrl.createAPost);
-router.put('/', auth, postCtrl.editPost);
+router.put('/:id', auth, postCtrl.editPost);
 router.delete('/:id', auth, postCtrl.deletePost);
 
 module.exports = router;
