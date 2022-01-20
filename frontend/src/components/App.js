@@ -22,7 +22,7 @@ function App() {
         }
     }, [userLoggedIn])
 
-    const updatestate = (vlaue) => {
+    const updateState = (vlaue) => {
         setUserLoggedIn(vlaue)
     }
 
@@ -31,7 +31,7 @@ function App() {
             <BrowserRouter>
                 <Switch>
                     <div>
-                        <Header userLoggedIn={userLoggedIn} updatestate={(val) => updatestate(val)} />
+                        <Header userLoggedIn={userLoggedIn} updateState={(val) => updateState(val)} />
                         <div className="main-content">
                             <React.Suspense fallback={<span>Loading...</span>} />
                             {/* <Route exact path="/" component={NewsFeed} /> */}
@@ -39,19 +39,19 @@ function App() {
                             {/* <Route path="/post/:id" component={SinglePost} /> */}
                             {/* <Route path="/user/:id" component={UserProfile} /> */}
                             <Route exact path="/">
-                                {!userLoggedIn ? <Redirect to="/login" updatestate={(val) => updatestate(val)} /> : <NewsFeed userLoggedIn={userLoggedIn} />}
+                                {!userLoggedIn ? <Redirect to="/login" updateState={(val) => updateState(val)} /> : <NewsFeed userLoggedIn={userLoggedIn} />}
                             </Route>
                             <Route path="/newsfeed" >
-                                {userLoggedIn ? <NewsFeed userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updatestate={(val) => updatestate(val)} />}
+                                {userLoggedIn ? <NewsFeed userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updateState={(val) => updateState(val)} />}
                             </Route>
                             <Route path="/post/:id" >
-                                {userLoggedIn ? <SinglePost userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updatestate={(val) => updatestate(val)} />}
+                                {userLoggedIn ? <SinglePost userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updateState={(val) => updateState(val)} />}
                             </Route>
                             <Route path="/user/:id">
-                                {userLoggedIn ? <UserProfile userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updatestate={(val) => updatestate(val)} />}
+                                {userLoggedIn ? <UserProfile userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updateState={(val) => updateState(val)} />}
                             </Route>
-                            <Route path="/login" updatestate={(val) => updatestate(val)}>
-                                {userLoggedIn ? <Redirect to="/newsfeed" /> : <Login updatestate={(val) => updatestate(val)} />}
+                            <Route path="/login" updateState={(val) => updateState(val)}>
+                                {userLoggedIn ? <Redirect to="/newsfeed" /> : <Login updateState={(val) => updateState(val)} />}
                             </Route>
                             <Route path="/edit/post/:id">
                                 <NewPost editPost={true} />

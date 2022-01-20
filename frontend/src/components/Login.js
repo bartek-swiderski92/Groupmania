@@ -14,7 +14,7 @@ function Login(props) {
 
     const history = useHistory();
     function update(val) {
-        props.updatestate(val)
+        props.updateState(val)
     }
     function loginUser(event) {
         event.preventDefault();

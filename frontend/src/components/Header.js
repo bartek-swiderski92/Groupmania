@@ -9,7 +9,7 @@ import '../styles/Main.css'
 
 import Button from './Button';
 
-function Header({ userLoggedIn, updatestate }) {
+function Header({ userLoggedIn, updateState }) {
     const history = useHistory();
 
     function logout() {
@@ -22,7 +22,7 @@ function Header({ userLoggedIn, updatestate }) {
     }
     function update(val) {
 
-        updatestate(val)
+        updateState(val)
     }
     return (
         <header>
