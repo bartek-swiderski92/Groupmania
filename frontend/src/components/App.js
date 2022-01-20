@@ -28,7 +28,6 @@ function App() {
 
     return (
         <div className="groupmania">
-            {console.log('app.js', userLoggedIn)}
             <BrowserRouter>
                 <Switch>
                     <div>
@@ -49,16 +48,15 @@ function App() {
                                 {userLoggedIn ? <SinglePost userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updatestate={(val) => updatestate(val)} />}
                             </Route>
                             <Route path="/user/:id">
-                                {console.log('entering user', userLoggedIn)}
                                 {userLoggedIn ? <UserProfile userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updatestate={(val) => updatestate(val)} />}
                             </Route>
                             <Route path="/login" updatestate={(val) => updatestate(val)}>
                                 {userLoggedIn ? <Redirect to="/newsfeed" /> : <Login updatestate={(val) => updatestate(val)} />}
                             </Route>
-                            <Route path="/redirect" component={RedirectComponent} userLoggedIn={userLoggedIn} />
                             <Route path="/edit/:id">
                                 <NewPost editPost={true} />
                             </Route>
+                            <Route path="/redirect" component={RedirectComponent} userLoggedIn={userLoggedIn} />
                         </div>
                     </div>
                 </Switch>
