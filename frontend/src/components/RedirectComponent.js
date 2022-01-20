@@ -9,10 +9,8 @@ function RedirectComponent(props) {
     const location = useLocation();
     setTimeout(function () {
         if (location.state.userLoggedIn) {
-            console.log('true')
             history.push('/newsfeed')
         } else {
-            console.log('false')
             history.push('/login')
         }
     }, 3000);
