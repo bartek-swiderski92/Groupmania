@@ -7,7 +7,7 @@ import '../styles/Comment.css';
 function Comment({ comment, media, user }) {
     const token = localStorage.getItem('token');
     function deleteComment() {
-        if (window.confirm("Are you sure you want to delete this post?") === true) {
+        if (window.confirm("Are you sure you want to delete this comment?") === true) {
             console.log(comment.id)
             axios.delete(`${apiUrl}/comments/${comment.id}`, {
                 headers: {
@@ -20,9 +20,7 @@ function Comment({ comment, media, user }) {
                 .catch(err => {
                     console.log(err)
                 })
-        } else {
-            console.log('not')
-        }
+        } 
     }
 
     return (
