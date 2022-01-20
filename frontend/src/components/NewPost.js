@@ -12,7 +12,7 @@ function NewPost({ editPost }) {
 
     const [post, setPosts] = useState([]);
     useEffect(() => {
-        getPosts(api.posts + '/' + document.URL.split('/')[4]).then((res) => {
+        getPosts(api.posts + '/' + document.URL.split('/')[5]).then((res) => {
             setPosts(res)
         })
     }, [])
