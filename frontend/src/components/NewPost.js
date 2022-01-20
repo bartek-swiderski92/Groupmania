@@ -67,7 +67,7 @@ function NewPost({ editPost }) {
             <form action="create-post" className="post-body" onSubmit={submitPost}>
                 <input type="text" id="post-title" placeholder="Post Title" className="new-post-input" defaultValue={editPost ? post.postTitle : ''} />
                 <textarea placeholder="Post Content" className="new-post-input" defaultValue={editPost ? post.postContent : ''} />
-                <input type="file" id="image-url-new-post" placeholder="Image path..." className="new-post-input" />
+                <input type="file" id="image-url-new-post" className="new-post-input" />
                 {/* <Button type="file" className='new-post__button' onClick={attachImage} buttonContent='Click here to add a picture' /> */}
                 <Button type='submit' className='new-post__button' buttonContent='Add Post' />
             </form>
