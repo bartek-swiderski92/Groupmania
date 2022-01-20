@@ -13,7 +13,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import '../styles/App.css';
 
 function App() {
-    const [userLoggedIn, setUserLoggedIn] = useState(false)
+    const [userLoggedIn, setUserLoggedIn] = useState(true)
     useEffect(() => {
         if (localStorage.getItem('token')) {
             setUserLoggedIn(true)
@@ -28,6 +28,7 @@ function App() {
 
     return (
         <div className="groupmania">
+            {console.log('app.js', userLoggedIn)}
             <BrowserRouter>
                 <Switch>
                     <div>
@@ -45,11 +46,11 @@ function App() {
                                 {userLoggedIn ? <NewsFeed userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updatestate={(val) => updatestate(val)} />}
                             </Route>
                             <Route path="/post/:id" >
-                                {userLoggedIn ? <SinglePost userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updatestate={(val) => updatestate(val)}/>}
+                                {userLoggedIn ? <SinglePost userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updatestate={(val) => updatestate(val)} />}
                             </Route>
                             <Route path="/user/:id">
-                                {/* {!userLoggedIn ? <Redirect to="/login" /> :  */}
-                                <UserProfile />
+                                {console.log('entering user', userLoggedIn)}
+                                {userLoggedIn ? <UserProfile userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updatestate={(val) => updatestate(val)} />}
                             </Route>
                             <Route path="/login" updatestate={(val) => updatestate(val)}>
                                 {userLoggedIn ? <Redirect to="/newsfeed" /> : <Login updatestate={(val) => updatestate(val)} />}

@@ -3,7 +3,9 @@ import { getUserDetails, api } from '../main'
 import '../styles/UserProfile.css';
 import Post from './Post';
 
-function UserProfile() {
+function UserProfile(props) {
+    console.log('user profile', props.userLoggedIn)
+
     const [userDetails, setUser] = useState('');
     useEffect(() => {
         getUserDetails(api.users + '/' + document.URL.split('/')[4]).then((res) => {
