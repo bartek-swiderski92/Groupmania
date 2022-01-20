@@ -16,7 +16,7 @@
     font-weight: normal;
 }
 
-.new-comment__input {
+.new-comment__input, form {
     width: 100%;
     border: none;
     font-family: sans-serif;
