@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { apiUrl, appUrl } from '../main';
 import LikeBar from './LikeBar';
@@ -11,6 +11,8 @@ import '../styles/Post.css';
 import '../styles/Main.css';
 
 function Post({ post, user, displayLikes, displayComments }) {
+    const history = useHistory()
+
     const token = localStorage.getItem('token');
 
     function deletePost() {
@@ -28,6 +30,7 @@ function Post({ post, user, displayLikes, displayComments }) {
                     console.log(err)
                 })
         }
+        history.push('/newsfeed')
     }
 
     return (
