@@ -10,16 +10,16 @@ const {
 // } = require('zlib');
 
 exports.createAComment = (req, res, next) => {
-    const commentObject = JSON.parse(req.body.post);
+    const commentObject = req.body;
     const url = req.protocol + '://' + req.get('host')
     const comment = db.Comment.create({
         UserId: res.locals.userId,
         PostId: commentObject.postId,
         commentContent: commentObject.commentContent,
-        media: url + '/images/' + req.file.filename
+        // media: url + '/images/' + req.file.filename
     }).then((post) => {
         res.status(201).json({
-            status: 'Comment has been successfully created!',
+            message: 'Comment has been created successfully!',
             post
         });
     }).catch((error) => {
