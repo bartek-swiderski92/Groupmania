@@ -1,15 +1,43 @@
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+
+import { api, apiUrl, getPosts } from '../main';
+
 import '../styles/NewComment.css';
 import Button from './Button';
 
-function NewComment() {
+function NewComment({ postId }) {
+    const history = useHistory();
+
+    function submitComment(event) {
+        event.preventDefault();
+        const token = localStorage.getItem('token');
+        const [commentContent, commentMedia] = event.target.elements
+        console.log(postId)
+        axios.post(`${apiUrl}/comments/`, {
+            "postId": postId,
+            "commentContent": commentContent.value,
+            "media": commentMedia.value,
+        }, {
+            headers: {
+                "Authorization": `Bearer: ${token}`
+            }
+        })
+            .then(res => {
+                window.alert(res.data.message)
+                history.push(`/post/${postId}`)
+            })
+            .catch(err => console.log(err))
+    }
+
     return (
         <div className="new-comment-wrapper">
-            <h2 className="new-comment__header">Comment the post</h2>
-            <textarea className="new-comment__input" name="newComment" id="newComment" placeholder="Insert your comment here..."></textarea>
-            {/* <input className="new-comment__input" id="image-url-new-comment" type="text" placeholder="Image Path..." /> */}
-            <input type="file" id="image-url-new-post" placeholder="Image path..." className="new-post-input"/>
-            {/* <Button className="new-comment__button" buttonContent="Attach Image" /> */}
-            <Button className="new-comment__button" buttonContent="Create a comment" />
+            <form action="create-comment" className="comment-body" onSubmit={submitComment}>
+                <h2 className="new-comment__header">Comment the post</h2>
+                <textarea className="new-comment__input" name="newComment" id="newComment" placeholder="Insert your comment here..."></textarea>
+                <input type="file" id="image-url-new-post" className="new-post-input" />
+                <Button className="new-comment__button" buttonContent="Create a comment" />
+            </form>
         </div>
     )
 }
