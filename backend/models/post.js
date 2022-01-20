@@ -29,9 +29,6 @@
 // }, {
 //     freezeTableNames: true
 // });
-// // Post.sync({
-// //     force: true
-// // });
 
 // //TODO: belongs to
 // // Post.hasMany(User);
@@ -62,15 +59,25 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             }
         })
-        Post.hasMany(models.Comment, {
-            onDelete: "cascade"
-        });
-        Post.hasMany(models.Like, {
-            onDelete: "cascade"
-        });
-        Post.hasMany(models.ReadPost, {
-            onDelete: "cascade"
-        });
+        Post.hasMany(models.Comment,
+                {
+                onDelete: "cascade", hooks: true
+            }
+        );
+        Post.hasMany(models.Like,
+            {
+                onDelete: "cascade", hooks: true
+            }
+        );
+        Post.hasMany(models.ReadPost, 
+            {
+                onDelete: "cascade", hooks: true
+            }
+        );
     }
+
+    // Post.sync({
+    //     force: true
+    // });
     return Post
 }

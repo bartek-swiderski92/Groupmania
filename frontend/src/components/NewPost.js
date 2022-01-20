@@ -28,10 +28,7 @@ function NewPost({ editPost }) {
         const [postTitle, postContent, postMedia] = event.target.elements;
 
         if (editPost === true) {
-            console.log(post)
-            const id = post.id;
-            alert("this is post id" + id)
-            axios.put(`${apiUrl}/posts/` + id, {
+            axios.put(`${apiUrl}/posts/` + post.id, {
                 "postTitle": postTitle.value,
                 "postContent": postContent.value,
                 "media": postMedia.value
@@ -65,7 +62,7 @@ function NewPost({ editPost }) {
 
     return (
         <div className="new-post-wrapper">
-            {editPost ? <h3>Edit your post!</h3> : <h3>Tell us what's on your mind today!</h3>}
+            {editPost ? <h3>Edit your post:</h3> : <h3>Tell us what's on your mind today!</h3>}
             {/* <h3>Tell us what's on your mind today!</h3> */}
             <form action="create-post" className="post-body" onSubmit={submitPost}>
                 <input type="text" id="post-title" placeholder="Post Title" className="new-post-input" defaultValue={editPost ? post.postTitle : ''} />

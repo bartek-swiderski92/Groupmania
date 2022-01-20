@@ -38,7 +38,6 @@ function NewsFeed(props) {
             setPosts(res)
         })
     }, [])
-    console.log('passed data', props.userLoggedIn)
     if (props.userLoggedIn !== true){
     history.pushState('/login')
     }

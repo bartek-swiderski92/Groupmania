@@ -10,7 +10,6 @@ import '../styles/Main.css'
 import Button from './Button';
 
 function Header({ userLoggedIn, updatestate }) {
-    console.log(userLoggedIn)
     const history = useHistory();
 
     function logout() {

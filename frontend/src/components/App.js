@@ -15,7 +15,6 @@ import '../styles/App.css';
 function App() {
     const [userLoggedIn, setUserLoggedIn] = useState(false)
     useEffect(() => {
-        console.log("app state ", userLoggedIn);
         if (localStorage.getItem('token')) {
             setUserLoggedIn(true)
         } else {
@@ -32,7 +31,7 @@ function App() {
             <BrowserRouter>
                 <Switch>
                     <div>
-                        <Header userLoggedIn={userLoggedIn}  updatestate = {(val)=>updatestate(val)}/>
+                        <Header userLoggedIn={userLoggedIn} updatestate={(val) => updatestate(val)} />
                         <div className="main-content">
                             <React.Suspense fallback={<span>Loading...</span>} />
                             {/* <Route exact path="/" component={NewsFeed} /> */}
@@ -46,7 +45,7 @@ function App() {
                                 {userLoggedIn ? <NewsFeed userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updatestate={(val) => updatestate(val)} />}
                             </Route>
                             <Route path="/post/:id" >
-                                {!userLoggedIn ? <Redirect to="/login" updatestate={(val) => updatestate(val)} /> : <SinglePost />}
+                                {userLoggedIn ? <SinglePost userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updatestate={(val) => updatestate(val)}/>}
                             </Route>
                             <Route path="/user/:id">
                                 {/* {!userLoggedIn ? <Redirect to="/login" /> :  */}
