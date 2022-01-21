@@ -5,7 +5,6 @@ import { apiUrl } from '../main';
 import '../styles/LikeBar.css'
 import Button from './Button';
 
-
 function LikeBar({ likes, postId }) {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
@@ -18,15 +17,12 @@ function LikeBar({ likes, postId }) {
             })
             .catch(err => { console.log(err) })
     }, [likes, postId])
-    // console.log(likesArr)
 
     function isLiked() {
         if (likesArr.indexOf(parseInt(userId)) > -1) { return true } else { return false }
     }
 
-    function submitLike(event) {
-        event.preventDefault();
-        console.log('submitting like');
+    function submitLike() {
         axios.post(`${apiUrl}/likes`,
             { "postId": postId },
             {
@@ -34,14 +30,21 @@ function LikeBar({ likes, postId }) {
                     "Authorization": `Bearer: ${token}`
                 }
             })
-            .then(res => {
-                console.log(res)
+            .then()
+            .catch(err => {
+                window.alert(err)
             })
     }
 
-    function removeLike(event) {
-        event.preventDefault();
-        console.log('removing')
+    function removeLike() {
+        axios.delete(`${apiUrl}/likes/${postId}`, {
+            headers:
+            {
+                "Authorization": `Bearer: ${token}`
+            }
+        })
+            .then()
+            .catch(err => console.log(err))
     }
 
     return (
