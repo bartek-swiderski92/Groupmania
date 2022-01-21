@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-import { api, apiUrl, getPosts } from '../main';
+import { apiUrl } from '../main';
 
 import '../styles/NewComment.css';
 import Button from './Button';
