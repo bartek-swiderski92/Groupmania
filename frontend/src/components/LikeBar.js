@@ -6,7 +6,11 @@ import '../styles/LikeBar.css'
 import Button from './Button';
 
 
-function LikeBar({ likes }) {
+function LikeBar({ likes, postId }) {
+    const token = localStorage.getItem('token');
+
+    
+
     const [getLikes, setLikes] = useState([]);
     useEffect(() => {
         setLikes(likes.map(like => like.id))
@@ -14,22 +18,30 @@ function LikeBar({ likes }) {
 
     function isLiked() {
         const userId = localStorage.getItem('userId');
-        if (getLikes.indexOf(parseInt(userId)) >= 0) { return true } else { return false }
+        if (getLikes.indexOf(parseInt(userId)) > -1) { return true } else { return false }
     }
-    console.log(isLiked())
 
     function submitLike(event) {
         event.preventDefault();
         console.log('submitting like');
-        axios.post({})
+        axios.post(`${apiUrl}/likes`,
+            { "postId": postId },
+            {
+                headers: {
+                    "Authorization": `Bearer: ${token}`
+                }
+            })
+            .then(res => {
+                console.log(res)
+            })
     }
-
+    console.log(likes)
     return (
         <div className="like-bar">
             <Button onClick={submitLike} className={isLiked() ? "liked" : "like"} buttonContent={isLiked() ? "Liked!" : "Like"} />
             {/* <span className="like-bar__number">{likes ? likes + ' People like it!' : 'Be first to like it!'}</span> */}
             <span className="like-bar__number">{(() => {
-                if (!likes) {
+                if (likes.length === 0) {
                     return 'Be first to like it!'
                 } else if (likes.length === 1) {
                     return 'One Person likes it!'
