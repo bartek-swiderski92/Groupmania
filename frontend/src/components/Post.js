@@ -74,7 +74,7 @@ function Post({ post, user, displayLikes, displayComments }) {
 
                     </div>
                 </div>
-                {displayLikes ? <LikeBar likes={post.Likes.length} /> : null}
+                {displayLikes ? <LikeBar likes={post.Likes} /> : null}
 
 
             </div>
