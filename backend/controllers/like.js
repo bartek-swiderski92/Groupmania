@@ -38,7 +38,7 @@ exports.likeAPost = (req, res, next) => {
             })
         } else {
             res.status(500).json({
-                error: 'The post has been already liked!'
+                error: 'The post has been already liked! Please try again later'
             })
         }
     })
