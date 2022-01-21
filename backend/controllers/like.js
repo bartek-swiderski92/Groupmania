@@ -3,7 +3,7 @@ const db = require("../models/index.js");
 exports.getAllLikes = (req, res, next) => {
     db.Like.findAll({
         where: {
-            PostId: req.body.postId
+            PostId: req.params.id
         }
     })
         .then((likes) => {
@@ -11,7 +11,7 @@ exports.getAllLikes = (req, res, next) => {
         })
         .catch((error) => {
             res.status(400).json({
-                error: error
+                error: error + ''
             })
         })
 }
