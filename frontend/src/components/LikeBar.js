@@ -8,6 +8,7 @@ import Button from './Button';
 
 function LikeBar({ likes, postId }) {
     const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
 
     const [likesArr, setLikesArr] = useState([]);
     useEffect(() => {
@@ -20,9 +21,7 @@ function LikeBar({ likes, postId }) {
     // console.log(likesArr)
 
     function isLiked() {
-        //     const userId = localStorage.getItem('userId');
-        //     if (getLikes.indexOf(parseInt(userId)) > -1) { return true } else { return false }
-        return true
+        if (likesArr.indexOf(parseInt(userId)) > -1) { return true } else { return false }
     }
 
     function submitLike(event) {
@@ -39,10 +38,17 @@ function LikeBar({ likes, postId }) {
                 console.log(res)
             })
     }
+
+    function removeLike(event) {
+        event.preventDefault();
+        console.log('removing')
+    }
+
     return (
         <div className="like-bar">
-            <Button onClick={submitLike} className={isLiked() ? "liked" : "like"} buttonContent={isLiked() ? "Liked!" : "Like"} />
-            {/* <span className="like-bar__number">{likes ? likes + ' People like it!' : 'Be first to like it!'}</span> */}
+            {(() => isLiked() ? (<Button onClick={removeLike} className="liked" buttonContent="Liked!" />
+            ) : (<Button onClick={submitLike} className="like" buttonContent="Like" />
+            ))()}
             <span className="like-bar__number">{(() => {
                 if (likes.length === 0) {
                     return 'Be first to like it!'
@@ -52,7 +58,7 @@ function LikeBar({ likes, postId }) {
                     return likes.length + ' people like it!'
                 }
             })()}</span>
-            <button onClick={() => console.log(likesArr)}>Click</button>
+            {/* <button onClick={() => console.log(likesArr)}>Click</button> */}
         </div>
     )
 }
