@@ -1,5 +1,21 @@
 const db = require("../models/index.js");
 
+exports.getAllLikes = (req, res, next) => {
+    db.Like.findAll({
+        where: {
+            PostId: req.body.postId
+        }
+    })
+        .then((likes) => {
+            res.status(200).json(likes)
+        })
+        .catch((error) => {
+            res.status(400).json({
+                error: error
+            })
+        })
+}
+
 exports.likeAPost = (req, res, next) => {
     const likeObject = req.body;
     //Checking for duplicates
