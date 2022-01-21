@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import { api, apiUrl, getPosts } from '../main';
+import { apiUrl } from '../main';
 import '../styles/LikeBar.css'
 import Button from './Button';
 
@@ -9,16 +9,20 @@ import Button from './Button';
 function LikeBar({ likes, postId }) {
     const token = localStorage.getItem('token');
 
-    
-
-    const [getLikes, setLikes] = useState([]);
+    const [likesArr, setLikesArr] = useState([]);
     useEffect(() => {
-        setLikes(likes.map(like => like.id))
-    }, [likes])
+        axios.get(`${apiUrl}/likes/${postId}`)
+            .then(res => {
+                setLikesArr(res.data.map(el => el.UserId))
+            })
+            .catch(err => { console.log(err) })
+    }, [likes, postId])
+    // console.log(likesArr)
 
     function isLiked() {
-        const userId = localStorage.getItem('userId');
-        if (getLikes.indexOf(parseInt(userId)) > -1) { return true } else { return false }
+        //     const userId = localStorage.getItem('userId');
+        //     if (getLikes.indexOf(parseInt(userId)) > -1) { return true } else { return false }
+        return true
     }
 
     function submitLike(event) {
@@ -35,7 +39,6 @@ function LikeBar({ likes, postId }) {
                 console.log(res)
             })
     }
-    console.log(likes)
     return (
         <div className="like-bar">
             <Button onClick={submitLike} className={isLiked() ? "liked" : "like"} buttonContent={isLiked() ? "Liked!" : "Like"} />
@@ -49,6 +52,7 @@ function LikeBar({ likes, postId }) {
                     return likes.length + ' people like it!'
                 }
             })()}</span>
+            <button onClick={() => console.log(likesArr)}>Click</button>
         </div>
     )
 }
