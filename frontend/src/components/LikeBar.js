@@ -12,11 +12,11 @@ function LikeBar({ likes }) {
         setLikes(likes.map(like => like.id))
     }, [likes])
 
-    function checkIfUserLikes() {
+    function isLiked() {
         const userId = localStorage.getItem('userId');
         if (getLikes.indexOf(parseInt(userId)) >= 0) { return true } else { return false }
     }
-    console.log(checkIfUserLikes())
+    console.log(isLiked())
 
     function submitLike(event) {
         event.preventDefault();
@@ -26,7 +26,7 @@ function LikeBar({ likes }) {
 
     return (
         <div className="like-bar">
-            <Button onClick={submitLike} className="like" buttonContent="Like!" />
+            <Button onClick={submitLike} className={isLiked() ? "liked" : "like"} buttonContent={isLiked() ? "Liked!" : "Like"} />
             {/* <span className="like-bar__number">{likes ? likes + ' People like it!' : 'Be first to like it!'}</span> */}
             <span className="like-bar__number">{(() => {
                 if (!likes) {
