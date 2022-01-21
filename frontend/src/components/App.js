@@ -22,8 +22,8 @@ function App() {
         }
     }, [userLoggedIn])
 
-    const updateState = (vlaue) => {
-        setUserLoggedIn(vlaue)
+    const updateState = (value) => {
+        setUserLoggedIn(value)
     }
 
     return (
