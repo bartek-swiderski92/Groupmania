@@ -37,8 +37,6 @@ function Header({ userLoggedIn, updateState }) {
                             </div>
                         </div>
                     )
-                } else if (userLoggedIn === false) {
-                    return <button>BUTTON</button>
                 }
             })()
             }
