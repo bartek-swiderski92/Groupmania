@@ -14,7 +14,6 @@ function SinglePost(props) {
             setPosts(res)
         })
     }, [])
-    console.log('singlepost', props.userLoggedIn);
     if (props.userLoggedIn !== true) {
         history.pushState('/login')
     }
