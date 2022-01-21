@@ -10,8 +10,13 @@ function LikeBar({ likes }) {
     const [getLikes, setLikes] = useState([]);
     useEffect(() => {
         setLikes(likes.map(like => like.id))
-    })
+    }, [likes])
 
+    function checkIfUserLikes() {
+        const userId = localStorage.getItem('userId');
+        if (getLikes.indexOf(parseInt(userId)) >= 0) { return true } else { return false }
+    }
+    console.log(checkIfUserLikes())
 
     function submitLike(event) {
         event.preventDefault();
