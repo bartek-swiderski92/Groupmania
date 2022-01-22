@@ -61,23 +61,23 @@ function UserProfile() {
                             return (
                                 <form onSubmit={() => console.log('updating')} action="update-profile" className="profile-body">
                                     <label htmlFor="firstName">First Name: </label>
-                                    <input id="firstName" type="text" value={userDetails.firstName} />
+                                    <input id="firstName" type="text" defaultValue={userDetails.firstName} />
                                     <label htmlFor="secondName">Second Name: </label>
-                                    <input id="secondName" type="text" value={userDetails.secondName} />
+                                    <input id="secondName" type="text" defaultValue={userDetails.secondName} />
                                     <label htmlFor="email">Email: </label>
-                                    <input id="email" type="text" value={userDetails.email} />
+                                    <input id="email" type="text" defaultValue={userDetails.email} />
                                     <div>
                                         Gender:
-                                        <input id="male" type="radio" value="Male" />
+                                        <input id="male" type="radio" name="gender" value="Male" />
                                         <label htmlFor="male">Male: </label>
-                                        <input id="female" type="radio" value="Female" />
+                                        <input id="female" type="radio" name="gender" value="Female" />
                                         <label htmlFor="female">Female: </label>
-                                        <input id="prefer" type="radio" value="Prefer not to say" />
+                                        <input id="prefer" type="radio" name="gender" value="Prefer not to say" />
                                         <label htmlFor="prefer">Prefer not to say: </label>
                                     </div>
                                     {selectGender()}
                                     <label htmlFor="birthday">Birthday: </label>
-                                    <input id="birthday" type="text" value={userDetails.dob} />
+                                    <input id="birthday" type="text" defaultValue={userDetails.dob} />
                                     <label htmlFor="profilePicture">Profile Picture: </label>
                                     <input id="profilePicture" type="file" />
 
