@@ -22,7 +22,7 @@ button.liked {
     background-color: rgba(82,132,234) 
 }
 
-button.delete, button.edit  {
+button.delete, button.edit, button.submit  {
     padding: 2px 6px;
     margin: 4px 5px 20px;
     font-size: 12px;
@@ -31,17 +31,27 @@ button.delete, button.edit  {
     border: 2px solid rgba(253, 44, 44, 0.678);
     border-radius: 3px;
 }
+
 button.edit {
     border: 2px solid rgb(255, 159, 68);
     color: rgb(255, 159, 68);
 }
 
-button.delete:hover, button.edit:hover {
+button.submit {
+    border: 2px solid rgb(93, 199, 67);
+    color: rgb(93, 199, 67);
+}
+
+button.delete:hover, button.edit:hover, button.submit:hover {
     background-color: rgba(253, 44, 44, 0.678);
     color: white;
 }
 button.edit:hover {
     background-color: rgb(255, 159, 68);
+}
+
+button.submit:hover {
+    background-color:rgb(93, 199, 67);
 }
 
 button.header, button.login{
@@ -50,6 +60,8 @@ button.header, button.login{
     align-self: center;
     margin-left: 5px;
 }
+
+
 
 .new-post__button, .new-comment__button {
     border: none;
