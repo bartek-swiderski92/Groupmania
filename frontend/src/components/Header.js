@@ -20,10 +20,11 @@ function Header({ userLoggedIn, updateState }) {
         history.push({ pathname: '/redirect', state: { userLoggedIn: false } })
         update(false)
     }
-    function update(val) {
 
+    function update(val) {
         updateState(val)
     }
+
     return (
         <header>
             <h1><a className="logo link" href={appUrl}>Groupmania</a></h1>
@@ -32,7 +33,7 @@ function Header({ userLoggedIn, updateState }) {
                     return (
                         <div>
                             <div className="button-container">
-                                <Button buttonContent="My profile" className='header' />
+                                <Button onClick={() => history.push(`/user/${localStorage.getItem('userId')}`)} buttonContent="My profile" className='header' />
                                 <Button buttonContent="Logout" onClick={logout} className='header' />
                             </div>
                         </div>
