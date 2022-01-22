@@ -18,12 +18,12 @@ function LikeBar({ likes, postId }) {
             })
             .catch(err => { console.log(err) })
             .then(() => {
-                console.log(likesArr.indexOf(parseInt(userId)))
-                console.log(likesArr);
+                // console.log(likesArr.indexOf(parseInt(userId)))
+                // console.log(likesArr);
                 if (likesArr.indexOf(parseInt(userId)) >= 0) { setLiked(true) } else {
                     setLiked(false)
                 }
-                console.log(liked)
+                // console.log(liked)
             })
     }, [liked])
 
