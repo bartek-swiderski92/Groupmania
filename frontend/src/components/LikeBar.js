@@ -14,17 +14,16 @@ function LikeBar({ likes, postId }) {
     useEffect(() => {
         axios.get(`${apiUrl}/likes/${postId}`)
             .then(res => {
-                setLikesArr(res.data.map(el => el.UserId))
-            })
-            .catch(err => { console.log(err) })
-            .then(() => {
-                // console.log(likesArr.indexOf(parseInt(userId)))
-                // console.log(likesArr);
-                if (likesArr.indexOf(parseInt(userId)) >= 0) { setLiked(true) } else {
+                const localLikesArr = res.data.map(el => el.UserId)
+                if (localLikesArr.indexOf(parseInt(userId)) >= 0) {
+                    setLiked(true)
+                } else {
                     setLiked(false)
                 }
-                // console.log(liked)
+                setLikesArr(localLikesArr)
+                displayLikes(localLikesArr)
             })
+            .catch(err => { console.log(err) })
     }, [liked])
 
     function submitLike() {
@@ -54,20 +53,23 @@ function LikeBar({ likes, postId }) {
         setLiked(false)
     }
 
+    function displayLikes(array) {
+        const likeSpan = document.querySelector('#likes-span')
+        if (array.length === 0) {
+            likeSpan.textContent = 'Be first to like it!'
+        } else if (array.length === 1) {
+            likeSpan.textContent = 'One Person likes it!'
+        } else {
+            likeSpan.textContent = array.length + ' people like it!'
+        }
+    }
+
     return (
         <div className="like-bar">
             {liked ? (<Button onClick={removeLike} className="liked" buttonContent="Liked!" />
             ) : (<Button onClick={submitLike} className="like" buttonContent="Like" />
             )}
-            <span className="like-bar__number">{(() => {
-                if (likes.length === 0) {
-                    return 'Be first to like it!'
-                } else if (likes.length === 1) {
-                    return 'One Person likes it!'
-                } else {
-                    return likes.length + ' people like it!'
-                }
-            })()}</span>
+            <span id="likes-span" className="like-bar__number"></span>
             {/* <button onClick={() => console.log(likesArr)}>Click</button> */}
         </div>
     )
