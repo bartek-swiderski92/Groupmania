@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getUserDetails, api } from '../main'
+import { getUserDetails, api, apiUrl } from '../main'
 import '../styles/UserProfile.css';
 import Post from './Post';
 import Button from './Button';
+import axios from 'axios';
 
 function UserProfile() {
+    const token = localStorage.getItem('token');
+    
     const [userDetails, setUser] = useState('');
     const [editProfile, setEditProfile] = useState(false)
     useEffect(() => {
@@ -38,11 +41,27 @@ function UserProfile() {
         document.querySelector('#edit-profile-btn').className = 'disabled'
 
     }
+
     function closeForm() {
         setEditProfile(false);
         document.querySelector('#edit-profile-btn').disabled = false
         document.querySelector('#edit-profile-btn').className = 'edit'
     }
+
+    function deleteProfile() {
+        if (window.confirm('Are you sure you want to delete your profile? This cannot be undone!') === true) {
+            axios.delete(`${apiUrl}/users/`, {
+                headers:
+                {
+                    "Authorization": `Bearer: ${token}`
+                }
+            })
+                .then(res => console.log(res))
+                .catch(err => console.log(err))
+        }
+
+    }
+
     function submitProfile(event) {
         event.preventDefault();
         const [firstName, secondName, email, genderMale, genderFemale, genderPrefer, birthday, profilePicture] = event.target.elements
@@ -62,9 +81,11 @@ function UserProfile() {
                 <div className="user-info">
                     {(() => {
                         if (parseInt(localStorage.getItem('userId')) === userDetails.id) {
-                            return <>
-                                <Button onClick={openForm} id="edit-profile-btn" buttonContent='Edit Profile' className="edit" /> <br />
-                            </>
+                            return <div>
+                                <Button onClick={openForm} id="edit-profile-btn" buttonContent='Edit Profile' className="edit" />
+                                <Button onClick={deleteProfile} id="delete-profile-btn" buttonContent='Delete Profile' className="delete" />
+
+                            </div>
                         }
                     }
                     )()}
