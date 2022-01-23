@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -14,6 +15,13 @@ function Post({ post, user, displayLikes, displayComments }) {
     const history = useHistory()
 
     const token = localStorage.getItem('token');
+
+    const [commentsState, setCommentsState] = useState(post.comments);
+
+    function handleChange() {
+        debugger
+        //TODO: add handle change
+    }
 
     function deletePost() {
         if (window.confirm("Are you sure you want to delete this post?") === true) {
@@ -79,7 +87,7 @@ function Post({ post, user, displayLikes, displayComments }) {
 
             </div>
             {displayComments ? (<div className="comment-section">
-                <NewComment postId={post.id} />
+                <NewComment postId={post.id} commentState={handleChange} />
                 {post.Comments.map((comment) => (
                     <Comment key={'comment-' + comment.id} comment={comment} user={post.User} />
                 ))}

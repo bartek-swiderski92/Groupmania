@@ -6,7 +6,7 @@ import { apiUrl } from '../main';
 import '../styles/NewComment.css';
 import Button from './Button';
 
-function NewComment({ postId }) {
+function NewComment({ postId, commentState, }) {
     const history = useHistory();
 
     function submitComment(event) {
@@ -25,7 +25,12 @@ function NewComment({ postId }) {
         })
             .then(res => {
                 window.alert(res.data.message)
-                history.push(`/post/${postId}`)
+                debugger
+                if (window.location.href.includes(`/post/${postId}`)) {
+                    commentState()
+                } else {
+                    history.push(`/post/${postId}`)
+                }
             })
             .catch(err => console.log(err))
     }
