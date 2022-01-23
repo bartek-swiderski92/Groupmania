@@ -6,7 +6,7 @@ import Button from './Button';
 
 function UserProfile() {
     const [userDetails, setUser] = useState('');
-    const [editProfile, setEditProfile] = useState(true)
+    const [editProfile, setEditProfile] = useState(false)
     useEffect(() => {
         getUserDetails(api.users + '/' + document.URL.split('/')[4]).then((res) => {
             setUser(res)
@@ -32,6 +32,23 @@ function UserProfile() {
                 return
         }
     }
+    function openForm() {
+        setEditProfile(true)
+        document.querySelector('#edit-profile-btn').disabled = true
+        document.querySelector('#edit-profile-btn').className = 'disabled'
+
+    }
+    function closeForm() {
+        setEditProfile(false);
+        document.querySelector('#edit-profile-btn').disabled = false
+        document.querySelector('#edit-profile-btn').className = 'edit'
+    }
+    function submitProfile(event) {
+        event.preventDefault();
+        const [firstName, secondName, email, genderMale, genderFemale, genderPrefer, birthday, profilePicture] = event.target.elements
+        // console.log(firstName.value, secondName.value, email.value, gender, birthday.value, profilePicture.value)
+        console.log(genderMale, genderFemale, genderPrefer)
+    }
 
     return (
         <div className="user-profile-wrapper">
@@ -46,7 +63,7 @@ function UserProfile() {
                     {(() => {
                         if (parseInt(localStorage.getItem('userId')) === userDetails.id) {
                             return <>
-                                <Button onClick={() => console.log('click')} buttonContent='Edit Profile' className="edit" /> <br />
+                                <Button onClick={openForm} id="edit-profile-btn" buttonContent='Edit Profile' className="edit" /> <br />
                             </>
                         }
                     }
@@ -59,34 +76,36 @@ function UserProfile() {
                                 Birthday: {userDetails.dob} <br /></>)
                         } else {
                             return (
-                                <form onSubmit={() => console.log('updating')} action="update-profile" className="profile-body">
-                                    <label htmlFor="firstName">First Name: </label>
-                                    <input id="firstName" type="text" defaultValue={userDetails.firstName} />
-                                    <label htmlFor="secondName">Second Name: </label>
-                                    <input id="secondName" type="text" defaultValue={userDetails.secondName} />
-                                    <label htmlFor="email">Email: </label>
-                                    <input id="email" type="text" defaultValue={userDetails.email} />
-                                    <div>
-                                        Gender:
-                                        <input id="male" type="radio" name="gender" value="Male" />
-                                        <label htmlFor="male">Male: </label>
-                                        <input id="female" type="radio" name="gender" value="Female" />
-                                        <label htmlFor="female">Female: </label>
-                                        <input id="prefer" type="radio" name="gender" value="Prefer not to say" />
-                                        <label htmlFor="prefer">Prefer not to say: </label>
-                                    </div>
-                                    {selectGender()}
-                                    <label htmlFor="birthday">Birthday: </label>
-                                    <input id="birthday" type="text" defaultValue={userDetails.dob} />
-                                    <label htmlFor="profilePicture">Profile Picture: </label>
-                                    <input id="profilePicture" type="file" />
+                                <>
+                                    <form onSubmit={submitProfile} action="update-profile" className="profile-body">
+                                        <label htmlFor="firstName">First Name: </label>
+                                        <input id="firstName" type="text" defaultValue={userDetails.firstName} />
+                                        <label htmlFor="secondName">Second Name: </label>
+                                        <input id="secondName" type="text" defaultValue={userDetails.secondName} />
+                                        <label htmlFor="email">Email: </label>
+                                        <input id="email" type="text" defaultValue={userDetails.email} />
+                                        <div>
+                                            Gender:
+                                            <input id="male" type="radio" name="gender" value="Male" />
+                                            <label htmlFor="male">Male: </label>
+                                            <input id="female" type="radio" name="gender" value="Female" />
+                                            <label htmlFor="female">Female: </label>
+                                            <input id="prefer" type="radio" name="gender" value="Prefer not to say" />
+                                            <label htmlFor="prefer">Prefer not to say: </label>
+                                        </div>
+                                        {/* {selectGender()} */}
+                                        <label htmlFor="birthday">Birthday: </label>
+                                        <input id="birthday" type="text" defaultValue={userDetails.dob} />
+                                        <label htmlFor="profilePicture">Profile Picture: </label>
+                                        <input id="profilePicture" type="file" />
 
-                                    <Button onClick={() => console.log('saving profile')} buttonContent="Save Profile" className="submit" />
-                                </form>
+                                        <Button type='submit' buttonContent="Save Profile" className="submit" />
+                                    </form>
+                                    <Button onClick={closeForm} id="cancel-edit-btn" buttonContent="Cancel" className="delete" />
+                                </>
                             )
                         }
                     })()}
-
 
                 </div>
             </div>
@@ -103,7 +122,6 @@ function UserProfile() {
                         <div>No posts</div>
                     }
                 })()}
-
 
             </div>
         </div>
