@@ -10,9 +10,12 @@ function UserProfile({ logout }) {
 
     const [userDetails, setUser] = useState('');
     const [editProfile, setEditProfile] = useState(false)
+    //TODO: Remove state from use effect
     useEffect(() => {
         getUserDetails(api.users + '/' + document.URL.split('/')[4]).then((res) => {
+            debugger
             setUser(res)
+
         })
     }, [])
 
@@ -66,9 +69,10 @@ function UserProfile({ logout }) {
 
     function submitProfile(event) {
         event.preventDefault();
-        const [firstName, secondName, email, genderMale, genderFemale, genderPrefer, birthday, profilePicture] = event.target.elements
+        console.log(event.target.elements)
+        // const [firstName, secondName, email, genderMale, genderFemale, genderPrefer, birthday, profilePicture] = event.target.elements
         // console.log(firstName.value, secondName.value, email.value, gender, birthday.value, profilePicture.value)
-        console.log(genderMale, genderFemale, genderPrefer)
+        // console.log(genderMale, genderFemale, genderPrefer)
     }
 
     return (
@@ -109,11 +113,11 @@ function UserProfile({ logout }) {
                                         <input id="email" type="text" defaultValue={userDetails.email} />
                                         <div>
                                             Gender:
-                                            <input id="male" type="radio" name="gender" value="Male" />
+                                            <input id="male" type="radio" name="gender" checked={userDetails.gender === 'Male'} defaultValue={userDetails.gender} />
                                             <label htmlFor="male">Male: </label>
-                                            <input id="female" type="radio" name="gender" value="Female" />
+                                            <input id="female" type="radio" name="gender" checked={userDetails.gender === 'Female'} defaultValue={userDetails.gender} />
                                             <label htmlFor="female">Female: </label>
-                                            <input id="prefer" type="radio" name="gender" value="Prefer not to say" />
+                                            <input id="prefer" type="radio" name="gender" checked={userDetails.gender === 'Prefer not to say'} defaultValue={userDetails.gender} />
                                             <label htmlFor="prefer">Prefer not to say: </label>
                                         </div>
                                         {/* {selectGender()} */}
