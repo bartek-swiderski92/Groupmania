@@ -8,12 +8,11 @@ import NewPost from './NewPost';
 import UserProfile from './UserProfile';
 import Footer from './Footer';
 import RedirectComponent from './RedirectComponent';
-import { BrowserRouter, Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 // import { BrowserRouter, Switch, Routecls, Redirect } from 'react-router-dom';
 import '../styles/App.css';
 
 function App() {
-    const history = useHistory();
     const [userLoggedIn, setUserLoggedIn] = useState(true)
     useEffect(() => {
         if (localStorage.getItem('token')) {
