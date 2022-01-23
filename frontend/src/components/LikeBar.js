@@ -56,11 +56,11 @@ function LikeBar({ likes, postId }) {
     function displayLikes(array) {
         const likeSpan = document.querySelector('#likes-span')
         if (array.length === 0) {
-            likeSpan.textContent = 'Be first to like it!'
+            return 'Be first to like it!'
         } else if (array.length === 1) {
-            likeSpan.textContent = 'One Person likes it!'
+            return 'One Person likes it!'
         } else {
-            likeSpan.textContent = array.length + ' people like it!'
+            return array.length + ' people like it!'
         }
     }
 
@@ -69,7 +69,7 @@ function LikeBar({ likes, postId }) {
             {liked ? (<Button onClick={removeLike} className="liked" buttonContent="Liked!" />
             ) : (<Button onClick={submitLike} className="like" buttonContent="Like" />
             )}
-            <span id="likes-span" className="like-bar__number"></span>
+            <span id="likes-span" className="like-bar__number">{displayLikes(likesArr)}</span>
             {/* <button onClick={() => console.log(likesArr)}>Click</button> */}
         </div>
     )
