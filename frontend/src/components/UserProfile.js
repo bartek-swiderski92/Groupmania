@@ -5,9 +5,9 @@ import Post from './Post';
 import Button from './Button';
 import axios from 'axios';
 
-function UserProfile() {
+function UserProfile({ logout }) {
     const token = localStorage.getItem('token');
-    
+
     const [userDetails, setUser] = useState('');
     const [editProfile, setEditProfile] = useState(false)
     useEffect(() => {
@@ -39,7 +39,6 @@ function UserProfile() {
         setEditProfile(true)
         document.querySelector('#edit-profile-btn').disabled = true
         document.querySelector('#edit-profile-btn').className = 'disabled'
-
     }
 
     function closeForm() {
@@ -56,11 +55,14 @@ function UserProfile() {
                     "Authorization": `Bearer: ${token}`
                 }
             })
-                .then(res => console.log(res))
+                .then(res => window.alert(res.data.success))
                 .catch(err => console.log(err))
+                .then(logout())
+
         }
 
     }
+
 
     function submitProfile(event) {
         event.preventDefault();

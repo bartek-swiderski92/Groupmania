@@ -9,21 +9,21 @@ import '../styles/Main.css'
 
 import Button from './Button';
 
-function Header({ userLoggedIn, updateState }) {
+function Header({ userLoggedIn, logout }) {
     const history = useHistory();
 
-    function logout() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('userId');
+    // function logout() {
+    //     localStorage.removeItem('token');
+    //     localStorage.removeItem('userName');
+    //     localStorage.removeItem('userId');
 
-        history.push({ pathname: '/redirect', state: { userLoggedIn: false } })
-        update(false)
-    }
+    //     history.push({ pathname: '/redirect', state: { userLoggedIn: false } })
+    //     update(false)
+    // }
 
-    function update(val) {
-        updateState(val)
-    }
+    // function update(val) {
+    //     updateState(val)
+    // }
 
     return (
         <header>

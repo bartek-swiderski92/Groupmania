@@ -28,7 +28,7 @@ function Login(props) {
                 localStorage.setItem('userName', res.data.user.firstName);
                 localStorage.setItem('userId', res.data.user.id);
                 update(true)
-                history.push({ pathname: '/redirect', state: { userLoggedIn: true } })
+                history.push({ pathname: '/newsfeed', state: { userLoggedIn: true } })
             })
     }
 

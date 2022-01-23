@@ -8,11 +8,12 @@ import NewPost from './NewPost';
 import UserProfile from './UserProfile';
 import Footer from './Footer';
 import RedirectComponent from './RedirectComponent';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect, useHistory } from 'react-router-dom';
 // import { BrowserRouter, Switch, Routecls, Redirect } from 'react-router-dom';
 import '../styles/App.css';
 
 function App() {
+    const history = useHistory();
     const [userLoggedIn, setUserLoggedIn] = useState(true)
     useEffect(() => {
         if (localStorage.getItem('token')) {
@@ -26,12 +27,19 @@ function App() {
         setUserLoggedIn(value)
     }
 
+    function logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userId');
+        updateState(false)
+    }
+
     return (
         <div className="groupmania">
             <BrowserRouter>
                 <Switch>
                     <div>
-                        <Header userLoggedIn={userLoggedIn} updateState={(val) => updateState(val)} />
+                        <Header userLoggedIn={userLoggedIn} updateState={(val) => updateState(val)} logout={logout} />
                         <div className="main-content">
                             <React.Suspense fallback={<span>Loading...</span>} />
                             {/* <Route exact path="/" component={NewsFeed} /> */}
@@ -48,7 +56,7 @@ function App() {
                                 {userLoggedIn ? <SinglePost userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updateState={(val) => updateState(val)} />}
                             </Route>
                             <Route path="/user/:id">
-                                {userLoggedIn ? <UserProfile userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updateState={(val) => updateState(val)} />}
+                                {userLoggedIn ? <UserProfile userLoggedIn={userLoggedIn} logout={logout} /> : <Redirect to="/login" updateState={(val) => updateState(val)} />}
                             </Route>
                             <Route path="/login" updateState={(val) => updateState(val)}>
                                 {userLoggedIn ? <Redirect to="/newsfeed" /> : <Login updateState={(val) => updateState(val)} />}
