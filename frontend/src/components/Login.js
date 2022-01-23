@@ -44,8 +44,17 @@ function Login(props) {
             "firstName": capitalizeFirstLetter(firstName.value),
             "secondName": capitalizeFirstLetter(secondName.value)
         }).then(res => {
-            console.log(res)
             alert(res.data.status)
+            axios.post(`${apiUrl}/users/login`, {
+                "email": email.value,
+                "password": password.value,
+            }).then(res => {
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('userName', res.data.user.firstName);
+                localStorage.setItem('userId', res.data.user.id);
+                update(true)
+                history.push({ pathname: '/newsfeed', state: { userLoggedIn: true } })
+            })
         }).catch(error => {
             console.log(error)
         })
