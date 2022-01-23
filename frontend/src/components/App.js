@@ -41,10 +41,6 @@ function App() {
                         <Header userLoggedIn={userLoggedIn} updateState={(val) => updateState(val)} logout={logout} />
                         <div className="main-content">
                             <React.Suspense fallback={<span>Loading...</span>} />
-                            {/* <Route exact path="/" component={NewsFeed} /> */}
-                            {/* <Route path="/newsfeed" component={NewsFeed} /> */}
-                            {/* <Route path="/post/:id" component={SinglePost} /> */}
-                            {/* <Route path="/user/:id" component={UserProfile} /> */}
                             <Route exact path="/">
                                 {!userLoggedIn ? <Redirect to="/login" updateState={(val) => updateState(val)} /> : <NewsFeed userLoggedIn={userLoggedIn} />}
                             </Route>

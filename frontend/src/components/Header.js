@@ -12,19 +12,6 @@ import Button from './Button';
 function Header({ userLoggedIn, logout }) {
     const history = useHistory();
 
-    // function logout() {
-    //     localStorage.removeItem('token');
-    //     localStorage.removeItem('userName');
-    //     localStorage.removeItem('userId');
-
-    //     history.push({ pathname: '/redirect', state: { userLoggedIn: false } })
-    //     update(false)
-    // }
-
-    // function update(val) {
-    //     updateState(val)
-    // }
-
     return (
         <header>
             <h1><a className="logo link" href={appUrl}>Groupmania</a></h1>
