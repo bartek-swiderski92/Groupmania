@@ -64,7 +64,7 @@ function Post({ post, user, displayLikes, displayComments }) {
                             if (parseInt(localStorage.getItem('userId')) === user.id) {
                                 return (<>
                                     <Button onClick={deletePost} className="delete" buttonContent="Delete Post" />
-                                    <Link to={`edit/post/${post.id}`}>
+                                    <Link to={`/edit/post/${post.id}`}>
                                         <Button className="edit" buttonContent="Edit Post" />
                                     </Link>
                                 </>
