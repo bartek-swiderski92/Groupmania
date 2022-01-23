@@ -30,6 +30,7 @@ function Login(props) {
                 update(true)
                 history.push({ pathname: '/newsfeed', state: { userLoggedIn: true } })
             })
+            .catch(err => window.alert(err.response.data.error))
     }
 
     function registerUser(event) {
