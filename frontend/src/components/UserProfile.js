@@ -13,9 +13,7 @@ function UserProfile({ logout }) {
     //TODO: Remove state from use effect
     useEffect(() => {
         getUserDetails(api.users + '/' + document.URL.split('/')[4]).then((res) => {
-            debugger
             setUser(res)
-
         })
     }, [])
 
@@ -42,9 +40,7 @@ function UserProfile({ logout }) {
                 .then(res => window.alert(res.data.success))
                 .catch(err => console.log(err))
                 .then(logout())
-
         }
-
     }
 
 
@@ -71,7 +67,6 @@ function UserProfile({ logout }) {
                             return <div>
                                 <Button onClick={openForm} id="edit-profile-btn" buttonContent='Edit Profile' className="edit" />
                                 <Button onClick={deleteProfile} id="delete-profile-btn" buttonContent='Delete Profile' className="delete" />
-
                             </div>
                         }
                     }
@@ -117,7 +112,6 @@ function UserProfile({ logout }) {
             </div>
             <div className="user-posts">
                 {userDetails.Posts && userDetails.Posts.length ? <h3 className="posts-heading">{userDetails.firstName}'s posts:</h3> : <h3 className="posts-heading">{userDetails.firstName} has no posts</h3>}
-
                 {(() => {
                     if (userDetails.Posts) {
                         return (userDetails.Posts.map((post) => (
