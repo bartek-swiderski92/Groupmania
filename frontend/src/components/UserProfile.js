@@ -4,18 +4,23 @@ import '../styles/UserProfile.css';
 import Post from './Post';
 import Button from './Button';
 import axios from 'axios';
-
+import { useParams } from 'react-router-dom'
 function UserProfile({ logout }) {
     const token = localStorage.getItem('token');
 
     const [userDetails, setUser] = useState('');
     const [editProfile, setEditProfile] = useState(false)
+    let { id } = useParams()
     //TODO: Remove state from use effect
     useEffect(() => {
-        getUserDetails(api.users + '/' + document.URL.split('/')[4]).then((res) => {
-            setUser(res)
+        getUserDetails(api.users + '/' + id).then((res) => {
+            if (res.id === userDetails.id) {
+                return
+            } else {
+                setUser(res)
+            }
         })
-    }, [])
+    }, [id, userDetails.id])
 
     function openForm() {
         setEditProfile(true)
