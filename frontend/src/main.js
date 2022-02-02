@@ -37,12 +37,12 @@ export function ShowPost({ post, displayLikes, displayComments }) {
             {(() => {
                 if (Array.isArray(post)) {
                     return post.map((singlePost) => {
-                        return <Post key={'post-' + singlePost.id} post={singlePost} user={singlePost.User} displayLikes={displayLikes} displayComments={true} />
+                        return <Post key={'post-' + singlePost.id} post={singlePost} user={singlePost.User} displayLikes={displayLikes} displayComments={displayComments} />
                     })
                 } else if (post.status === 404) {
                     return <h2 className='error-message'>{post.message}</h2>
                 } else {
-                    return <Post key={'post-' + post.id} post={post} user={post.User} displayLikes={displayLikes} displayComments={true} />
+                    return <Post key={'post-' + post.id} post={post} user={post.User} displayLikes={displayLikes} displayComments={displayComments} />
                 }
             })()}
         </>
