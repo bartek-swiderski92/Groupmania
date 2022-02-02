@@ -14,6 +14,16 @@ function SinglePost(props) {
             setPosts(res)
         })
     }, [])
+    // const [amountOfComments, setAmountOfComments] = useState(post.Comments.length);
+
+    console.log(props)
+
+    // function refreshComponent() {
+    //     console.log('state in function', amountOfComments)
+    //     setAmountOfComments(post.Comments.length + 1)
+    //     console.log('after setting up the state', amountOfComments);
+    // }
+
     if (props.userLoggedIn !== true) {
         history.pushState('/login')
     }

@@ -13,14 +13,19 @@ import '../styles/Main.css';
 
 function Post({ post, user, displayLikes, displayComments }) {
     const history = useHistory()
-
     const token = localStorage.getItem('token');
+    const [amountOfComments, setAmountOfComments] = useState(post.Comments.length);
 
-    const [commentsState, setCommentsState] = useState(post.comments);
+    useEffect(() => {
+        console.log('inside the use effect', amountOfComments)
+    }, [amountOfComments])
 
-    function handleChange() {
-        debugger
-        //TODO: add handle change
+    console.log('initial state', amountOfComments)
+    
+    function refreshComponent() {
+        console.log('state in function', amountOfComments)
+        setAmountOfComments(post.Comments.length + 1)
+        console.log('after setting up the state', amountOfComments);
     }
 
     function deletePost() {
@@ -87,7 +92,7 @@ function Post({ post, user, displayLikes, displayComments }) {
 
             </div>
             {displayComments ? (<div className="comment-section">
-                <NewComment postId={post.id} commentState={handleChange} />
+                <NewComment postId={post.id} refreshComponent={refreshComponent} />
                 {post.Comments.map((comment) => (
                     <Comment key={'comment-' + comment.id} comment={comment} user={post.User} />
                 ))}
