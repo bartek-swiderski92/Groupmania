@@ -30,26 +30,26 @@ exports.createAComment = (req, res, next) => {
 };
 
 
-// exports.getAllCommentsOfAPost = (req, res, next) => {
-//     Comment.findAll({
-//             where: {
-//                 postId: req.params.id
-//             }
-//         }).then((comments) => {
-//             if (comments) {
-//                 res.status(200).json(comments);
-//             } else {
-//                 res.status(404).json({
-//                     error: 'Comments cannot be found'
-//                 })
-//             }
-//         })
-//         .catch((error) => {
-//             res.status(400).json({
-//                 error: error
-//             })
-//         })
-// }
+exports.getAllCommentsOfAPost = (req, res, next) => {
+    db.Comment.findAll({
+        where: {
+            postId: req.params.id
+        }
+    }).then((comments) => {
+        if (comments) {
+            res.status(200).json(comments);
+        } else {
+            res.status(404).json({
+                error: 'Comments cannot be found'
+            })
+        }
+    })
+        .catch((error) => {
+            res.status(400).json({
+                error: error
+            })
+        })
+}
 
 // exports.removeAllCommentsOfAPost = (req, res, next) => {
 //     Comment.destroy({
