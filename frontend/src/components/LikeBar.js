@@ -5,7 +5,7 @@ import { apiUrl } from '../main';
 import '../styles/LikeBar.css'
 import Button from './Button';
 
-function LikeBar({ likes, postId }) {
+function LikeBar({ postId, readPost, markAsRead, markAsUnread }) {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
 
@@ -68,11 +68,22 @@ function LikeBar({ likes, postId }) {
 
     return (
         <div className="like-bar">
-            {liked ? (<Button onClick={removeLike} className="liked" buttonContent="Liked!" />
-            ) : (<Button onClick={submitLike} className="like" buttonContent="Like" />
-            )}
-            <span id="likes-span" className="like-bar__number">{displayLikes(likesArr)}</span>
-            {/* <button onClick={() => console.log(likesArr)}>Click</button> */}
+            <div>
+                {liked ? (<Button onClick={removeLike} className="liked" buttonContent="Liked!" />
+                ) : (<Button onClick={submitLike} className="like" buttonContent="Like" />
+                )}
+                <span id="likes-span" className="like-bar__number">{displayLikes(likesArr)}</span>
+
+            </div>
+            <div>
+                {readPost() ? (
+                    <button onClick={markAsRead} className={'read'} >Mark as unread</button>
+                ) : (
+                    <button onClick={markAsUnread} className={'read'} >Mark as read</button>
+
+                )}
+
+            </div>
         </div>
     )
 }

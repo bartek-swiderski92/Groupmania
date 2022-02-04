@@ -54,9 +54,16 @@ function Post({ post, user, displayLikes, displayComments }) {
         } else {
             return false
         }
-
     }
-    console.log(checkIfPostIsRead())
+    
+    function markAsRead() {
+        console.log('marking as read')
+    }
+
+    function markAsUnread() {
+        console.log('marking as unread')
+    }
+
 
     return (
         <div className="post-wrapper">
@@ -100,7 +107,7 @@ function Post({ post, user, displayLikes, displayComments }) {
 
                     </div>
                 </div>
-                {displayLikes ? <LikeBar postId={post.id} likes={post.Likes} readPost={checkIfPostIsRead} /> : null}
+                {displayLikes ? <LikeBar postId={post.id} likes={post.Likes} readPost={checkIfPostIsRead} markAsRead={markAsRead} markAsUnread={markAsUnread} /> : null}
 
 
             </div>

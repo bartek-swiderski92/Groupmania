@@ -12,7 +12,7 @@ button.like {
     background-color: rgba(82,132,234, 0.2) ;
 }
 
-button.like {
+button.like, button.read{
     color: black;
     background-color: rgba(82,132,234, 0.2) ;
 }
