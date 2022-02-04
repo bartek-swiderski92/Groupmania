@@ -15,19 +15,29 @@ function Post({ post, user, displayLikes, displayComments }) {
     const history = useHistory()
     const token = localStorage.getItem('token');
     const loggedUsedId = localStorage.getItem('userId')
-    const [amountOfComments, setAmountOfComments] = useState(post.Comments.length);
+    const [postComments, setPostComments] = useState(post.Comments);
     const [readPost, setReadPost] = useState(checkIfPostIsRead())
 
     useEffect(() => {
         console.log('render')
-    }, [readPost])
+    }, [readPost, postComments])
 
     // console.log('initial state', amountOfComments)
 
     function refreshComponent() {
-        // console.log('state in function', amountOfComments)
-        setAmountOfComments(post.Comments.length + 1)
-        // console.log('after setting up the state', amountOfComments);
+        axios.get(`${apiUrl}/comments/post/${post.id}`, {
+            headers: {
+                "Authorization": `Bearer: ${token}`
+            }
+        })
+            .then(res => {
+                debugger
+                setPostComments(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
     }
 
     function deletePost() {
@@ -135,7 +145,7 @@ function Post({ post, user, displayLikes, displayComments }) {
             {
                 displayComments ? (<div className="comment-section">
                     <NewComment postId={post.id} refreshComponent={refreshComponent} />
-                    {post.Comments.map((comment) => (
+                    {postComments.map((comment) => (
                         <Comment key={'comment-' + comment.id} comment={comment} user={post.User} />
                     ))}
                 </div>) : null
