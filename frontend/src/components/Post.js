@@ -17,15 +17,15 @@ function Post({ post, user, displayLikes, displayComments }) {
     const [amountOfComments, setAmountOfComments] = useState(post.Comments.length);
 
     useEffect(() => {
-        console.log('inside the use effect', amountOfComments)
+        // console.log('inside the use effect', amountOfComments)
     }, [amountOfComments])
 
-    console.log('initial state', amountOfComments)
+    // console.log('initial state', amountOfComments)
     
     function refreshComponent() {
-        console.log('state in function', amountOfComments)
+        // console.log('state in function', amountOfComments)
         setAmountOfComments(post.Comments.length + 1)
-        console.log('after setting up the state', amountOfComments);
+        // console.log('after setting up the state', amountOfComments);
     }
 
     function deletePost() {

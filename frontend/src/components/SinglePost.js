@@ -16,7 +16,6 @@ function SinglePost(props) {
     }, [])
     // const [amountOfComments, setAmountOfComments] = useState(post.Comments.length);
 
-    console.log(props)
 
     // function refreshComponent() {
     //     console.log('state in function', amountOfComments)
