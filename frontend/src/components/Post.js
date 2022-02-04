@@ -14,6 +14,7 @@ import '../styles/Main.css';
 function Post({ post, user, displayLikes, displayComments }) {
     const history = useHistory()
     const token = localStorage.getItem('token');
+    const loggedUsedId = localStorage.getItem('userId')
     const [amountOfComments, setAmountOfComments] = useState(post.Comments.length);
 
     useEffect(() => {
@@ -21,7 +22,7 @@ function Post({ post, user, displayLikes, displayComments }) {
     }, [amountOfComments])
 
     // console.log('initial state', amountOfComments)
-    
+
     function refreshComponent() {
         // console.log('state in function', amountOfComments)
         setAmountOfComments(post.Comments.length + 1)
@@ -46,9 +47,20 @@ function Post({ post, user, displayLikes, displayComments }) {
         history.push('/newsfeed')
     }
 
+    function checkIfPostIsRead() {
+        const readByUsers = post.ReadPosts.map(el => el.UserId)
+        if (readByUsers.indexOf(parseInt(loggedUsedId)) !== -1) {
+            return true
+        } else {
+            return false
+        }
+
+    }
+    console.log(checkIfPostIsRead())
+
     return (
         <div className="post-wrapper">
-            <div className="post">
+            <div className={checkIfPostIsRead() ? 'post read' : 'post unread'} >
                 <div className="post-section">
                     <div className="post-details">
                         <div className="post-details__user-picture">
@@ -72,6 +84,7 @@ function Post({ post, user, displayLikes, displayComments }) {
                     </div>) : null} */}
 
                     <div className="post__content">{post.postContent}</div>
+
                     <div>
                         {(() => {
                             if (parseInt(localStorage.getItem('userId')) === user.id) {
@@ -87,18 +100,20 @@ function Post({ post, user, displayLikes, displayComments }) {
 
                     </div>
                 </div>
-                {displayLikes ? <LikeBar postId={post.id} likes={post.Likes} /> : null}
+                {displayLikes ? <LikeBar postId={post.id} likes={post.Likes} readPost={checkIfPostIsRead} /> : null}
 
 
             </div>
-            {displayComments ? (<div className="comment-section">
-                <NewComment postId={post.id} refreshComponent={refreshComponent} />
-                {post.Comments.map((comment) => (
-                    <Comment key={'comment-' + comment.id} comment={comment} user={post.User} />
-                ))}
-            </div>) : null}
+            {
+                displayComments ? (<div className="comment-section">
+                    <NewComment postId={post.id} refreshComponent={refreshComponent} />
+                    {post.Comments.map((comment) => (
+                        <Comment key={'comment-' + comment.id} comment={comment} user={post.User} />
+                    ))}
+                </div>) : null
+            }
 
-        </div>
+        </div >
     )
 }
 
