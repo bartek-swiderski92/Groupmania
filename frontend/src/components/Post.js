@@ -16,10 +16,11 @@ function Post({ post, user, displayLikes, displayComments }) {
     const token = localStorage.getItem('token');
     const loggedUsedId = localStorage.getItem('userId')
     const [amountOfComments, setAmountOfComments] = useState(post.Comments.length);
+    const [readPost, setReadPost] = useState(checkIfPostIsRead())
 
     useEffect(() => {
-        // console.log('inside the use effect', amountOfComments)
-    }, [amountOfComments])
+        console.log('render')
+    }, [readPost])
 
     // console.log('initial state', amountOfComments)
 
@@ -48,6 +49,7 @@ function Post({ post, user, displayLikes, displayComments }) {
     }
 
     function checkIfPostIsRead() {
+        // debugger
         const readByUsers = post.ReadPosts.map(el => el.UserId)
         if (readByUsers.indexOf(parseInt(loggedUsedId)) !== -1) {
             return true
@@ -55,13 +57,32 @@ function Post({ post, user, displayLikes, displayComments }) {
             return false
         }
     }
-    
+
     function markAsRead() {
-        console.log('marking as read')
+        axios.post(`${apiUrl}/readPosts/${post.id}`, {}, {
+            headers: {
+                "Authorization": `Bearer: ${token}`
+            }
+        })
+            .then((res) => {
+                console.log(readPost);
+                setReadPost(true)
+                console.log(readPost);
+
+            }
+            )
+            .catch(err => console.log(err))
     }
 
     function markAsUnread() {
-        console.log('marking as unread')
+        axios.delete(`${apiUrl}/readPosts/${post.id}`, {
+            headers: {
+                "Authorization": `Bearer: ${token}`
+            }
+
+        })
+            .then((res) => setReadPost(false))
+            .catch(err => console.log(err))
     }
 
 
@@ -107,7 +128,7 @@ function Post({ post, user, displayLikes, displayComments }) {
 
                     </div>
                 </div>
-                {displayLikes ? <LikeBar postId={post.id} likes={post.Likes} readPost={checkIfPostIsRead} markAsRead={markAsRead} markAsUnread={markAsUnread} /> : null}
+                {displayLikes ? <LikeBar postId={post.id} likes={post.Likes} checkIfPostIsRead={checkIfPostIsRead} markAsRead={markAsRead} markAsUnread={markAsUnread} readPost={readPost} /> : null}
 
 
             </div>
