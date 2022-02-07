@@ -103,7 +103,7 @@ function Post({ post, user, displayLikes, displayComments }) {
 
 
     return (
-        <div id={`post-wrapper-id-${post.id}`} className={readPost ? 'post-wrapper post-wrapper--read' : 'post-wrapper post-wrapper--unread'}>
+        <div data-post-id={post.id} id={`post-wrapper-id-${post.id}`} className={readPost ? 'post-wrapper post-wrapper--read' : 'post-wrapper post-wrapper--unread'}>
             <div className="post" >
                 <div className="post-section">
                     <div className="post-details">
