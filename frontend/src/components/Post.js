@@ -15,15 +15,20 @@ function Post({ post, user, displayLikes, displayComments }) {
     const history = useHistory()
     const token = localStorage.getItem('token');
     const loggedUsedId = localStorage.getItem('userId');
-    // const postWrapperSelector = document.querySelector(`#post-wrapper-id-${post.id}`);
     const [postComments, setPostComments] = useState(post.Comments);
-    const [readPost, setReadPost] = useState(checkIfPostIsRead())
-
+    const [readPost, setReadPost] = useState('')
+    console.log(post)
     useEffect(() => {
-        console.log('render')
     }, [readPost, postComments])
 
-    // console.log('initial state', amountOfComments)
+    useEffect(() => {
+        if (!readPost && document.URL.split('/').indexOf('post') !== -1) {
+            // console.log('effect marking')
+            // markAsRead()
+            refreshComponent()
+        }
+    }, [])
+
 
     function refreshComponent() {
         axios.get(`${apiUrl}/comments/post/${post.id}`, {
@@ -32,7 +37,6 @@ function Post({ post, user, displayLikes, displayComments }) {
             }
         })
             .then(res => {
-                debugger
                 setPostComments(res.data)
             })
             .catch(err => {
@@ -40,7 +44,6 @@ function Post({ post, user, displayLikes, displayComments }) {
             })
 
     }
-
     function deletePost() {
         if (window.confirm("Are you sure you want to delete this post?") === true) {
             axios.delete(`${apiUrl}/posts/${post.id}`, {
@@ -60,7 +63,6 @@ function Post({ post, user, displayLikes, displayComments }) {
     }
 
     function checkIfPostIsRead() {
-        // debugger
         const readByUsers = post.ReadPosts.map(el => el.UserId)
         if (readByUsers.indexOf(parseInt(loggedUsedId)) !== -1) {
             return true
@@ -75,9 +77,8 @@ function Post({ post, user, displayLikes, displayComments }) {
                 "Authorization": `Bearer: ${token}`
             }
         })
-            .then((res) => {
+            .then(() => {
                 const postWrapperSelector = document.querySelector(`#post-wrapper-id-${post.id}`);
-
                 setReadPost(true)
                 postWrapperSelector.classList.add('post-wrapper--read')
                 postWrapperSelector.classList.remove('post-wrapper--unread')
@@ -93,9 +94,8 @@ function Post({ post, user, displayLikes, displayComments }) {
             }
 
         })
-            .then((res) => {
+            .then(() => {
                 const postWrapperSelector = document.querySelector(`#post-wrapper-id-${post.id}`);
-
                 setReadPost(false)
                 postWrapperSelector.classList.remove('post-wrapper--read')
                 postWrapperSelector.classList.add('post-wrapper--unread')
@@ -105,7 +105,7 @@ function Post({ post, user, displayLikes, displayComments }) {
 
 
     return (
-        <div id={`post-wrapper-id-${post.id}`} className={readPost ? 'post-wrapper post-wrapper--unread' : 'post-wrapper post-wrapper--unread'}>
+        <div id={`post-wrapper-id-${post.id}`} className={readPost ? 'post-wrapper post-wrapper--read' : 'post-wrapper post-wrapper--unread'}>
             <div className="post" >
                 <div className="post-section">
                     <div className="post-details">
@@ -153,7 +153,7 @@ function Post({ post, user, displayLikes, displayComments }) {
             {
                 displayComments ? (<div className="comment-section">
                     {postComments.map((comment) => (
-                        <Comment key={'comment-' + comment.id} comment={comment} user={post.User} />
+                        <Comment key={'comment-' + comment.id} comment={comment} user={post.User} refreshComponent={refreshComponent} />
                     ))}
                     <NewComment postId={post.id} refreshComponent={refreshComponent} />
                 </div>) : null
