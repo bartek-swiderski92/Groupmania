@@ -4,7 +4,7 @@ import { apiUrl, appUrl } from '../main';
 import Button from './Button';
 import '../styles/Comment.css';
 
-function Comment({ comment, media, user }) {
+function Comment({ comment, media, user, refreshComponent }) {
     const token = localStorage.getItem('token');
     function deleteComment() {
         if (window.confirm("Are you sure you want to delete this comment?") === true) {
@@ -16,11 +16,13 @@ function Comment({ comment, media, user }) {
             })
                 .then(res => {
                     console.log(res)
+                    refreshComponent()
+
                 })
                 .catch(err => {
                     console.log(err)
                 })
-        } 
+        }
     }
 
     return (
