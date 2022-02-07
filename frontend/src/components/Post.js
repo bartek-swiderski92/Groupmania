@@ -152,10 +152,10 @@ function Post({ post, user, displayLikes, displayComments }) {
             </div>
             {
                 displayComments ? (<div className="comment-section">
-                    <NewComment postId={post.id} refreshComponent={refreshComponent} />
                     {postComments.map((comment) => (
                         <Comment key={'comment-' + comment.id} comment={comment} user={post.User} />
                     ))}
+                    <NewComment postId={post.id} refreshComponent={refreshComponent} />
                 </div>) : null
             }
 
