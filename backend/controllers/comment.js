@@ -34,7 +34,9 @@ exports.getAllCommentsOfAPost = (req, res, next) => {
     db.Comment.findAll({
         where: {
             postId: req.params.id
-        }
+        },
+        include: [db.User]
+
     }).then((comments) => {
         if (comments) {
             res.status(200).json(comments);
