@@ -15,7 +15,7 @@ function Post({ post, user, displayLikes, displayComments }) {
     const history = useHistory()
     const token = localStorage.getItem('token');
     const loggedUsedId = localStorage.getItem('userId');
-    const postWrapperSelector = document.querySelector('.post-wrapper');
+    // const postWrapperSelector = document.querySelector(`#post-wrapper-id-${post.id}`);
     const [postComments, setPostComments] = useState(post.Comments);
     const [readPost, setReadPost] = useState(checkIfPostIsRead())
 
@@ -76,9 +76,9 @@ function Post({ post, user, displayLikes, displayComments }) {
             }
         })
             .then((res) => {
-                console.log(readPost);
+                const postWrapperSelector = document.querySelector(`#post-wrapper-id-${post.id}`);
+
                 setReadPost(true)
-                console.log(readPost);
                 postWrapperSelector.classList.add('post-wrapper--read')
                 postWrapperSelector.classList.remove('post-wrapper--unread')
             }
@@ -94,6 +94,8 @@ function Post({ post, user, displayLikes, displayComments }) {
 
         })
             .then((res) => {
+                const postWrapperSelector = document.querySelector(`#post-wrapper-id-${post.id}`);
+
                 setReadPost(false)
                 postWrapperSelector.classList.remove('post-wrapper--read')
                 postWrapperSelector.classList.add('post-wrapper--unread')
@@ -103,7 +105,7 @@ function Post({ post, user, displayLikes, displayComments }) {
 
 
     return (
-        <div className={readPost ? 'post-wrapper post-wrapper--unread' : 'post-wrapper post-wrapper--unread'}>
+        <div id={`post-wrapper-id-${post.id}`} className={readPost ? 'post-wrapper post-wrapper--unread' : 'post-wrapper post-wrapper--unread'}>
             <div className="post" >
                 <div className="post-section">
                     <div className="post-details">
