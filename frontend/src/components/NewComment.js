@@ -7,7 +7,6 @@ import '../styles/NewComment.css';
 import Button from './Button';
 
 function NewComment({ postId, refreshComponent }) {
-    const history = useHistory();
 
     function submitComment(event) {
         event.preventDefault();
@@ -25,16 +24,10 @@ function NewComment({ postId, refreshComponent }) {
         })
             .then(res => {
                 window.alert(res.data.message)
-                // debugger
-                if (window.location.href.includes(`/post/${postId}`)) {
-                    refreshComponent()
-                } else {
-                    history.push(`/post/${postId}`)
-                }
+                refreshComponent()
             })
             .catch(err => console.log(err))
     }
-    //TODO: update comment array in order to re-render
 
     return (
         <div className="new-comment-wrapper">
