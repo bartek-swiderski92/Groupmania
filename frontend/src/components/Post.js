@@ -16,16 +16,14 @@ function Post({ post, user, displayLikes, displayComments }) {
     const token = localStorage.getItem('token');
     const loggedUsedId = localStorage.getItem('userId');
     const [postComments, setPostComments] = useState(post.Comments);
-    const [readPost, setReadPost] = useState('')
-    console.log(post)
+    const [readPost, setReadPost] = useState(checkIfPostIsRead())
     useEffect(() => {
     }, [readPost, postComments])
 
     useEffect(() => {
         if (!readPost && document.URL.split('/').indexOf('post') !== -1) {
-            // console.log('effect marking')
-            // markAsRead()
-            refreshComponent()
+            console.log('effect marking')
+            markAsRead()
         }
     }, [])
 
