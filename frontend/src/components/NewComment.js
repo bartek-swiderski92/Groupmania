@@ -23,7 +23,9 @@ function NewComment({ postId, refreshComponent }) {
             }
         })
             .then(res => {
-                window.alert(res.data.message)
+                window.alert(res.data.message);
+                commentContent.value = '';
+                commentMedia.value = '';
                 refreshComponent()
             })
             .catch(err => console.log(err))
