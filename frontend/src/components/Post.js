@@ -21,9 +21,15 @@ function Post({ post, user, displayLikes, displayComments }) {
     }, [readPost, postComments])
 
     useEffect(() => {
+        const postWrapperSelector = document.querySelector(`#post-wrapper-id-${post.id}`);
+        if (!readPost) {
+            postWrapperSelector.addEventListener('click', markAsRead)
+
+        }
         if (!readPost && document.URL.split('/').indexOf('post') !== -1) {
             console.log('effect marking')
             markAsRead()
+
         }
     }, [])
 
@@ -80,6 +86,8 @@ function Post({ post, user, displayLikes, displayComments }) {
                 setReadPost(true)
                 postWrapperSelector.classList.add('post-wrapper--read')
                 postWrapperSelector.classList.remove('post-wrapper--unread')
+                postWrapperSelector.removeEventListener('click', markAsRead);
+
             }
             )
             .catch(err => console.log(err))
@@ -100,7 +108,6 @@ function Post({ post, user, displayLikes, displayComments }) {
             })
             .catch(err => console.log(err))
     }
-
 
     return (
         <div data-post-id={post.id} id={`post-wrapper-id-${post.id}`} className={readPost ? 'post-wrapper post-wrapper--read' : 'post-wrapper post-wrapper--unread'}>
@@ -153,7 +160,7 @@ function Post({ post, user, displayLikes, displayComments }) {
                     {postComments.map((comment) => (
                         <Comment key={'comment-' + comment.id} comment={comment} user={post.User} refreshComponent={refreshComponent} />
                     ))}
-                    <NewComment postId={post.id} refreshComponent={refreshComponent} />
+                    <NewComment postId={post.id} refreshComponent={refreshComponent} markAsRead={markAsRead} readPost={readPost} />
                 </div>) : null
             }
 
