@@ -46,6 +46,9 @@ function App() {
                             </Route>
                             <Route path="/newsfeed" >
                                 {userLoggedIn ? <NewsFeed userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updateState={(val) => updateState(val)} />}
+                            </Route>                            
+                            <Route path="/unread" >
+                                {userLoggedIn ? <NewsFeed userLoggedIn={userLoggedIn} unread={true}/> : <Redirect to="/login" updateState={(val) => updateState(val)} />}
                             </Route>
                             <Route path="/post/:id" >
                                 {userLoggedIn ? <SinglePost userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updateState={(val) => updateState(val)} />}
