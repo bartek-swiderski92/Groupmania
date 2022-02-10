@@ -38,7 +38,9 @@ function LikeBar({ postId, checkIfPostIsRead, markAsRead, markAsUnread, readPost
                 setLiked(true)
             )
             .catch(err => {
-                window.alert(err)
+                if (err.status.data === 403) {
+                    
+                }
             })
     }
 
@@ -52,7 +54,7 @@ function LikeBar({ postId, checkIfPostIsRead, markAsRead, markAsUnread, readPost
             .then(() =>
                 setLiked(false)
             )
-            .catch(err => console.log(err))
+            .catch(err => console.log(err.response.status))
     }
 
     function displayLikes(array) {

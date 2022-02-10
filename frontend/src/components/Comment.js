@@ -24,7 +24,6 @@ function Comment({ comment, media, user, refreshComponent }) {
                 })
         }
     }
-    console.log(comment)
     return (
         <div className="comment-wrapper">
             <div className="comment">

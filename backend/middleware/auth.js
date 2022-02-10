@@ -12,8 +12,9 @@ module.exports = (req, res, next) => {
             next();
         }
     } catch (error) {
-        res.status(401).json({
-            error: ('Authorization error: ' + error)
+        res.status(403).json({
+            status: 403,
+            message: 'Authorization error: ' + error
         });
     }
 };
