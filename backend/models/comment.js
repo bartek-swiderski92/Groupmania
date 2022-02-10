@@ -30,9 +30,6 @@
 //     freezeTableNames: true
 // });
 // //TODO: belongs to
-// // Comment.sync({
-// //     force: true
-// // });
 // module.exports = Comment;
 
 
@@ -50,14 +47,21 @@ module.exports = (sequelize, DataTypes) => {
     Comment.associate = models => {
         Comment.belongsTo(models.User, {
             foreignKey: {
-                allowNull: false
-            }
+                allowNull: false, name: "UserId"
+            },
+            onDelete: "CASCADE",
+            foreignKeyConstrains: true
         })
         Comment.belongsTo(models.Post, {
             foreignKey: {
-                allowNull: false
-            }
+                allowNull: false, name: "PostId"
+            },
+            onDelete: "CASCADE",
+            foreignKeyConstrains: true
         })
     }
     return Comment
 }
+// Comment.sync({
+//     force: true
+// });

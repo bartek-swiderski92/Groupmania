@@ -36,12 +36,16 @@ module.exports = (sequelize, DataTypes) => {
         Like.belongsTo(models.User, {
             foreignKey: {
                 allowNull: false
-            }
+            },
+            onDelete: "CASCADE",
+            foreignKeyConstrains: true
         })
         Like.belongsTo(models.Post, {
             foreignKey: {
                 allowNull: false
-            }
+            },
+            onDelete: "CASCADE",
+            foreignKeyConstrains: true
         })
     }
     return Like

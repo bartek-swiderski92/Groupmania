@@ -57,21 +57,29 @@ module.exports = (sequelize, DataTypes) => {
         Post.belongsTo(models.User, {
             foreignKey: {
                 allowNull: false
-            }
+            },
+            onDelete: "CASCADE",
+            foreignKeyConstrains: true
         })
         Post.hasMany(models.Comment,
-                {
-                onDelete: "cascade", hooks: true
+            {
+                onDelete: "CASCADE",
+                foreignKeyConstrains: true
+
             }
         );
         Post.hasMany(models.Like,
             {
-                onDelete: "cascade", hooks: true
+                onDelete: "CASCADE",
+                foreignKeyConstrains: true
+
             }
         );
-        Post.hasMany(models.ReadPost, 
+        Post.hasMany(models.ReadPost,
             {
-                onDelete: "cascade", hooks: true
+                onDelete: "CASCADE",
+                foreignKeyConstrains: true
+
             }
         );
     }
