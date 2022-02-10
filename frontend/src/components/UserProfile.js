@@ -11,7 +11,6 @@ function UserProfile({ logout }) {
     const [userDetails, setUser] = useState('');
     const [editProfile, setEditProfile] = useState(false)
     let { id } = useParams()
-    //TODO: Remove state from use effect
     useEffect(() => {
         getUserDetails(api.users + '/' + id).then((res) => {
             if (res.id === userDetails.id) {
@@ -80,7 +79,6 @@ function UserProfile({ logout }) {
                         if (!editProfile) {
                             return (<>
                                 Email: {userDetails.email} <br />
-                                Gender: {userDetails.gender}  <br />
                                 Birthday: {userDetails.dob} <br /></>)
                         } else {
                             return (
@@ -92,15 +90,6 @@ function UserProfile({ logout }) {
                                         <input id="secondName" type="text" defaultValue={userDetails.secondName} />
                                         <label htmlFor="email">Email: </label>
                                         <input id="email" type="text" defaultValue={userDetails.email} />
-                                        <div>
-                                            Gender:
-                                            <input id="male" type="radio" name="gender" checked={userDetails.gender === 'Male'} defaultValue={userDetails.gender} />
-                                            <label htmlFor="male">Male: </label>
-                                            <input id="female" type="radio" name="gender" checked={userDetails.gender === 'Female'} defaultValue={userDetails.gender} />
-                                            <label htmlFor="female">Female: </label>
-                                            <input id="prefer" type="radio" name="gender" checked={userDetails.gender === 'Prefer not to say'} defaultValue={userDetails.gender} />
-                                            <label htmlFor="prefer">Prefer not to say: </label>
-                                        </div>
                                         <label htmlFor="birthday">Birthday: </label>
                                         <input id="birthday" type="text" defaultValue={userDetails.dob} />
                                         <label htmlFor="profilePicture">Profile Picture: </label>
