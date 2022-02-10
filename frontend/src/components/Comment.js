@@ -24,16 +24,16 @@ function Comment({ comment, media, user, refreshComponent }) {
                 })
         }
     }
-
+    console.log(comment)
     return (
         <div className="comment-wrapper">
             <div className="comment">
                 <div className="comment-details">
                     <div className="comment-details__user-picture">
                         {/*TODO: add profile picture handling*/}
-                        <a className="link" href={appUrl + 'user/' + comment.UserId}><img src={require('../media/default-picture.png').default} alt={user.firstName + ' ' + user.secondName + "'s profile picture"} /></a></div>
+                        <a className="link" href={appUrl + 'user/' + comment.UserId}><img src={require('../media/default-picture.png').default} alt={comment.User.firstName + ' ' + comment.User.secondName + "'s profile picture"} /></a></div>
                     <div className="comment-details__user-name">
-                        <a className="link" href={appUrl + 'user/' + comment.UserId}>{user.firstName + ' ' + user.secondName}</a>
+                        <a className="link" href={appUrl + 'user/' + comment.UserId}>{comment.User.firstName + ' ' + comment.User.secondName}</a>
                     </div>
                 </div>
                 <div className="comment-content">

@@ -13,7 +13,7 @@ const { post } = require('../routes/post');
 
 exports.getAllPosts = (req, res, next) => {
     db.Post.findAll({
-        include: [db.User, db.Comment, db.Like, db.ReadPost]
+        include: [db.User, { model: db.Comment, include: db.User }, db.Like, db.ReadPost]
         //TODO: add user + comment
     }).then((posts) => {
         res.status(200).json(posts);
@@ -30,7 +30,7 @@ exports.getOnePost = (req, res, next) => {
         where: {
             id: req.params.id
         },
-        include: [db.User, db.Comment, db.Like, db.ReadPost]
+        include: [db.User, { model: db.Comment, include: db.User }, db.Like, db.ReadPost]
         // attributes: {
         //     exclude: ['userUserId']
         // }
