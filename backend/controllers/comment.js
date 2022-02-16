@@ -53,26 +53,6 @@ exports.getAllCommentsOfAPost = (req, res, next) => {
         })
 }
 
-// exports.removeAllCommentsOfAPost = (req, res, next) => {
-//     Comment.destroy({
-//             where: {
-//                 postId: req.params.id
-//             }
-//         }).then((comments) => {
-//             if (comments) {
-//                 res.status(200).json('Comments have been successfully removed');
-//             } else {
-//                 res.status(404).json('No comments to delete');
-//             }
-//         })
-//         .catch((error) => {
-//             res.status(400).json({
-//                 error: error
-//             })
-//         })
-// }
-
-
 exports.editComment = (req, res, next) => {
     const commentObject = req.body
     db.Comment.findOne({
