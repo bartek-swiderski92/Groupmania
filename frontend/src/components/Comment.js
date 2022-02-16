@@ -5,7 +5,7 @@ import Button from './Button';
 import '../styles/Comment.css';
 import '../styles/NewComment.css';
 
-function Comment({ comment, media, user, refreshComponent }) {
+function Comment({ comment, media, refreshComponent }) {
     const token = localStorage.getItem('token');
     function deleteComment() {
         if (window.confirm("Are you sure you want to delete this comment?") === true) {
@@ -33,7 +33,6 @@ function Comment({ comment, media, user, refreshComponent }) {
         const editBtn = document.querySelector(`#edit-btn-${comment.id}`)
 
         if (editable === true) {
-            console.log(true)
             commentContentEl.style.display = "none"
             editCommentEl.style.display = "block"
             deleteBtn.disabled = true
@@ -41,7 +40,6 @@ function Comment({ comment, media, user, refreshComponent }) {
             deleteBtn.className = 'disabled'
             editBtn.className = 'disabled'
         } else {
-            console.log(false)
             commentContentEl.style.display = "block"
             editCommentEl.style.display = "none"
             deleteBtn.disabled = false
@@ -53,8 +51,33 @@ function Comment({ comment, media, user, refreshComponent }) {
 
     function submitComment(event) {
         event.preventDefault();
+        displayEdit(false);
+        const token = localStorage.getItem('token');
+        const [commentContent, commentMedia] = event.target.elements;
+        axios.put(`${apiUrl}/comments/${comment.id}`, {
+            "commentContent": commentContent.value,
+            "media": commentMedia.value
+        }, {
+            headers: {
+                "Authorization": `Bearer: ${token}`
+            }
+        })
+            .then(() => {
+                refreshComponent()
+            })
+            .catch(err => {
+                console.log(err)
+
+            })
+    }
+
+    function cancelEdition(event) {
+        //TODO: finish edition
+        event.preventDefault();
+        const [commentContent, commentMedia] = event.target.elements;
+        commentContent.value = comment.commentContent
+        commentMedia.value = comment.media
         displayEdit(false)
-        const token = localStorage.getItem('token')
     }
 
     return (
@@ -81,7 +104,8 @@ function Comment({ comment, media, user, refreshComponent }) {
                         <textarea className="new-comment__input" name="newComment" id="newComment" defaultValue={comment.commentContent}>
                         </textarea>
                         <input type="file" id="image-url-new-post" className="new-post-input" />
-                        <Button className="new-comment__button" buttonContent="Save" />
+                        <Button className="submit" buttonContent="Save" />
+                        <Button onClick={cancelEdition} className="delete" buttonContent="Cancel" />
                     </form>
                 </div>
 
