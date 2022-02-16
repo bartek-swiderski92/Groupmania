@@ -50,10 +50,26 @@ function UserProfile({ logout }) {
 
     function submitProfile(event) {
         event.preventDefault();
-        console.log(event.target.elements)
-        // const [firstName, secondName, email, genderMale, genderFemale, genderPrefer, birthday, profilePicture] = event.target.elements
-        // console.log(firstName.value, secondName.value, email.value, gender, birthday.value, profilePicture.value)
-        // console.log(genderMale, genderFemale, genderPrefer)
+        const [firstName, secondName, email, birthday, profilePicture] = event.target.elements
+        axios.put(`${apiUrl}/users/`, {
+            "email": email.value,
+            "firstName": firstName.value,
+            "secondName": secondName.value,
+            "profilePicture": profilePicture.value,
+            "DOB": birthday.value
+        }, {
+            headers: {
+                "Authorization": `Bearer: ${token}`
+            }
+        })
+            .then(res => {
+                window.alert(res.data.message)
+                setUser(res.data.user)
+                closeForm()
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     return (
@@ -109,7 +125,7 @@ function UserProfile({ logout }) {
                 {(() => {
                     if (userDetails.Posts) {
                         return (userDetails.Posts.map((post) => (
-                            <Post key={'post-' + post.id} post={post} user={userDetails} displayLikes={false} />
+                            <Post key={'post-' + post.id} post={post} user={userDetails} displayLikes={true} />
                         ))
                         )
                     } else {
