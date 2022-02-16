@@ -24,12 +24,9 @@ function Post({ post, user, displayLikes, displayComments }) {
         const postWrapperSelector = document.querySelector(`#post-wrapper-id-${post.id}`);
         if (!readPost) {
             postWrapperSelector.addEventListener('click', markAsRead)
-
         }
         if (!readPost && document.URL.split('/').indexOf('post') !== -1) {
-            console.log('effect marking')
             markAsRead()
-
         }
     }, [])
 
@@ -87,9 +84,7 @@ function Post({ post, user, displayLikes, displayComments }) {
                 postWrapperSelector.classList.add('post-wrapper--read')
                 postWrapperSelector.classList.remove('post-wrapper--unread')
                 postWrapperSelector.removeEventListener('click', markAsRead);
-
-            }
-            )
+            })
             .catch(err => console.log(err))
     }
 
@@ -98,7 +93,6 @@ function Post({ post, user, displayLikes, displayComments }) {
             headers: {
                 "Authorization": `Bearer: ${token}`
             }
-
         })
             .then(() => {
                 const postWrapperSelector = document.querySelector(`#post-wrapper-id-${post.id}`);
@@ -116,26 +110,20 @@ function Post({ post, user, displayLikes, displayComments }) {
                     <div className="post-details">
                         <div className="post-details__user-picture">
                             <a className="link" href={appUrl + 'user/' + user.id}><img src={require('../media/default-picture.png').default} alt={(user.firstName) + ' ' + (user.secondName) + "'s profile picture"} /></a>
-
                         </div>
-                        {/* <div className="post-details__title">Post Title</div> */}
                         <div className="post-details__info-div">
                             <h2 className="post-details__title"><a className="link" href={appUrl + 'post/' + post.id}>{post.postTitle}</a></h2>
                             <h3 className="post-details__user-name"><a className="link" href={appUrl + 'user/' + user.id}>{user.firstName + ' ' + user.secondName}</a></h3>
                         </div>
-
                     </div>
                     <div className="post-details-dates">
                         <div className="post-details__created-at">Post Created: {post.createdAt}</div>
                         {post.createdAt !== post.updatedAt ? <div className="post-details__last-modified">Last Modified: {post.updatedAt}</div> : null}
-
                     </div>
                     {/* {post.media !== "empty" ? (<div className="post__media">
                         <img src={require(post.media).default} alt={'tablet'} />
                     </div>) : null} */}
-
                     <div className="post__content">{post.postContent}</div>
-
                     <div>
                         {(() => {
                             if (parseInt(localStorage.getItem('userId')) === user.id) {
@@ -144,26 +132,20 @@ function Post({ post, user, displayLikes, displayComments }) {
                                     <Link to={`/edit/post/${post.id}`}>
                                         <Button className="edit" buttonContent="Edit Post" />
                                     </Link>
-                                </>
-                                )
+                                </>)
                             }
                         })()}
-
                     </div>
                 </div>
                 {displayLikes ? <LikeBar postId={post.id} likes={post.Likes} checkIfPostIsRead={checkIfPostIsRead} markAsRead={markAsRead} markAsUnread={markAsUnread} readPost={readPost} /> : null}
 
-
             </div>
-            {
-                displayComments ? (<div className="comment-section">
-                    {postComments.map((comment) => (
-                        <Comment key={'comment-' + comment.id} comment={comment} user={post.User} refreshComponent={refreshComponent} />
-                    ))}
-                    <NewComment postId={post.id} refreshComponent={refreshComponent} markAsRead={markAsRead} readPost={readPost} />
-                </div>) : null
-            }
-
+            {displayComments ? (<div className="comment-section">
+                {postComments.map((comment) => (
+                    <Comment key={'comment-' + comment.id} comment={comment} user={post.User} refreshComponent={refreshComponent} />
+                ))}
+                <NewComment postId={post.id} refreshComponent={refreshComponent} markAsRead={markAsRead} readPost={readPost} />
+            </div>) : null}
         </div >
     )
 }
