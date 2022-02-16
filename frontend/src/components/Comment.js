@@ -49,7 +49,7 @@ function Comment({ comment, media, user, refreshComponent }) {
             </div>
             <div>
                 {(() => {
-                    if (parseInt(localStorage.getItem('userId')) === user.id) {
+                    if (parseInt(localStorage.getItem('userId')) === comment.UserId) {
                         return (<>
                             <Button onClick={deleteComment} className="delete delete-comment" buttonContent="Delete Comment" />
                             <Button className="edit edit-comment" buttonContent="Edit Comment" />
