@@ -3,6 +3,7 @@ import axios from 'axios';
 import { apiUrl, appUrl } from '../main';
 import Button from './Button';
 import '../styles/Comment.css';
+import '../styles/NewComment.css';
 
 function Comment({ comment, media, user, refreshComponent }) {
     const token = localStorage.getItem('token');
@@ -24,6 +25,38 @@ function Comment({ comment, media, user, refreshComponent }) {
                 })
         }
     }
+
+    function displayEdit(editable) {
+        const commentContentEl = document.querySelector(`#comment-content-${comment.id}`)
+        const editCommentEl = document.querySelector(`#edit-comment-${comment.id}`)
+        const deleteBtn = document.querySelector(`#delete-btn-${comment.id}`)
+        const editBtn = document.querySelector(`#edit-btn-${comment.id}`)
+
+        if (editable === true) {
+            console.log(true)
+            commentContentEl.style.display = "none"
+            editCommentEl.style.display = "block"
+            deleteBtn.disabled = true
+            editBtn.disabled = true
+            deleteBtn.className = 'disabled'
+            editBtn.className = 'disabled'
+        } else {
+            console.log(false)
+            commentContentEl.style.display = "block"
+            editCommentEl.style.display = "none"
+            deleteBtn.disabled = false
+            editBtn.disabled = false
+            deleteBtn.className = 'delete delete-comment'
+            editBtn.className = 'edit edit-comment'
+        }
+    }
+
+    function submitComment(event) {
+        event.preventDefault();
+        displayEdit(false)
+        const token = localStorage.getItem('token')
+    }
+
     return (
         <div className="comment-wrapper">
             <div className="comment">
@@ -41,9 +74,15 @@ function Comment({ comment, media, user, refreshComponent }) {
                         <img src={comment.media} alt={comment.media} />
                     </div>) : (null)
                     }
-                    <div className="comment-content__text">
+                    <div className="comment-content__text" id={`comment-content-${comment.id}`}>
                         {comment.commentContent}
                     </div>
+                    <form action="create-comment" className="edit-comment--body" id={`edit-comment-${comment.id}`} onSubmit={submitComment} style={{ display: "none" }}>
+                        <textarea className="new-comment__input" name="newComment" id="newComment" defaultValue={comment.commentContent}>
+                        </textarea>
+                        <input type="file" id="image-url-new-post" className="new-post-input" />
+                        <Button className="new-comment__button" buttonContent="Save" />
+                    </form>
                 </div>
 
             </div>
@@ -51,15 +90,15 @@ function Comment({ comment, media, user, refreshComponent }) {
                 {(() => {
                     if (parseInt(localStorage.getItem('userId')) === comment.UserId) {
                         return (<>
-                            <Button onClick={deleteComment} className="delete delete-comment" buttonContent="Delete Comment" />
-                            <Button className="edit edit-comment" buttonContent="Edit Comment" />
+                            <Button onClick={deleteComment} className="delete delete-comment" buttonContent="Delete Comment" id={`delete-btn-${comment.id}`} />
+                            <Button onClick={() => displayEdit(true)} className="edit edit-comment" buttonContent="Edit Comment" id={`edit-btn-${comment.id}`} />
                         </>
                         )
                     }
                 })()}
 
             </div>
-        </div>
+        </div >
     )
 }
 
