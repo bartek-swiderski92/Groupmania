@@ -132,7 +132,8 @@ exports.updateProfile = (req, res, next) => {
         }
       }).then(() => {
         res.status(200).json({
-          success: 'User profile updated successfully!'
+          message: 'User profile updated successfully!',
+          user: user
         });
       }).catch(err => {
         res.send(err)
