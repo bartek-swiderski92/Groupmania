@@ -90,11 +90,11 @@ exports.displayProfile = (req, res, next) => {
   db.User.findOne({
     where: {
       id: req.params.id
-      },
-      attributes: {
-        exclude: ['password']
     },
-    include: [db.Post, db.Comment, db.Like, db.ReadPost]
+    attributes: {
+      exclude: ['password']
+    },
+    include: [{ model: db.Post, include: db.ReadPost }, db.Comment, db.Like, db.ReadPost]
   })
     .then((user) => {
       if (user) {
