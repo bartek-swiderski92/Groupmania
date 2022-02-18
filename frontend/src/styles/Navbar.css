@@ -1,13 +1,14 @@
-navbar {
+nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     min-height: 5rem;
     background-color: #5284ea;
     padding: .1rem .4rem;
 }
 
 @media (max-width: 425px) {
-    navbar {
+    nav {
         flex-direction: column;
     }
 }
@@ -19,6 +20,8 @@ h1 {
     font-style: italic;
 }
 
-.logo{
-    color: white;
+#site-logo {
+    display: block;
+    height: 30px;
+    align-self: center;
 }

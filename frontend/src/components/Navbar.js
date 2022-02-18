@@ -13,8 +13,8 @@ function Navbar({ userLoggedIn, logout }) {
     const history = useHistory();
 
     return (
-        <navbar>
-            <h1><a className="logo link" href={appUrl}>Groupmania</a></h1>
+        <nav>
+            <h1><a className="link" href={appUrl}><img id="site-logo" src={require('../media/icon-left-font-monochrome-white.png').default} alt="" /></a></h1>
             {(() => {
                 if (userLoggedIn === true) {
                     return (
@@ -28,7 +28,7 @@ function Navbar({ userLoggedIn, logout }) {
                 }
             })()
             }
-        </navbar>
+        </nav>
     )
 }
 
