@@ -38,7 +38,7 @@ export function ShowPost({ post, displayLikes, displayComments }) {
                 if (Array.isArray(post)) {
                     return post.map((singlePost) => {
                         return <Post key={'post-' + singlePost.id} post={singlePost} user={singlePost.User} displayLikes={true} displayComments={true} />
-                    })
+                    }).reverse()
                 } else if (post.status === 404) {
                     return <h2 className='error-message'>{post.message}</h2>
                 } else {
