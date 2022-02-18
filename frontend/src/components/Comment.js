@@ -6,6 +6,7 @@ import '../styles/Comment.css';
 import '../styles/NewComment.css';
 
 function Comment({ comment, media, refreshComponent }) {
+
     const token = localStorage.getItem('token');
     function deleteComment() {
         if (window.confirm("Are you sure you want to delete this comment?") === true) {
@@ -71,15 +72,6 @@ function Comment({ comment, media, refreshComponent }) {
             })
     }
 
-    function cancelEdition(event) {
-        //TODO: finish edition
-        event.preventDefault();
-        const [commentContent, commentMedia] = event.target.elements;
-        commentContent.value = comment.commentContent
-        commentMedia.value = comment.media
-        displayEdit(false)
-    }
-
     return (
         <div className="comment-wrapper">
             <div className="comment">
@@ -104,12 +96,12 @@ function Comment({ comment, media, refreshComponent }) {
                         <textarea className="new-comment__input" name="newComment" id="newComment" defaultValue={comment.commentContent}>
                         </textarea>
                         <input type="file" id="image-url-new-post" className="new-post-input" />
-                        <Button className="submit" buttonContent="Save" />
-                        <Button onClick={cancelEdition} className="delete" buttonContent="Cancel" />
+                        <Button type="submit" className="submit" buttonContent="Save" />
+                        <Button type="reset" onClick={() => displayEdit(false)} className="delete" buttonContent="Cancel" />
                     </form>
                 </div>
-
             </div>
+            
             <div>
                 {(() => {
                     if (parseInt(localStorage.getItem('userId')) === comment.UserId) {
