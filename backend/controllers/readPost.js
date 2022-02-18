@@ -52,15 +52,3 @@ exports.markAsUnread = (req, res, next) => {
     })
 }
 
-// exports.showAllUnreadPosts = (req, res, next) => {
-//     ReadPost.findAll({
-//             include: [Post]
-//         })
-//         .then(unReadPosts => {
-//             res.status(200).json(unReadPosts)
-//         }).catch(error => {
-//             res.status(500).json({
-//                 error: error
-//             })
-//         })
-// }
