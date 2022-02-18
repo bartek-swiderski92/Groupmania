@@ -28,7 +28,7 @@
 // // });
 // module.exports = readPost;
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
     const readPost = sequelize.define("ReadPost", {})
 
     readPost.associate = models => {
