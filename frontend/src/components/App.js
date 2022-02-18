@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import React, { useEffect, useState } from 'react'
-import Header from './Header'
+import Navbar from './Navbar'
 import Login from './Login'
 import NewsFeed from './NewsFeed';
 import SinglePost from './SinglePost';
@@ -38,7 +38,7 @@ function App() {
             <BrowserRouter>
                 <Switch>
                     <div>
-                        <Header userLoggedIn={userLoggedIn} updateState={(val) => updateState(val)} logout={logout} />
+                        <Navbar userLoggedIn={userLoggedIn} updateState={(val) => updateState(val)} logout={logout} />
                         <div className="main-content">
                             <React.Suspense fallback={<span>Loading...</span>} />
                             <Route exact path="/">
@@ -46,9 +46,9 @@ function App() {
                             </Route>
                             <Route path="/newsfeed" >
                                 {userLoggedIn ? <NewsFeed userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updateState={(val) => updateState(val)} />}
-                            </Route>                            
+                            </Route>
                             <Route path="/unread" >
-                                {userLoggedIn ? <NewsFeed userLoggedIn={userLoggedIn} unread={true}/> : <Redirect to="/login" updateState={(val) => updateState(val)} />}
+                                {userLoggedIn ? <NewsFeed userLoggedIn={userLoggedIn} unread={true} /> : <Redirect to="/login" updateState={(val) => updateState(val)} />}
                             </Route>
                             <Route path="/post/:id" >
                                 {userLoggedIn ? <SinglePost userLoggedIn={userLoggedIn} /> : <Redirect to="/login" updateState={(val) => updateState(val)} />}

@@ -1,4 +1,4 @@
-header {
+navbar {
     display: flex;
     justify-content: space-between;
     min-height: 5rem;
@@ -7,7 +7,7 @@ header {
 }
 
 @media (max-width: 425px) {
-    header {
+    navbar {
         flex-direction: column;
     }
 }

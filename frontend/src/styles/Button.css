@@ -64,7 +64,7 @@ button.disabled:hover {
     cursor: not-allowed
 }
 
-button.header, button.login{
+button.navbar, button.login{
     color:white;
     background-color :rgb(34, 104, 253);
     align-self: center;
