@@ -6,8 +6,6 @@ const multer = '';
 
 const readPost = require('../controllers/readPost');
 
-//TODO: Add Auth
-// router.get('/', auth, readPost.showAllUnreadPosts);
 router.post('/:id', auth, readPost.markAsRead);
 router.delete('/:id', auth, readPost.markAsUnread);
 

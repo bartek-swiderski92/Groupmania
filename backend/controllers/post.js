@@ -2,7 +2,9 @@ const Post = require('../models/post');
 const ReadPost = require('../models/readpost');
 const db = require("../models/index.js");
 const fs = require('fs');
+const Sequelize = require('sequelize');
 
+const Op = Sequelize.Op;
 const {
     secureHeapUsed
 } = require('crypto');
@@ -186,16 +188,33 @@ exports.deletePost = (req, res, next) => {
 exports.showAllUnreadPosts = (req, res, next) => {
     db.Post.findAll({
         where: {
-            "ReadPost.id": null,
-            userId: res.locals.userId // User Id extracted from auth middleware
+            '$readposts.UserId$': res.locals.userId // User Id extracted from auth middleware
         },
+        attributes: ['id'],
         include: [{
             model: db.ReadPost,
             required: false,
-            attributes: []
+            attributes: [],
         }]
-    }).then(unreadPosts => {
-        res.status(200).json(unreadPosts);
+    }).then(readPosts => {
+        db.Post.findAll({
+            where: {
+                id: {
+                    [Op.not]: (() => readPosts.map(readPost => readPost.id))()
+                }
+            },
+            include: [db.User, { model: db.Comment, include: db.User }, db.Like, db.ReadPost]
+
+        })
+            .then((unreadPosts) => {
+                res.status(200).json(unreadPosts);
+            })
+            .catch((error) => {
+                res.status(500).json({
+                    error: 'Error' + error
+                })
+            })
+
     })
         .catch((error) => {
             res.status(500).json({
@@ -203,3 +222,24 @@ exports.showAllUnreadPosts = (req, res, next) => {
             })
         })
 }
+
+// exports.showAllUnreadPosts = (req, res, next) => {
+//     db.Post.findAll({
+//         where: {
+//             '$readposts.UserId$': res.locals.userId // User Id extracted from auth middleware
+//         },
+//         attributes: ['id'],
+//         include: [{
+//             model: db.ReadPost,
+//             required: false,
+//             attributes: [],
+//         }]
+//     }).then(unreadPosts => {
+//         res.status(200).json(unreadPosts);
+//     })
+//         .catch((error) => {
+//             res.status(500).json({
+//                 error: 'Error ' + error
+//             })
+//         })
+// }
