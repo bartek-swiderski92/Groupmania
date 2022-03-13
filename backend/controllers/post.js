@@ -84,27 +84,28 @@ exports.getOnePost = (req, res, next) => {
 // }
 
 exports.createAPost = (req, res, next) => {
-    console.log(req.file)
     const url = req.protocol + '://' + req.get('host')
     const postObject = req.body;
-        const post = db.Post.create({
-            UserId: res.locals.userId,
-            postTitle: postObject.postTitle,
-            postContent: postObject.postContent,
-            media: req.file ? url + '/media/' + req.file.filename : null
-        }).then((post) => {
-            res.status(201).json({
-                message: 'Post has been created successfully!',
-                post
-            });
-        }).catch((error) => {
-            res.status(404).json({
-                error: error
-            })
+    const post = db.Post.create({
+        UserId: res.locals.userId,
+        postTitle: postObject.postTitle,
+        postContent: postObject.postContent,
+        media: req.file ? url + '/media/' + req.file.filename : null
+    }).then((post) => {
+        res.status(201).json({
+            message: 'Post has been created successfully!',
+            post
+        });
+    }).catch((error) => {
+        res.status(404).json({
+            error: error
         })
+    })
 };
 
 exports.editPost = (req, res, next) => {
+    const url = req.protocol + '://' + req.get('host')
+
     const postObject = req.body
     db.Post.findOne({
         where: {
@@ -113,38 +114,19 @@ exports.editPost = (req, res, next) => {
         },
     }).then((post) => {
         if (post) {
-            if (req.file) {
-                const postObject = JSON.parse(req.body.post);
-                const url = req.protocol + '://' + req.get('host')
-                const post = db.Post.create({
-                    UserId: res.locals.userId,
-                    postTitle: postObject.postTitle,
-                    postContent: postObject.postContent,
-                    media: url + '/images/' + req.file.filename
-                }).then((post) => {
-                    res.status(201).json({
-                        message: 'Post has been updated successfully!',
-                        post
-                    });
-                }).catch((error) => {
-                    res.status(404).json({
-                        error: error
-                    })
+            post.update({
+                postTitle: postObject.postTitle,
+                postContent: postObject.postContent,
+                media: req.file ? url + '/media/' + req.file.filename : null
+            }).then(() => {
+                res.status(200).json({
+                    message: 'Post has been updated successfully!',
+                    post
                 })
-            } else {
-                post.update({
-                    postTitle: postObject.postTitle,
-                    postContent: postObject.postContent,
-                    media: postObject.media
-                }).then(() => {
-                    res.status(200).json({
-                        message: 'Post has been updated successfully!',
-                        post
-                    })
-                }).catch(err => {
-                    res.send(err)
-                })
-            }
+            }).catch(err => {
+                res.send(err)
+            })
+
         } else {
             res.status(401).json({
                 error: 'You cannot access this post'
