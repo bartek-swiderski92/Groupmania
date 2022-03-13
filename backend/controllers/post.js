@@ -84,29 +84,24 @@ exports.getOnePost = (req, res, next) => {
 // }
 
 exports.createAPost = (req, res, next) => {
-
     console.log(req.file)
     const url = req.protocol + '://' + req.get('host')
-    // const postObject = req.body;
     const postObject = req.body;
-    // console.log(req.body);  upload(req, res, function (err) {
-
-    const post = db.Post.create({
-        UserId: res.locals.userId,
-        postTitle: postObject.postTitle,
-        postContent: postObject.postContent,
-        media: url + '/media/' + req.file.filename,
-        //media: postObject.media
-    }).then((post) => {
-        res.status(201).json({
-            message: 'Post has been created successfully!',
-            post
-        });
-    }).catch((error) => {
-        res.status(404).json({
-            error: error
+        const post = db.Post.create({
+            UserId: res.locals.userId,
+            postTitle: postObject.postTitle,
+            postContent: postObject.postContent,
+            media: req.file ? url + '/media/' + req.file.filename : null
+        }).then((post) => {
+            res.status(201).json({
+                message: 'Post has been created successfully!',
+                post
+            });
+        }).catch((error) => {
+            res.status(404).json({
+                error: error
+            })
         })
-    })
 };
 
 exports.editPost = (req, res, next) => {
@@ -116,9 +111,6 @@ exports.editPost = (req, res, next) => {
             id: req.params.id,
             userId: res.locals.userId,
         },
-        // attributes: {
-        //     exclude: ['userUserId']
-        // }
     }).then((post) => {
         if (post) {
             if (req.file) {

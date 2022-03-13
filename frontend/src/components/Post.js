@@ -120,7 +120,7 @@ function Post({ post, user, displayLikes, displayComments }) {
                         <div className="post-details__created-at">Post Created: {post.createdAt}</div>
                         {post.createdAt !== post.updatedAt ? <div className="post-details__last-modified">Last Modified: {post.updatedAt}</div> : null}
                     </div>
-                    {post.media !== "" ? (<div className="post__media">
+                    {post.media !== null ? (<div className="post__media">
                         <img src={post.media} alt={'tablet'} />
                     </div>) : null}
                     <div className="post__content">{post.postContent}</div>
