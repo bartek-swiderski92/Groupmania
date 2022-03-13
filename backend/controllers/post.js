@@ -111,13 +111,14 @@ exports.editPost = (req, res, next) => {
         where: {
             id: req.params.id,
             userId: res.locals.userId,
-        },
+        }
     }).then((post) => {
         if (post) {
             post.update({
                 postTitle: postObject.postTitle,
                 postContent: postObject.postContent,
-                media: req.file ? url + '/media/' + req.file.filename : null
+                //TODO: Add removing picture while editing post
+                media: req.file ? url + '/media/' + req.file.filename : post.dataValues.media
             }).then(() => {
                 res.status(200).json({
                     message: 'Post has been updated successfully!',
