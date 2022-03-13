@@ -1,15 +1,15 @@
-.new-post-wrapper{
+.new-post-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin:     30px 0 40px;
-    padding:0 10px 15px;
+    margin: 30px 0 40px;
+    padding: 0 10px 15px;
     border-radius: 15px;
     background-color: #ddd;
 
 }
 
-form.post-body{
+form.post-body {
     display: flex;
     flex-direction: column;
     gap: 1px;
@@ -17,7 +17,7 @@ form.post-body{
     min-width: 100%;
 }
 
-.new-post-input{
+.new-post-input {
     min-width: 100%;
     border: none;
     border-radius: 2px;
@@ -30,8 +30,12 @@ textarea.new-post-input {
     min-height: 80px;
 }
 
-form.post-body>*{
-  margin:0  
+form.post-body>* {
+    margin: 0
+}
+
+.post__media {
+    width: 100%
 }
 
 /* #image-url-new-post {
