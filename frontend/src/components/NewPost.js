@@ -11,16 +11,21 @@ function NewPost({ editPost }) {
     const history = useHistory();
 
     const [post, setPosts] = useState([]);
+    const [postMedia, setPostMedia] = useState([]);
+
     useEffect(() => {
         getPosts(api.posts + '/' + document.URL.split('/')[5]).then((res) => {
             setPosts(res)
+            setPostMedia(res.media)
         })
     }, [])
 
-    // function attachImage(e) {
-    //     e.preventDefault();
-    //     console.log('attaching');
-    // }
+    function removeImage(event) {
+        event.preventDefault();
+        setPostMedia(null)
+        console.log(postMedia)
+
+    }
 
     function submitPost(event) {
         const token = localStorage.getItem('token');
@@ -35,16 +40,16 @@ function NewPost({ editPost }) {
             console.log(value);
         }
 
+
         if (editPost === true) {
-            axios.put(`${apiUrl}/posts/` + post.id, {
-                "postTitle": postTitle.value,
-                "postContent": postContent.value,
-                "media": postMedia.value
-            }, {
-                headers: {
-                    "Authorization": `Bearer: ${token}`
-                }
-            })
+            axios.put(`${apiUrl}/posts/` + post.id,
+                formdata
+                , {
+                    headers: {
+                        "Authorization": `Bearer: ${token}`,
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
                 .then(res => {
                     window.alert(res.data.message)
                     history.push(`/post/${res.data.post.id}`)
@@ -74,9 +79,16 @@ function NewPost({ editPost }) {
             <form action="create-post" className="post-body" onSubmit={submitPost} enctype="multipart/form-data">
                 <input type="text" id="post-title" placeholder="Post Title" className="new-post-input" defaultValue={editPost ? post.postTitle : ''} />
                 <textarea placeholder="Post Content" className="new-post-input" defaultValue={editPost ? post.postContent : ''} />
-                <input type="file" name="image" id="image-url-new-post" className="new-post-input" />
-                {/* <Button type="file" className='new-post__button' onClick={attachImage} buttonContent='Click here to add a picture' /> */}
-                <Button type='submit' className='new-post__button' buttonContent='Add Post' />
+                {postMedia !== null ? (
+                    <div className="post__media">
+                        <img src={post.media} alt={'tablet'} />
+                        <Button className="delete" onClick={removeImage} buttonContent="Remove Image" />
+                    </div>
+                ) : (
+                    <input type="file" name="image" id="image-url-new-post" className="new-post-input" />
+                )
+                }
+                <Button type='submit' className='new-post__button' buttonContent={editPost ? 'Save Changes' : 'Add Post'} />
             </form>
 
         </div>
