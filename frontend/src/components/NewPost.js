@@ -12,7 +12,6 @@ function NewPost({ editPost }) {
 
     const [post, setPosts] = useState([]);
     const [postMedia, setPostMedia] = useState([]);
-
     useEffect(() => {
         getPosts(api.posts + '/' + document.URL.split('/')[5]).then((res) => {
             setPosts(res)
@@ -20,31 +19,54 @@ function NewPost({ editPost }) {
         })
     }, [])
 
-    function removeImage(event) {
+    let deleteImageFlag = false;
+
+    function loadFile(event) {
+        console.log('change')
+        const output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.style.display = 'block'
+        output.onload = function () {
+            URL.revokeObjectURL(output.src) // free memory
+        };
+        document.querySelector('#remove-img-btn').classList.remove('hidden')
+    };
+
+    function deleteImage(event) {  // Deleting image from the post
         event.preventDefault();
         setPostMedia(null)
-        console.log(postMedia)
+        console.log('delete')
+        deleteImageFlag = true;
 
+    }
+
+    function deleteImgPreview(event) { //Removing displaying image from the front end
+        event.preventDefault();
+        const output = document.getElementById('output');
+        const imgInput = document.getElementById('image-input');
+        document.querySelector('#remove-img-btn').classList.add('hidden')
+
+        console.log('preview')
+        output.removeAttribute('src')
+        output.style.display = 'none'
+
+        imgInput.value = null
     }
 
     function submitPost(event) {
         const token = localStorage.getItem('token');
         event.preventDefault();
-        const [postTitle, postContent, postMedia] = event.target.elements;
+        const [postTitle, postContent] = event.target.elements;
         let formdata = new FormData();
         formdata.append('postTitle', postTitle.value)
         formdata.append('postContent', postContent.value)
         formdata.append('image', event.target[2].files[0])
         console.dir(event.target[2].files[0])
-        for (var value of formdata.values()) {
-            console.log(value);
-        }
-
 
         if (editPost === true) {
             axios.put(`${apiUrl}/posts/` + post.id,
-                formdata
-                , {
+                formdata,
+                {
                     headers: {
                         "Authorization": `Bearer: ${token}`,
                         "Content-Type": "multipart/form-data"
@@ -79,15 +101,23 @@ function NewPost({ editPost }) {
             <form action="create-post" className="post-body" onSubmit={submitPost} enctype="multipart/form-data">
                 <input type="text" id="post-title" placeholder="Post Title" className="new-post-input" defaultValue={editPost ? post.postTitle : ''} />
                 <textarea placeholder="Post Content" className="new-post-input" defaultValue={editPost ? post.postContent : ''} />
-                {postMedia !== null ? (
-                    <div className="post__media">
-                        <img src={post.media} alt={'tablet'} />
-                        <Button className="delete" onClick={removeImage} buttonContent="Remove Image" />
-                    </div>
-                ) : (
-                    <input type="file" name="image" id="image-url-new-post" className="new-post-input" />
-                )
-                }
+                <div className="post__media">
+                    {postMedia?.length > 1 ? (
+                        <>
+                            <img src={post.media} alt={post.postTitle} />
+                            <input type="file" accept='image/*' name="image" id="image-input" className="new-post-input" onChange={loadFile} />
+                            <img id="output" alt={post.postTitle} style={{ display: 'none' }} />
+                            <Button className="delete" onClick={deleteImage} buttonContent="Delete image" />
+                        </>
+                    ) : (
+                        <>
+                            <input type="file" accept='image/*' name="image" id="image-input" className="new-post-input" onChange={loadFile} />
+                            <img id="output" alt={post.postTitle} style={{ display: 'none' }} />
+                            <Button className="delete hidden" id="remove-img-btn" onClick={deleteImgPreview} buttonContent="Remove Image" />
+                        </>
+                    )
+                    }
+                </div>
                 <Button type='submit' className='new-post__button' buttonContent={editPost ? 'Save Changes' : 'Add Post'} />
             </form>
 
