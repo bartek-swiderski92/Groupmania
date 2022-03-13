@@ -17,7 +17,6 @@ const { post } = require('../routes/post');
 exports.getAllPosts = (req, res, next) => {
     db.Post.findAll({
         include: [db.User, { model: db.Comment, include: db.User }, db.Like, db.ReadPost]
-        //TODO: add user + comment
     }).then((posts) => {
         res.status(200).json(posts);
     })
@@ -85,17 +84,19 @@ exports.getOnePost = (req, res, next) => {
 // }
 
 exports.createAPost = (req, res, next) => {
-    console.log(req.body)
-    const postObject = req.body;
-    // const postObject = JSON.parse(req.body.post);
+
+    console.log(req.file)
     const url = req.protocol + '://' + req.get('host')
-    // console.log(req.body);
+    // const postObject = req.body;
+    const postObject = req.body;
+    // console.log(req.body);  upload(req, res, function (err) {
+
     const post = db.Post.create({
         UserId: res.locals.userId,
         postTitle: postObject.postTitle,
         postContent: postObject.postContent,
-        // media: url + '/images/' + req.file.filename
-        media: postObject.media
+        media: url + '/media/' + req.file.filename,
+        //media: postObject.media
     }).then((post) => {
         res.status(201).json({
             message: 'Post has been created successfully!',
