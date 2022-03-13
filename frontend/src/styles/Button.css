@@ -9,20 +9,24 @@ button {
 
 button.like {
     color: black;
-    background-color: rgba(82,132,234, 0.2) ;
+    background-color: rgba(82, 132, 234, 0.2);
 }
 
-button.like, button.read{
+button.like,
+button.read {
     color: black;
-    background-color: rgba(82,132,234, 0.2) ;
+    background-color: rgba(82, 132, 234, 0.2);
 }
 
 button.liked {
     color: white;
-    background-color: rgba(82,132,234) 
+    background-color: rgba(82, 132, 234)
 }
 
-button.delete, button.edit, button.submit, button.disabled  {
+button.delete,
+button.edit,
+button.submit,
+button.disabled {
     padding: 2px 6px;
     margin: 4px 5px 20px;
     font-size: 12px;
@@ -42,44 +46,53 @@ button.submit {
     color: rgb(93, 199, 67);
 }
 
-button.disabled, button.disabled:hover {
+button.disabled,
+button.disabled:hover {
     border: 2px solid rgb(165, 165, 165);
     background-color: rgb(165, 165, 165);
     color: white
 }
 
-button.delete:hover, button.edit:hover, button.submit:hover {
+button.delete:hover,
+button.edit:hover,
+button.submit:hover {
     background-color: rgba(253, 44, 44, 0.678);
     color: white;
 }
+
 button.edit:hover {
     background-color: rgb(255, 159, 68);
 }
 
 button.submit:hover {
-    background-color:rgb(93, 199, 67);
+    background-color: rgb(93, 199, 67);
 }
 
 button.disabled:hover {
     cursor: not-allowed
 }
 
-button.navbar, button.login{
-    color:white;
-    background-color :rgb(34, 104, 253);
+button.navbar,
+button.login {
+    color: white;
+    background-color: rgb(34, 104, 253);
     align-self: center;
     margin-left: 5px;
 }
 
-.new-post__button, .new-comment__button {
+.new-post__button,
+.new-comment__button {
     border: none;
-    background-color: rgba(82,132,234, 0.2);
+    background-color: rgba(82, 132, 234, 0.2);
     width: 100%;
     margin: 0 auto;
 }
 
 button:hover {
-    background-color: rgba(82,55,255, 0.6);
+    background-color: rgba(82, 55, 255, 0.6);
     color: white
 }
 
+button.hidden {
+    display: none
+}
