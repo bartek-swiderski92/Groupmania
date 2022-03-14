@@ -139,15 +139,29 @@ exports.editPost = (req, res, next) => {
 }
 
 exports.deletePost = (req, res, next) => {
-    db.Post.destroy({
+    db.Post.findOne({
         where: {
             id: req.params.id,
             userId: res.locals.userId
         }
     }).then((post) => {
         if (post) {
-            res.status(200).json({
-                message: 'The post has been deleted successfully!'
+            const fileName = post.media.split('/media/')[1]
+            fs.unlink('media/' + fileName, () => {
+                db.Post.destroy({
+                    where: {
+                        id: req.params.id,
+                        userId: res.locals.userId
+                    }
+                }).then(() => {
+                    res.status(200).json({
+                        message: 'The post has been deleted successfully!'
+                    })
+                }).catch((error) => {
+                    res.status(400).json({
+                        error: 'Error: ' + error
+                    })
+                })
             })
         } else {
             res.status(401).json({
@@ -156,7 +170,7 @@ exports.deletePost = (req, res, next) => {
         }
     }).catch((error) => {
         res.status(500).json({
-            error: error
+            error: 'Error: ' + error
         })
     })
 }
