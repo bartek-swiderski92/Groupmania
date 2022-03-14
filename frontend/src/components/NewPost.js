@@ -107,7 +107,7 @@ function NewPost({ editPost }) {
                             <img src={post.media} alt={post.postTitle} />
                             <input type="file" accept='image/*' name="image" id="image-input" className="new-post-input" onChange={loadFile} />
                             <img id="output" alt={post.postTitle} style={{ display: 'none' }} />
-                            <Button className="delete" onClick={deleteImage} buttonContent="Delete image" />
+                            <Button className="delete" id="remove-img-btn" onClick={deleteImage} buttonContent="Delete image" />
                         </>
                     ) : (
                         <>
