@@ -12,14 +12,13 @@ function NewPost({ editPost }) {
 
     const [post, setPosts] = useState([]);
     const [postMedia, setPostMedia] = useState([]);
+    const [deleteImageFlag, setDeleteImageFlag] = useState(false)
     useEffect(() => {
         getPosts(api.posts + '/' + document.URL.split('/')[5]).then((res) => {
             setPosts(res)
             setPostMedia(res.media)
         })
     }, [])
-
-    let deleteImageFlag = false;
 
     function loadFile(event) {
         console.log('change')
@@ -36,7 +35,7 @@ function NewPost({ editPost }) {
         event.preventDefault();
         setPostMedia(null)
         console.log('delete')
-        deleteImageFlag = true;
+        setDeleteImageFlag(true)
 
     }
 
@@ -57,15 +56,27 @@ function NewPost({ editPost }) {
         const token = localStorage.getItem('token');
         event.preventDefault();
         const [postTitle, postContent] = event.target.elements;
-        let formdata = new FormData();
-        formdata.append('postTitle', postTitle.value)
-        formdata.append('postContent', postContent.value)
-        formdata.append('image', event.target[2].files[0])
+        let formData = new FormData();
+        formData.append('postTitle', postTitle.value)
+        formData.append('postContent', postContent.value)
+        formData.append('image', event.target[2].files[0])
         console.dir(event.target[2].files[0])
 
         if (editPost === true) {
+            if (deleteImageFlag === true) {
+                axios.delete(`${apiUrl}/posts/picture/` + post.id, {
+                    headers: {
+                        "Authorization": `Bearer: ${token}`,
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
+                    .then(res => {
+                        window.alert(res.data.message)
+                    })
+                    .catch(err => console.log(err))
+            }
             axios.put(`${apiUrl}/posts/` + post.id,
-                formdata,
+                formData,
                 {
                     headers: {
                         "Authorization": `Bearer: ${token}`,
@@ -79,7 +90,7 @@ function NewPost({ editPost }) {
                 .catch(err => console.log(err))
         } else {
             axios.post(`${apiUrl}/posts`,
-                formdata
+                formData
                 , {
                     headers: {
                         "Authorization": `Bearer: ${token}`,

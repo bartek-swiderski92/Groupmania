@@ -11,6 +11,7 @@ router.get('/unread', auth, postCtrl.showAllUnreadPosts);
 router.get('/:id', postCtrl.getOnePost);
 router.post('/', auth, multer, postCtrl.createAPost);
 router.put('/:id', auth, multer, postCtrl.editPost);
+router.delete('/picture/:id', auth, postCtrl.deletePicture);
 router.delete('/:id', auth, postCtrl.deletePost);
 
 

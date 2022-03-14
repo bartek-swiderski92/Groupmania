@@ -138,6 +138,45 @@ exports.editPost = (req, res, next) => {
     })
 }
 
+exports.deletePicture = (req, res, next) => { //Used when replacing or removing picture only from the post
+    console.log('post id: ' + req.params.id, 'userId: ' + res.locals.userId)
+    db.Post.findOne({
+        where: {
+            id: req.params.id,
+            userId: res.locals.userId
+        }
+    }).then((post) => {
+        if (post) {
+            console.log(post)
+            const fileName = post.media.split('/media/')[1]
+            fs.unlink('media/' + fileName, () => {
+                post.update({
+                    media: null
+                })
+            })
+                .then((post) => {
+                    console.log(post)
+                    res.status(200).json({
+                        message: 'The picture has been deleted!'
+                    })
+                })
+                .catch((error) => {
+                    res.status(400).json({
+                        error: 'BLAD!: ' + error
+                    })
+                })
+        } else {
+            res.status(401).json({
+                message: 'You cannot access this content.'
+            });
+        }
+    }).catch((error) => {
+        res.status(500).json({
+            error: 'ERR!: ' + error
+        })
+    })
+}
+
 exports.deletePost = (req, res, next) => {
     db.Post.findOne({
         where: {
