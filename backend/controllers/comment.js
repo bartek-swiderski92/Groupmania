@@ -1,14 +1,5 @@
 const db = require("../models/index.js");
-
 const fs = require('fs');
-const {
-    secureHeapUsed
-} = require('crypto');
-const { errorMonitor } = require("stream");
-
-// const {
-//     Z_FIXED
-// } = require('zlib');
 
 exports.createAComment = (req, res, next) => {
     const url = req.protocol + '://' + req.get('host')
@@ -29,7 +20,6 @@ exports.createAComment = (req, res, next) => {
         })
     })
 };
-
 
 exports.getAllCommentsOfAPost = (req, res, next) => {
     db.Comment.findAll({
@@ -52,6 +42,42 @@ exports.getAllCommentsOfAPost = (req, res, next) => {
                 error: error
             })
         })
+}
+
+exports.deletePicture = (req, res, next) => {
+    db.Comment.findOne({
+        where: {
+            id: req.params.id,
+            userId: res.locals.userId
+        }
+    }).then((comment) => {
+        if (comment) {
+            const fileName = comment.media.split('/media/')[1]
+            fs.unlink('media/' + fileName, () => {
+                comment.update({
+                    media: null
+                })
+                    .then(() => {
+                        res.status(200).json({
+                            message: 'The picture has been deleted!'
+                        })
+                    })
+                    .catch((error) => {
+                        res.status(400).json({
+                            error: 'Error: ' + error
+                        })
+                    })
+            })
+        } else {
+            res.status(401).json({
+                message: 'You cannot access this content.'
+            })
+        }
+    }).catch((error) => {
+        res.status(500).json({
+            error: 'Error: ' + error
+        })
+    })
 }
 
 exports.editComment = (req, res, next) => {
