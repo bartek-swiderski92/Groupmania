@@ -139,7 +139,6 @@ exports.editPost = (req, res, next) => {
 }
 
 exports.deletePicture = (req, res, next) => { //Used when replacing or removing picture only from the post
-    console.log('post id: ' + req.params.id, 'userId: ' + res.locals.userId)
     db.Post.findOne({
         where: {
             id: req.params.id,
@@ -185,23 +184,44 @@ exports.deletePost = (req, res, next) => {
         }
     }).then((post) => {
         if (post) {
-            const fileName = post.media.split('/media/')[1]
-            fs.unlink('media/' + fileName, () => {
+            if (post.media !== null) {
+                const fileName = post.media.split('/media/')[1]
+                fs.unlink('media/' + fileName, () => {
+                    db.Post.destroy({
+                        where: {
+                            id: req.params.id,
+                            userId: res.locals.userId
+                        }
+                    })
+                        .then(() => {
+                            res.status(200).json({
+                                message: 'The post has been deleted successfully!'
+                            })
+                        })
+                        .catch((error) => {
+                            res.status(400).json({
+                                error: 'Error: ' + error
+                            })
+                        })
+                })
+            } else {
                 db.Post.destroy({
                     where: {
                         id: req.params.id,
                         userId: res.locals.userId
                     }
-                }).then(() => {
-                    res.status(200).json({
-                        message: 'The post has been deleted successfully!'
-                    })
-                }).catch((error) => {
-                    res.status(400).json({
-                        error: 'Error: ' + error
-                    })
                 })
-            })
+                    .then(() => {
+                        res.status(200).json({
+                            message: 'The post has been deleted successfully!'
+                        })
+                    })
+                    .catch((error) => {
+                        res.status(400).json({
+                            error: 'Error: ' + error
+                        })
+                    })
+            }
         } else {
             res.status(401).json({
                 message: 'You cannot access this post.'
