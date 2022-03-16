@@ -104,7 +104,6 @@ exports.createAPost = (req, res, next) => {
 };
 
 exports.editPost = (req, res, next) => {
-    const url = req.protocol + '://' + req.get('host')
 
     const postObject = req.body
     db.Post.findOne({
@@ -114,6 +113,7 @@ exports.editPost = (req, res, next) => {
         }
     }).then((post) => {
         if (post) {
+            const url = req.protocol + '://' + req.get('host')
             post.update({
                 postTitle: postObject.postTitle,
                 postContent: postObject.postContent,
@@ -152,18 +152,18 @@ exports.deletePicture = (req, res, next) => { //Used when replacing or removing 
                 post.update({
                     media: null
                 })
+                    .then(() => {
+                        console.log(post)
+                        res.status(200).json({
+                            message: 'The picture has been deleted!'
+                        })
+                    })
+                    .catch((error) => {
+                        res.status(400).json({
+                            error: 'Error: ' + error
+                        })
+                    })
             })
-                .then((post) => {
-                    console.log(post)
-                    res.status(200).json({
-                        message: 'The picture has been deleted!'
-                    })
-                })
-                .catch((error) => {
-                    res.status(400).json({
-                        error: 'BLAD!: ' + error
-                    })
-                })
         } else {
             res.status(401).json({
                 message: 'You cannot access this content.'
