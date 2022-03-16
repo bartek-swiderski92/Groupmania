@@ -12,14 +12,16 @@ function NewComment({ postId, refreshComponent }) {
         event.preventDefault();
         const token = localStorage.getItem('token');
         const [commentContent, commentMedia] = event.target.elements
-        console.log(postId)
-        axios.post(`${apiUrl}/comments/`, {
-            "postId": postId,
-            "commentContent": commentContent.value,
-            "media": commentMedia.value,
-        }, {
+
+        let formData = new FormData();
+        formData.append('postId', postId);
+        formData.append('commentContent', commentContent.value);
+        formData.append('image', event.target[1].files[0]);
+
+        axios.post(`${apiUrl}/comments/`, formData, {
             headers: {
-                "Authorization": `Bearer: ${token}`
+                "Authorization": `Bearer: ${token}`,
+                "Content-Type": "multipart/form-data"
             }
         })
             .then(res => {
@@ -33,7 +35,7 @@ function NewComment({ postId, refreshComponent }) {
 
     return (
         <div className="new-comment-wrapper">
-            <form action="create-comment" className="comment-body" onSubmit={submitComment}>
+            <form action="create-comment" className="comment-body" onSubmit={submitComment} encType="multipart/form-data">
                 <h2 className="new-comment__heading">Comment the post</h2>
                 <textarea className="new-comment__input" name="newComment" id="newComment" placeholder="Insert your comment here..."></textarea>
                 <input type="file" id="image-url-new-post" className="new-post-input" />

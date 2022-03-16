@@ -56,11 +56,11 @@ function NewPost({ editPost }) {
         const token = localStorage.getItem('token');
         event.preventDefault();
         const [postTitle, postContent] = event.target.elements;
+
         let formData = new FormData();
-        formData.append('postTitle', postTitle.value)
-        formData.append('postContent', postContent.value)
-        formData.append('image', event.target[2].files[0])
-        console.dir(event.target[2].files[0])
+        formData.append('postTitle', postTitle.value);
+        formData.append('postContent', postContent.value);
+        formData.append('image', event.target[2].files[0]);
 
         if (editPost === true) {
             if (deleteImageFlag === true) {
@@ -75,8 +75,7 @@ function NewPost({ editPost }) {
                     })
                     .catch(err => console.log(err))
             }
-            axios.put(`${apiUrl}/posts/` + post.id,
-                formData,
+            axios.put(`${apiUrl}/posts/` + post.id, formData,
                 {
                     headers: {
                         "Authorization": `Bearer: ${token}`,
