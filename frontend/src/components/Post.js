@@ -48,8 +48,7 @@ function Post({ post, user, displayLikes, displayComments }) {
     function deletePost() {
         if (window.confirm("Are you sure you want to delete this post?") === true) {
             axios.delete(`${apiUrl}/posts/${post.id}`, {
-                headers:
-                {
+                headers: {
                     "Authorization": `Bearer: ${token}`
                 }
             })
@@ -122,7 +121,7 @@ function Post({ post, user, displayLikes, displayComments }) {
                     </div>
                     {post.media?.length > 0 ? (
                         <div className="post__media">
-                            <img src={post.media} alt={'tablet'} />
+                            <img src={post.media} alt={post.postTitle} />
                         </div>
                     ) : null}
                     <div className="post__content">{post.postContent}</div>
