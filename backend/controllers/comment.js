@@ -4,19 +4,20 @@ const fs = require('fs');
 const {
     secureHeapUsed
 } = require('crypto');
+const { errorMonitor } = require("stream");
 
 // const {
 //     Z_FIXED
 // } = require('zlib');
 
 exports.createAComment = (req, res, next) => {
-    const commentObject = req.body;
     const url = req.protocol + '://' + req.get('host')
+    const commentObject = req.body;
     const comment = db.Comment.create({
         UserId: res.locals.userId,
         PostId: commentObject.postId,
         commentContent: commentObject.commentContent,
-        // media: url + '/images/' + req.file.filename
+        media: req.file ? url + '/media/' + req.file.filename : null
     }).then((post) => {
         res.status(201).json({
             message: 'Comment has been created successfully!',
@@ -102,18 +103,62 @@ exports.editComment = (req, res, next) => {
     })
 }
 
+// exports.deletePicture = (req, res, next) => {
+//     console.log('lolz')
+// }
+
 exports.deleteComment = (req, res, next) => {
-    db.Comment.destroy({
+    db.Comment.findOne({
         where: {
             id: req.params.id,
             UserId: res.locals.userId
         }
     }).then((comment) => {
         if (comment) {
-            res.json({
-                status: 'The comment has been successfully deleted.'
-            })
-            res.status(204).json(comment);
+            if (comment.media !== null) {
+                const fileName = comment.media.split('/media/')[1];
+                fs.unlink('media/' + fileName, () => {
+                    db.Comment.destroy({
+                        where: {
+                            id: req.params.id,
+                            UserId: res.locals.userId
+                        }
+                    })
+                        .then(() => {
+                            res.json({
+                                message: 'The comment has been successfully deleted.',
+                                status: 204
+                            })
+                            res.status(204).json(comment);
+                        })
+                        .catch((error) => {
+                            res.status(400).json;
+                            res.json({
+                                message: 'Error: ' + error,
+                            })
+                        })
+                })
+            } else {
+                db.Comment.destroy({
+                    where: {
+                        id: req.params.id,
+                        UserId: res.locals.userId
+                    }
+                })
+                    .then(() => {
+                        res.json({
+                            message: 'The comment has been successfully deleted.',
+                            status: 204
+                        })
+                        res.status(204).json(comment);
+                    })
+                    .catch((error) => {
+                        res.status(400).json;
+                        res.json({
+                            message: 'Error: ' + error,
+                        })
+                    })
+            }
 
         } else {
             res.status(401).json({

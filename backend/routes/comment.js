@@ -7,9 +7,9 @@ const multer = require('../middleware/multer-config');
 const commentCtrl = require('../controllers/comment');
 
 router.get('/post/:id', auth, commentCtrl.getAllCommentsOfAPost);
-// router.delete('/post/:id', auth, commentCtrl.removeAllCommentsOfAPost);
-router.post('/', auth, commentCtrl.createAComment);
-router.put('/:id', auth, commentCtrl.editComment);
+router.post('/', auth, multer, commentCtrl.createAComment);
+router.put('/:id', auth, multer, commentCtrl.editComment);
+// router.delete('/picture/:id', auth, commentCtrl.deletePicture);
 router.delete('/:id', auth, commentCtrl.deleteComment);
 
 module.exports = router;

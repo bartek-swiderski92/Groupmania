@@ -6,11 +6,10 @@ import '../styles/Comment.css';
 import '../styles/NewComment.css';
 
 function Comment({ comment, media, refreshComponent }) {
-
     const token = localStorage.getItem('token');
+
     function deleteComment() {
         if (window.confirm("Are you sure you want to delete this comment?") === true) {
-            console.log(comment.id)
             axios.delete(`${apiUrl}/comments/${comment.id}`, {
                 headers: {
                     "Authorization": `Bearer: ${token}`
@@ -84,11 +83,11 @@ function Comment({ comment, media, refreshComponent }) {
                     </div>
                 </div>
                 <div className="comment-content">
-                    {/*TODO: add media handling*/}
-                    {comment.media ? (<div className="comment-content__media">
-                        <img src={comment.media} alt={comment.media} />
-                    </div>) : (null)
-                    }
+                    {comment.media?.length > 0 ? (
+                        <div className="post__media">
+                            <img src={comment.media} alt={'tablet'} />
+                        </div>
+                    ) : null}
                     <div className="comment-content__text" id={`comment-content-${comment.id}`}>
                         {comment.commentContent}
                     </div>
@@ -101,7 +100,7 @@ function Comment({ comment, media, refreshComponent }) {
                     </form>
                 </div>
             </div>
-            
+
             <div>
                 {(() => {
                     if (parseInt(localStorage.getItem('userId')) === comment.UserId) {
