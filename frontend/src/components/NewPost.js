@@ -71,7 +71,7 @@ function NewPost({ editPost }) {
                     }
                 })
                     .then(res => {
-                        window.alert(res.data.message)
+                        console.log(res.data.message)
                     })
                     .catch(err => console.log(err))
             }
