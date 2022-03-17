@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import axios from 'axios';
 
 import { apiUrl, appUrl } from '../main';
@@ -7,22 +9,44 @@ import '../styles/NewComment.css';
 
 function Comment({ comment, media, refreshComponent }) {
     const token = localStorage.getItem('token');
+    const [deletePictureFlag, setDeletePictureFlag] = useState(false)
 
-    function deleteComment() {
-        if (window.confirm("Are you sure you want to delete this comment?") === true) {
-            axios.delete(`${apiUrl}/comments/${comment.id}`, {
-                headers: {
-                    "Authorization": `Bearer: ${token}`
-                }
+    function dltComment() { // Method deleting Comment from DB 
+        axios.delete(`${apiUrl}/comments/${comment.id}`, {
+            headers: {
+                "Authorization": `Bearer: ${token}`
+            }
+        })
+            .then(res => {
+                console.log(res)
+                refreshComponent()
+
             })
-                .then(res => {
-                    console.log(res)
-                    refreshComponent()
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+    function deletePicture() { // deletes picture file from back-end, needs .then() and .chatch()
+        axios.delete(`${apiUrl}/comments/picture/` + comment.id, {
+            headers: {
+                "Authorization": `Bearer: ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        })
+    }
+
+    function deleteComment() { // Deletes media if any, then runs dltComment
+        if (window.confirm("Are you sure you want to delete this comment?") === true) {
+            if (comment.media !== null) {
+                deletePicture()
+                    .then(() => {
+                        dltComment()
+                    })
+                    .catch(err => console.log(err))
+            } else {
+                dltComment()
+            }
         }
     }
 
@@ -40,6 +64,7 @@ function Comment({ comment, media, refreshComponent }) {
             deleteBtn.className = 'disabled'
             editBtn.className = 'disabled'
         } else {
+            hideOldPicture(false)
             commentContentEl.style.display = "block"
             editCommentEl.style.display = "none"
             deleteBtn.disabled = false
@@ -49,17 +74,40 @@ function Comment({ comment, media, refreshComponent }) {
         }
     }
 
-    function submitComment(event) {
+    function hideOldPicture(value) {
+        const image = document.querySelector(`#comment__media-${comment.id}`)
+        setDeletePictureFlag(true);
+        if (!image) return
+        if (value === 'remove') {
+            image.style.display = 'none'
+        } else if ('replace') {
+
+        } else {
+            image.style.display = 'inline'
+        }
+    }
+
+    function editComment(event) {
         event.preventDefault();
-        displayEdit(false);
         const token = localStorage.getItem('token');
-        const [commentContent, commentMedia] = event.target.elements;
-        axios.put(`${apiUrl}/comments/${comment.id}`, {
-            "commentContent": commentContent.value,
-            "media": commentMedia.value
-        }, {
+        displayEdit(false);
+        if (deletePictureFlag) {
+            //TODO: check error 
+            deletePicture()
+                .then(res => {
+                    console.log(res.data.message)
+                })
+                .catch(err => console.log(err))
+        }
+
+        // const [commentContent, commentMedia] = event.target.elements[0];
+        let formData = new FormData();
+        formData.append('postTitle', event.target.elements[0].value)
+        formData.append('image', event.target[1].files[0])
+        axios.put(`${apiUrl}/comments/${comment.id}`, formData, {
             headers: {
-                "Authorization": `Bearer: ${token}`
+                "Authorization": `Bearer: ${token}`,
+                "Content-Type": "multipart/form-data"
             }
         })
             .then(() => {
@@ -84,19 +132,20 @@ function Comment({ comment, media, refreshComponent }) {
                 </div>
                 <div className="comment-content">
                     {comment.media?.length > 0 ? (
-                        <div className="post__media">
-                            <img src={comment.media} alt={'tablet'} />
+                        <div className="comment__media">
+                            <img src={comment.media} alt={'tablet'} id={`comment__media-${comment.id}`} />
                         </div>
                     ) : null}
                     <div className="comment-content__text" id={`comment-content-${comment.id}`}>
                         {comment.commentContent}
                     </div>
-                    <form action="create-comment" className="edit-comment--body" id={`edit-comment-${comment.id}`} onSubmit={submitComment} style={{ display: "none" }}>
+                    <form action="create-comment" className="edit-comment--body" id={`edit-comment-${comment.id}`} onSubmit={editComment} style={{ display: "none" }}>
                         <textarea className="new-comment__input" name="newComment" id="newComment" defaultValue={comment.commentContent}>
                         </textarea>
-                        <input type="file" id="image-url-new-post" className="new-post-input" />
-                        <Button type="submit" className="submit" buttonContent="Save" />
+                        <input onChange={() => { hideOldPicture('replace') }} type="file" accept='image/*' id="image-url-new-post" className="new-post-input" />
+                        <Button type="button" onClick={() => { hideOldPicture('remove') }} className="delete" buttonContent="Remove Image" />
                         <Button type="reset" onClick={() => displayEdit(false)} className="delete" buttonContent="Cancel" />
+                        <Button type="submit" className="submit" buttonContent="Save" />
                     </form>
                 </div>
             </div>
