@@ -44,7 +44,7 @@ exports.getAllCommentsOfAPost = (req, res, next) => {
         })
 }
 
-exports.deletePicture = (req, res, next) => {
+exports.deletePicture = (req, res, next) => { //Used when replacing or removing picture only from the post
     db.Comment.findOne({
         where: {
             id: req.params.id,
