@@ -124,17 +124,21 @@ exports.editPost = (req, res, next) => {
                     message: 'Post has been updated successfully!',
                     post
                 })
-            }).catch(err => {
-                res.send(err)
+            }).catch((error) => {
+                res.status(500).json({
+                    error: 'Error: ' + error
+                })
             })
 
         } else {
-            res.status(401).json({
+            res.status(404).json({
                 error: 'You cannot access this post'
             });
         }
-    }).catch(err => {
-        res.send('error: ' + err)
+    }).catch(error => {
+        res.status(500).json({
+            error: 'Error: ' + error
+        });
     })
 }
 
