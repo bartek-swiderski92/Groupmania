@@ -89,49 +89,31 @@ exports.editComment = (req, res, next) => {
         }
     }).then((comment) => {
         if (comment) {
-            if (req.file) {
-                const commentObject = JSON.parse(req.body.post);
-                const url = req.protocol + '://' + req.get('host')
-                const comment = db.Comment.create({
-                    UserId: res.locals.userId,
-                    PostId: commentObject.postId,
-                    commentContent: commentObject.commentContent,
-                    media: url + '/images/' + req.file.filename
-                }).then((post) => {
-                    res.status(201).json({
-                        status: 'Comment has been successfully created!',
-                        post
-                    });
-                }).catch((error) => {
-                    res.status(404).json({
-                        error: 'Error: ' + error
-                    })
+            const url = req.protocol + '://' + req.get('host')
+            comment.update({
+                commentContent: commentObject.commentContent,
+                media: req.file ? url + '/media/' + req.file.filename : comment.dataValues.media
+            }).then((comment) => {
+                res.status(201).json({
+                    status: 'Comment has been updated successfully!',
+                    comment
+                });
+            }).catch((error) => {
+                res.status(500).json({
+                    error: 'Error: ' + error
                 })
-            } else {
-                comment.update({
-                    commentContent: commentObject.commentContent,
-                    media: commentObject.media
-                }).then(() => {
-                    res.status(200).json({
-                        success: 'Comment has been updated successfully!'
-                    })
-                }).catch(err => {
-                    res.send(err)
-                })
-            }
+            })
         } else {
             res.status(404).json({
                 status: 'You cannot access this content.'
             });
         }
-    }).catch(err => {
-        res.send('error: ' + err)
+    }).catch(error => {
+        res.status(500).json({
+            error: 'Error: ' + error
+        });
     })
 }
-
-// exports.deletePicture = (req, res, next) => {
-//     console.log('lolz')
-// }
 
 exports.deleteComment = (req, res, next) => {
     db.Comment.findOne({
