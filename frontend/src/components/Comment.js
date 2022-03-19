@@ -27,23 +27,23 @@ function Comment({ comment, media, refreshComponent }) {
             })
     }
 
-    function deletePicture() { // deletes picture file from back-end, needs .then() and .chatch()
+    function dltPicture(callback) { // deletes picture file from back-end
         axios.delete(`${apiUrl}/comments/picture/` + comment.id, {
             headers: {
                 "Authorization": `Bearer: ${token}`,
                 "Content-Type": "multipart/form-data"
             }
+        }).then((res) => {
+            console.log(res.data.message)
+            callback()
         })
+            .catch(err => console.log(err))
     }
 
     function deleteComment() { // Deletes media if any, then runs dltComment
         if (window.confirm("Are you sure you want to delete this comment?") === true) {
             if (comment.media !== null) {
-                deletePicture()
-                    .then(() => {
-                        dltComment()
-                    })
-                    .catch(err => console.log(err))
+                dltPicture(dltComment)
             } else {
                 dltComment()
             }
@@ -93,11 +93,7 @@ function Comment({ comment, media, refreshComponent }) {
         displayEdit(false);
         if (deletePictureFlag) {
             //TODO: check error 
-            deletePicture()
-                .then(res => {
-                    console.log(res.data.message)
-                })
-                .catch(err => console.log(err))
+            dltPicture()
         }
 
         // const [commentContent, commentMedia] = event.target.elements[0];
