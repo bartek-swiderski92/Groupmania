@@ -105,13 +105,16 @@ function Comment({ comment, media, refreshComponent }) {
     function hideOldPicture(value, event) {
         console.log('change')
         const image = document.querySelector(`#comment__media-${comment.id}`)
+        const imageINput = document.querySelector(`#image-url-new-post-${comment.id}`)
+
         if (!image) {
             loadImagePreview(event)
             return
         }
         setDeletePictureFlag(true);
         if (value === 'remove') {
-            console.log('if')
+            console.log('if');
+            imageINput.value = null
             image.style.display = 'none'
         } else if (value === 'replace') {
             console.log('if else')
@@ -164,7 +167,7 @@ function Comment({ comment, media, refreshComponent }) {
                 <div className="comment-content">
 
 
-                    <div className="comment__media" style={comment.media?.length < 0 ? { display: 'none' } : { display: 'inline' }}>
+                    <div className="comment__media" style={comment.media === null ? { display: 'none' } : { display: 'inline' }}>
                         <img src={comment.media} alt={'tablet'} id={`comment__media-${comment.id}`} />
                     </div>
 
@@ -175,7 +178,7 @@ function Comment({ comment, media, refreshComponent }) {
                     <form action="create-comment" className="edit-comment--body" id={`edit-comment-${comment.id}`} onSubmit={editComment} style={{ display: "none" }}>
                         <textarea className="new-comment__input" name="newComment" id="newComment" defaultValue={comment.commentContent}>
                         </textarea>
-                        <input onChange={(event) => { hideOldPicture('replace', event) }} type="file" accept='image/*' id="image-url-new-post" className="new-post-input" />
+                        <input onChange={(event) => { hideOldPicture('replace', event) }} type="file" accept='image/*' id={`image-url-new-post-${comment.id}`} className="new-post-input" />
                         <img id={`output-comment-${comment.id}`} alt="media preview" style={{ display: 'none' }} />
 
                         <Button type="button" onClick={(event) => { hideOldPicture('remove', event) }} className="delete" buttonContent="Remove Image" />
