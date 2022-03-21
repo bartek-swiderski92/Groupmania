@@ -10,16 +10,21 @@ import '../styles/NewComment.css';
 function Comment({ comment, refreshComponent }) {
     const token = localStorage.getItem('token');
     const [deletePictureFlag, setDeletePictureFlag] = useState(false)
-
+    // TODO: check the file upload and cancellation
     function loadImagePreview(event) {
-        if (event) {
+        const output = document.querySelector(`#comment__media-${comment.id}`)
+        if (event && event.target.files[0]) {
+            console.log('if');
             event.preventDefault();
-            const output = document.querySelector(`#comment__media-${comment.id}`)
             output.src = URL.createObjectURL(event.target.files[0]);
             output.style.display = 'block'
             output.onload = function () {
                 URL.revokeObjectURL(output.src)
             };
+        } else if (!event?.target.files[0]) {
+            console.log('else')
+            output.style.display = 'none'
+
         }
     };
 
@@ -169,7 +174,6 @@ function Comment({ comment, refreshComponent }) {
                         </textarea>
                         <input onChange={(event) => {
                             hideOldPicture('replace', event);
-                            loadImagePreview()
                         }} type="file" accept='image/*' id={`image-url-new-post-${comment.id}`} className="new-post-input" />
                         <img id={`output-comment-${comment.id}`} alt="media preview" style={{ display: 'none' }} />
                         <Button type="button" onClick={(event) => { hideOldPicture('remove', event) }} className="delete" buttonContent="Remove Image" />
