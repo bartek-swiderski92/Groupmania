@@ -58,7 +58,6 @@ function LikeBar({ postId, checkIfPostIsRead, markAsRead, markAsUnread, readPost
     }
 
     function displayLikes(array) {
-        const likeSpan = document.querySelector('#likes-span')
         if (array.length === 0) {
             return 'Be first to like it!'
         } else if (array.length === 1) {

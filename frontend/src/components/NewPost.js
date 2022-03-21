@@ -105,7 +105,7 @@ function NewPost({ editPost }) {
         <div className="new-post-wrapper">
             {editPost ? <h3>Edit your post:</h3> : <h3>Tell us what's on your mind today!</h3>}
             {/* <h3>Tell us what's on your mind today!</h3> */}
-            <form action="create-post" className="post-body" onSubmit={submitPost} enctype="multipart/form-data">
+            <form action="create-post" className="post-body" onSubmit={submitPost} encType="multipart/form-data">
                 <input type="text" id="post-title" placeholder="Post Title" className="new-post-input" defaultValue={editPost ? post.postTitle : ''} />
                 <textarea placeholder="Post Content" className="new-post-input" defaultValue={editPost ? post.postContent : ''} />
                 <div className="post__media">
