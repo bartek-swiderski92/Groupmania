@@ -13,6 +13,7 @@ function Comment({ comment, media, refreshComponent }) {
 
     function loadImagePreview(event) {
         if (event) {
+            console.log('image')
             event.preventDefault();
             const output = document.querySelector(`#comment__media-${comment.id}`)
             output.src = URL.createObjectURL(event.target.files[0]);
@@ -131,11 +132,8 @@ function Comment({ comment, media, refreshComponent }) {
         const token = localStorage.getItem('token');
         displayEdit(false);
         if (deletePictureFlag) {
-            //TODO: check error 
             dltPicture()
         }
-
-        // const [commentContent, commentMedia] = event.target.elements[0];
         let formData = new FormData();
         formData.append('postTitle', event.target.elements[0].value)
         formData.append('image', event.target[1].files[0])
@@ -167,8 +165,8 @@ function Comment({ comment, media, refreshComponent }) {
                 <div className="comment-content">
 
 
-                    <div className="comment__media" style={comment.media === null ? { display: 'none' } : { display: 'inline' }}>
-                        <img src={comment.media} alt={'tablet'} id={`comment__media-${comment.id}`} />
+                    <div className="comment__media" >
+                        <img src={comment.media} alt={'tablet'} id={`comment__media-${comment.id}`} style={comment.media === null ? { display: 'none' } : { display: 'inline' }} />
                     </div>
 
 
@@ -178,7 +176,10 @@ function Comment({ comment, media, refreshComponent }) {
                     <form action="create-comment" className="edit-comment--body" id={`edit-comment-${comment.id}`} onSubmit={editComment} style={{ display: "none" }}>
                         <textarea className="new-comment__input" name="newComment" id="newComment" defaultValue={comment.commentContent}>
                         </textarea>
-                        <input onChange={(event) => { hideOldPicture('replace', event) }} type="file" accept='image/*' id={`image-url-new-post-${comment.id}`} className="new-post-input" />
+                        <input onChange={(event) => {
+                            hideOldPicture('replace', event);
+                            loadImagePreview()
+                        }} type="file" accept='image/*' id={`image-url-new-post-${comment.id}`} className="new-post-input" />
                         <img id={`output-comment-${comment.id}`} alt="media preview" style={{ display: 'none' }} />
 
                         <Button type="button" onClick={(event) => { hideOldPicture('remove', event) }} className="delete" buttonContent="Remove Image" />
