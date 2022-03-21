@@ -20,8 +20,7 @@ function NewPost({ editPost }) {
         })
     }, [])
 
-    function loadFile(event) {
-        console.log('change')
+    function loadImagePreview(event) {
         const output = document.getElementById('output');
         output.src = URL.createObjectURL(event.target.files[0]);
         output.style.display = 'block'
@@ -34,9 +33,7 @@ function NewPost({ editPost }) {
     function deleteImage(event) {  // Deleting image from the post
         event.preventDefault();
         setPostMedia(null)
-        console.log('delete')
         setDeleteImageFlag(true)
-
     }
 
     function deleteImgPreview(event) { //Removing displaying image from the front end
@@ -115,13 +112,13 @@ function NewPost({ editPost }) {
                     {postMedia?.length > 1 ? (
                         <>
                             <img src={post.media} alt={post.postTitle} />
-                            <input type="file" accept='image/*' name="image" id="image-input" className="new-post-input" onChange={loadFile} />
+                            <input type="file" accept='image/*' name="image" id="image-input" className="new-post-input" onChange={loadImagePreview} />
                             <img id="output" alt={post.postTitle} style={{ display: 'none' }} />
                             <Button className="delete" id="remove-img-btn" onClick={deleteImage} buttonContent="Delete image" />
                         </>
                     ) : (
                         <>
-                            <input type="file" accept='image/*' name="image" id="image-input" className="new-post-input" onChange={loadFile} />
+                            <input type="file" accept='image/*' name="image" id="image-input" className="new-post-input" onChange={loadImagePreview} />
                             <img id="output" alt={post.postTitle} style={{ display: 'none' }} />
                             <Button className="delete hidden" id="remove-img-btn" onClick={deleteImgPreview} buttonContent="Remove Image" />
                         </>
