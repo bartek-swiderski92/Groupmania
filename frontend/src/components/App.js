@@ -60,6 +60,7 @@ function App() {
                                 {userLoggedIn ? <Redirect to="/newsfeed" /> : <Login updateState={(val) => updateState(val)} />}
                             </Route>
                             <Route path="/edit/post/:id">
+                                {userLoggedIn ? <NewPost editPost={true} /> : <Redirect to="/login" updateState={(val) => updateState(val)} />}
                                 <NewPost editPost={true} />
                             </Route>
                             <Route path="/redirect" component={RedirectComponent} userLoggedIn={userLoggedIn} />
