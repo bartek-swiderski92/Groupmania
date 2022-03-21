@@ -7,6 +7,21 @@ import Button from './Button';
 
 function NewComment({ postId, refreshComponent }) {
 
+    function loadImagePreview(event) {
+        const output = document.querySelector(`#new-comment-image-${postId}`)
+        if (event && event.target.files[0]) {
+            event.preventDefault();
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.style.display = 'block'
+            output.onload = function () {
+                URL.revokeObjectURL(output.src)
+            };
+        } else if (!event?.target.files[0]) {
+            console.log('else')
+
+            output.style.display = 'none'
+        }
+    };
     function submitComment(event) {
         event.preventDefault();
         const token = localStorage.getItem('token');
@@ -24,9 +39,12 @@ function NewComment({ postId, refreshComponent }) {
             }
         })
             .then(res => {
-                window.alert(res.data.message);
+                const output = document.querySelector(`#new-comment-image-${postId}`)
                 commentContent.value = '';
                 commentMedia.value = '';
+                output.style.display = 'none'
+                window.alert(res.data.message);
+
                 refreshComponent()
             })
             .catch(err => console.log(err))
@@ -37,7 +55,9 @@ function NewComment({ postId, refreshComponent }) {
             <form action="create-comment" className="comment-body" onSubmit={submitComment} encType="multipart/form-data">
                 <h2 className="new-comment__heading">Comment the post</h2>
                 <textarea className="new-comment__input" name="newComment" id="newComment" placeholder="Insert your comment here..."></textarea>
-                <input type="file" id="image-url-new-post" className="new-post-input" accept='image/*' />
+                <img id={`new-comment-image-${postId}`} alt="media preview" style={{ display: 'none' }} />
+                <input onChange={loadImagePreview} type="file" id={`image-url-new-post-${postId}`} className="new-post-input" accept='image/*' />
+
                 <Button className="new-comment__button" buttonContent="Create a comment" />
             </form>
         </div>
