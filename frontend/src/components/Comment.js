@@ -14,8 +14,7 @@ function Comment({ comment, media, refreshComponent }) {
     function loadImagePreview(event) {
         if (event) {
             event.preventDefault();
-            const output = document.getElementById(`output-comment-${comment.id}`);
-            console.log(event.target.files[0])
+            const output = document.querySelector(`#comment__media-${comment.id}`)
             output.src = URL.createObjectURL(event.target.files[0]);
             output.style.display = 'block'
             output.onload = function () {
@@ -49,7 +48,7 @@ function Comment({ comment, media, refreshComponent }) {
             }
         }).then((res) => {
             console.log(res.data.message)
-            callback()
+            this.callback()
         })
             .catch(err => console.log(err))
     }
@@ -69,6 +68,7 @@ function Comment({ comment, media, refreshComponent }) {
         const editCommentEl = document.querySelector(`#edit-comment-${comment.id}`)
         const deleteBtn = document.querySelector(`#delete-btn-${comment.id}`)
         const editBtn = document.querySelector(`#edit-btn-${comment.id}`)
+        const imagePreview = document.querySelector(`#comment__media-${comment.id}`)
 
         if (editable === true) {
             commentContentEl.style.display = "none"
@@ -78,7 +78,8 @@ function Comment({ comment, media, refreshComponent }) {
             deleteBtn.className = 'disabled'
             editBtn.className = 'disabled'
         } else {
-            hideOldPicture(false)
+            hideOldPicture()
+            imagePreview.src = comment.media
             commentContentEl.style.display = "block"
             editCommentEl.style.display = "none"
             deleteBtn.disabled = false
@@ -91,13 +92,20 @@ function Comment({ comment, media, refreshComponent }) {
     function hideOldPicture(value, event) {
         console.log('change')
         const image = document.querySelector(`#comment__media-${comment.id}`)
+        if (!image) {
+            loadImagePreview(event)
+            return
+        }
         setDeletePictureFlag(true);
-        if (!image) return
         if (value === 'remove') {
+            console.log('if')
             image.style.display = 'none'
-        } else if ('replace') {
+        } else if (value === 'replace') {
+            console.log('if else')
             loadImagePreview(event)
         } else {
+            console.log('else')
+            loadImagePreview(event)
             image.style.display = 'inline'
         }
     }
