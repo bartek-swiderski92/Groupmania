@@ -38,7 +38,7 @@ function NewComment({ postId, refreshComponent }) {
             <form action="create-comment" className="comment-body" onSubmit={submitComment} encType="multipart/form-data">
                 <h2 className="new-comment__heading">Comment the post</h2>
                 <textarea className="new-comment__input" name="newComment" id="newComment" placeholder="Insert your comment here..."></textarea>
-                <input type="file" id="image-url-new-post" className="new-post-input" />
+                <input type="file" id="image-url-new-post" className="new-post-input" accept='image/*' />
                 <Button className="new-comment__button" buttonContent="Create a comment" />
             </form>
         </div>
