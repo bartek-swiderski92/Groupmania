@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import axios from 'axios';
 
@@ -40,7 +40,7 @@ function Comment({ comment, media, refreshComponent }) {
             })
     }
 
-    function dltPicture(callback) { // deletes picture file from back-end
+    function dltPicture() { // deletes picture file from back-end
         axios.delete(`${apiUrl}/comments/picture/` + comment.id, {
             headers: {
                 "Authorization": `Bearer: ${token}`,
@@ -48,15 +48,28 @@ function Comment({ comment, media, refreshComponent }) {
             }
         }).then((res) => {
             console.log(res.data.message)
-            this.callback()
         })
             .catch(err => console.log(err))
     }
 
+    function deleteCommentWithPicture() {
+        axios.delete(`${apiUrl}/comments/picture/` + comment.id, {
+            headers: {
+                "Authorization": `Bearer: ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        }).then((res) => {
+            console.log(res.data.message)
+            dltComment()
+        })
+            .catch(err => console.log(err))
+    }
+
+
     function deleteComment() { // Deletes media if any, then runs dltComment
         if (window.confirm("Are you sure you want to delete this comment?") === true) {
             if (comment.media !== null) {
-                dltPicture(dltComment)
+                deleteCommentWithPicture()
             } else {
                 dltComment()
             }
@@ -143,18 +156,19 @@ function Comment({ comment, media, refreshComponent }) {
             <div className="comment">
                 <div className="comment-details">
                     <div className="comment-details__user-picture">
-                        {/*TODO: add profile picture handling*/}
                         <a className="link" href={appUrl + 'user/' + comment.UserId}><img src={require('../media/default-picture.png').default} alt={comment.User.firstName + ' ' + comment.User.secondName + "'s profile picture"} /></a></div>
                     <div className="comment-details__user-name">
                         <a className="link" href={appUrl + 'user/' + comment.UserId}>{comment.User.firstName + ' ' + comment.User.secondName}</a>
                     </div>
                 </div>
                 <div className="comment-content">
-                    {comment.media?.length > 0 ? (
-                        <div className="comment__media">
-                            <img src={comment.media} alt={'tablet'} id={`comment__media-${comment.id}`} />
-                        </div>
-                    ) : null}
+
+
+                    <div className="comment__media" style={comment.media?.length < 0 ? { display: 'none' } : { display: 'inline' }}>
+                        <img src={comment.media} alt={'tablet'} id={`comment__media-${comment.id}`} />
+                    </div>
+
+
                     <div className="comment-content__text" id={`comment-content-${comment.id}`}>
                         {comment.commentContent}
                     </div>
