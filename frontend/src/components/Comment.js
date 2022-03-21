@@ -7,22 +7,20 @@ import Button from './Button';
 import '../styles/Comment.css';
 import '../styles/NewComment.css';
 
-function Comment({ comment, media, refreshComponent }) {
+function Comment({ comment, refreshComponent }) {
     const token = localStorage.getItem('token');
     const [deletePictureFlag, setDeletePictureFlag] = useState(false)
 
     function loadImagePreview(event) {
         if (event) {
-            console.log('image')
             event.preventDefault();
             const output = document.querySelector(`#comment__media-${comment.id}`)
             output.src = URL.createObjectURL(event.target.files[0]);
             output.style.display = 'block'
             output.onload = function () {
-                URL.revokeObjectURL(output.src) // free memory
+                URL.revokeObjectURL(output.src)
             };
         }
-        // document.querySelector(`#remove-img-btn-${comment.id}`).classList.remove('hidden')
     };
 
     function dltComment() { // Method deleting Comment from DB 
@@ -50,7 +48,9 @@ function Comment({ comment, media, refreshComponent }) {
         }).then((res) => {
             console.log(res.data.message)
         })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     function deleteCommentWithPicture() {
@@ -63,9 +63,10 @@ function Comment({ comment, media, refreshComponent }) {
             console.log(res.data.message)
             dltComment()
         })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err)
+            })
     }
-
 
     function deleteComment() { // Deletes media if any, then runs dltComment
         if (window.confirm("Are you sure you want to delete this comment?") === true) {
@@ -104,24 +105,19 @@ function Comment({ comment, media, refreshComponent }) {
     }
 
     function hideOldPicture(value, event) {
-        console.log('change')
         const image = document.querySelector(`#comment__media-${comment.id}`)
         const imageINput = document.querySelector(`#image-url-new-post-${comment.id}`)
-
         if (!image) {
             loadImagePreview(event)
             return
         }
         setDeletePictureFlag(true);
         if (value === 'remove') {
-            console.log('if');
             imageINput.value = null
             image.style.display = 'none'
         } else if (value === 'replace') {
-            console.log('if else')
             loadImagePreview(event)
         } else {
-            console.log('else')
             loadImagePreview(event)
             image.style.display = 'inline'
         }
@@ -148,7 +144,6 @@ function Comment({ comment, media, refreshComponent }) {
             })
             .catch(err => {
                 console.log(err)
-
             })
     }
 
@@ -163,13 +158,9 @@ function Comment({ comment, media, refreshComponent }) {
                     </div>
                 </div>
                 <div className="comment-content">
-
-
                     <div className="comment__media" >
                         <img src={comment.media} alt={'tablet'} id={`comment__media-${comment.id}`} style={comment.media === null ? { display: 'none' } : { display: 'inline' }} />
                     </div>
-
-
                     <div className="comment-content__text" id={`comment-content-${comment.id}`}>
                         {comment.commentContent}
                     </div>
@@ -181,7 +172,6 @@ function Comment({ comment, media, refreshComponent }) {
                             loadImagePreview()
                         }} type="file" accept='image/*' id={`image-url-new-post-${comment.id}`} className="new-post-input" />
                         <img id={`output-comment-${comment.id}`} alt="media preview" style={{ display: 'none' }} />
-
                         <Button type="button" onClick={(event) => { hideOldPicture('remove', event) }} className="delete" buttonContent="Remove Image" />
                         <Button type="reset" onClick={() => displayEdit(false)} className="delete" buttonContent="Cancel" />
                         <Button type="submit" className="submit" buttonContent="Save" />
