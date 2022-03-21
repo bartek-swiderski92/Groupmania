@@ -11,6 +11,20 @@ function Comment({ comment, media, refreshComponent }) {
     const token = localStorage.getItem('token');
     const [deletePictureFlag, setDeletePictureFlag] = useState(false)
 
+    function loadImagePreview(event) {
+        if (event) {
+            event.preventDefault();
+            const output = document.getElementById(`output-comment-${comment.id}`);
+            console.log(event.target.files[0])
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.style.display = 'block'
+            output.onload = function () {
+                URL.revokeObjectURL(output.src) // free memory
+            };
+        }
+        // document.querySelector(`#remove-img-btn-${comment.id}`).classList.remove('hidden')
+    };
+
     function dltComment() { // Method deleting Comment from DB 
         axios.delete(`${apiUrl}/comments/${comment.id}`, {
             headers: {
@@ -74,14 +88,15 @@ function Comment({ comment, media, refreshComponent }) {
         }
     }
 
-    function hideOldPicture(value) {
+    function hideOldPicture(value, event) {
+        console.log('change')
         const image = document.querySelector(`#comment__media-${comment.id}`)
         setDeletePictureFlag(true);
         if (!image) return
         if (value === 'remove') {
             image.style.display = 'none'
         } else if ('replace') {
-
+            loadImagePreview(event)
         } else {
             image.style.display = 'inline'
         }
@@ -138,8 +153,10 @@ function Comment({ comment, media, refreshComponent }) {
                     <form action="create-comment" className="edit-comment--body" id={`edit-comment-${comment.id}`} onSubmit={editComment} style={{ display: "none" }}>
                         <textarea className="new-comment__input" name="newComment" id="newComment" defaultValue={comment.commentContent}>
                         </textarea>
-                        <input onChange={() => { hideOldPicture('replace') }} type="file" accept='image/*' id="image-url-new-post" className="new-post-input" />
-                        <Button type="button" onClick={() => { hideOldPicture('remove') }} className="delete" buttonContent="Remove Image" />
+                        <input onChange={(event) => { hideOldPicture('replace', event) }} type="file" accept='image/*' id="image-url-new-post" className="new-post-input" />
+                        <img id={`output-comment-${comment.id}`} alt="media preview" style={{ display: 'none' }} />
+
+                        <Button type="button" onClick={(event) => { hideOldPicture('remove', event) }} className="delete" buttonContent="Remove Image" />
                         <Button type="reset" onClick={() => displayEdit(false)} className="delete" buttonContent="Cancel" />
                         <Button type="submit" className="submit" buttonContent="Save" />
                     </form>
