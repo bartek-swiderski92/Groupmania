@@ -106,10 +106,10 @@ function UserProfile({ logout }) {
                                         <input id="secondName" type="text" defaultValue={userDetails.secondName} />
                                         <label htmlFor="email">Email: </label>
                                         <input id="email" type="text" defaultValue={userDetails.email} />
-                                        <label htmlFor="birthday">Birthday: </label>
-                                        <input id="birthday" type="text" defaultValue={userDetails.dob} />
-                                        <label htmlFor="profilePicture">Profile Picture: </label>
-                                        <input id="profilePicture" type="file" />
+                                        {/* <label htmlFor="birthday">Birthday: </label> */}
+                                        {/* <input id="birthday" type="text" defaultValue={userDetails.dob} /> */}
+                                        {/* <label htmlFor="profilePicture">Profile Picture: </label> */}
+                                        {/* <input id="profilePicture" type="file" /> */}
                                         <Button type='submit' buttonContent="Save Profile" className="submit" />
                                     </form>
                                     <Button onClick={closeForm} id="cancel-edit-btn" buttonContent="Cancel" className="delete" />
