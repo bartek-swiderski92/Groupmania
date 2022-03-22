@@ -136,7 +136,7 @@ function Comment({ comment, refreshComponent }) {
             dltPicture()
         }
         let formData = new FormData();
-        formData.append('postTitle', event.target.elements[0].value)
+        formData.append('commentContent', event.target.elements[0].value)
         formData.append('image', event.target[1].files[0])
         axios.put(`${apiUrl}/comments/${comment.id}`, formData, {
             headers: {
