@@ -28,6 +28,7 @@ function Post({ post, user, displayLikes, displayComments }) {
         if (!readPost && document.URL.split('/').indexOf('post') !== -1) {
             markAsRead()
         }
+        // eslint-disable-next-line
     }, [])
 
 

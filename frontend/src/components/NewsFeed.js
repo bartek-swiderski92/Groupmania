@@ -32,6 +32,7 @@ function NewsFeed(props) {
                 setPosts(res)
             })
         }
+        // eslint-disable-next-line
     }, [])
 
     if (props.userLoggedIn !== true) {
@@ -41,9 +42,11 @@ function NewsFeed(props) {
     return (
         <div className="news-feed-wrapper">
             <h2>Welcome {localStorage.getItem('userName')}!</h2>
-            {props.unread === false ? (<Button onClick={() => history.push(`/unread/`)} className="read left" buttonContent="Check new posts from your last visit" />
+            {props.unread === true ? (
+                <Button onClick={() => history.push(`/newsfeed/`)} className="read left" buttonContent="Back to homepage" />
             ) : (
-                <Button onClick={() => history.push(`/newsfeed/`)} className="read left" buttonContent="Back to homepage" />)}
+                <Button onClick={() => history.push(`/unread/`)} className="read left" buttonContent="Check new posts from your last visit" />
+            )}
             <NewPost />
             {posts.length ? (<ShowPost post={posts} displayLikes={true} displayComment={true} unread={props.unread} />) : (
                 <div>

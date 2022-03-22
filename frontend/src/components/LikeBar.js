@@ -24,6 +24,7 @@ function LikeBar({ postId, checkIfPostIsRead, markAsRead, markAsUnread, readPost
                 displayLikes(localLikesArr)
             })
             .catch(err => { console.log(err) })
+        // eslint-disable-next-line
     }, [liked])
 
     function submitLike() {
@@ -39,7 +40,7 @@ function LikeBar({ postId, checkIfPostIsRead, markAsRead, markAsUnread, readPost
             )
             .catch(err => {
                 if (err.status.data === 403) {
-                    
+
                 }
             })
     }
