@@ -100,7 +100,6 @@ function NewPost({ editPost }) {
                 .catch(err => console.log(err))
         }
     }
-
     return (
         <div className="new-post-wrapper">
             {editPost ? <h3>Edit your post:</h3> : <h3>Tell us what's on your mind today!</h3>}
@@ -126,6 +125,7 @@ function NewPost({ editPost }) {
                     }
                 </div>
                 <Button type='submit' className='new-post__button' buttonContent={editPost ? 'Save Changes' : 'Add Post'} />
+                {editPost ? <Button onClick={() => history.push(`/post/${post.id}`)} className='new-post__button' buttonContent="Cancel" /> : null}
             </form>
 
         </div>
