@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
 import NewPost from './NewPost';
+import Button from './Button';
 import '../styles/NewsFeed.css';
 
 function NewsFeed(props) {
@@ -39,8 +40,10 @@ function NewsFeed(props) {
 
     return (
         <div className="news-feed-wrapper">
-            <h2>Welcome back {localStorage.getItem('userName')}!</h2>
-            <div><a href="/unread/">Check new posts from your last visit</a></div>
+            <h2>Welcome {localStorage.getItem('userName')}!</h2>
+            {props.unread === false ? (<Button onClick={() => history.push(`/unread/`)} className="read left" buttonContent="Check new posts from your last visit" />
+            ) : (
+                <Button onClick={() => history.push(`/newsfeed/`)} className="read left" buttonContent="Back to homepage" />)}
             <NewPost />
             {posts.length ? (<ShowPost post={posts} displayLikes={true} displayComment={true} unread={props.unread} />) : (
                 <div>

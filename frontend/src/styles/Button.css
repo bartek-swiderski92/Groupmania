@@ -80,6 +80,10 @@ button.login {
     margin-left: 5px;
 }
 
+button.left {
+    align-self: flex-start;
+}
+
 .new-post__button,
 .new-comment__button {
     border: none;
