@@ -1,5 +1,8 @@
 .groupmania {
+  position: absolute;
+  width: 100vw;
   background-color: #fff;
+  height: 100vh;
 }
 
 .main-content {
