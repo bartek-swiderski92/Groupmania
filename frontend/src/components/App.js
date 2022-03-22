@@ -34,10 +34,10 @@ function App() {
     }
 
     return (
-        <div className="groupmania">
+        <div>
             <BrowserRouter>
                 <Switch>
-                    <div>
+                    <div className="groupmania">
                         <Navbar userLoggedIn={userLoggedIn} updateState={(val) => updateState(val)} logout={logout} />
                         <div className="main-content">
                             <React.Suspense fallback={<span>Loading...</span>} />
@@ -64,10 +64,10 @@ function App() {
                             </Route>
                             <Route path="/redirect" component={RedirectComponent} userLoggedIn={userLoggedIn} />
                         </div>
+                        <Footer />
                     </div>
                 </Switch>
             </BrowserRouter>
-            <Footer />
         </div>
     )
 
