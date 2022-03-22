@@ -14,17 +14,12 @@ function Comment({ comment, refreshComponent }) {
     function loadImagePreview(event) {
         const output = document.querySelector(`#comment__media-${comment.id}`)
         if (event && event.target.files[0]) {
-            console.log('if');
             event.preventDefault();
             output.src = URL.createObjectURL(event.target.files[0]);
             output.style.display = 'block'
             output.onload = function () {
                 URL.revokeObjectURL(output.src)
             };
-        } else if (!event?.target.files[0]) {
-            console.log('else')
-            output.style.display = 'none'
-
         }
     };
 
@@ -35,7 +30,7 @@ function Comment({ comment, refreshComponent }) {
             }
         })
             .then(res => {
-                console.log(res)
+                window.alert(res.data.message)
                 refreshComponent()
 
             })
@@ -51,7 +46,7 @@ function Comment({ comment, refreshComponent }) {
                 "Content-Type": "multipart/form-data"
             }
         }).then((res) => {
-            console.log(res.data.message)
+            window.alert(res.data.message)
         })
             .catch(err => {
                 console.log(err)
@@ -65,7 +60,7 @@ function Comment({ comment, refreshComponent }) {
                 "Content-Type": "multipart/form-data"
             }
         }).then((res) => {
-            console.log(res.data.message)
+            window.alert(res.data.message)
             dltComment()
         })
             .catch(err => {
