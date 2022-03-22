@@ -22,12 +22,15 @@ function NewPost({ editPost }) {
 
     function loadImagePreview(event) {
         const output = document.getElementById('output');
-        output.src = URL.createObjectURL(event.target.files[0]);
-        output.style.display = 'block'
-        output.onload = function () {
-            URL.revokeObjectURL(output.src) // free memory
-        };
-        document.querySelector('#remove-img-btn').classList.remove('hidden')
+        if (event && event.target.files[0]) {
+            console.log('event')
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.style.display = 'block'
+            output.onload = function () {
+                URL.revokeObjectURL(output.src) // free memory
+            };
+            document.querySelector('#remove-img-btn').classList.remove('hidden')
+        }
     };
 
     function deleteImage(event) {  // Deleting image from the post
@@ -110,9 +113,9 @@ function NewPost({ editPost }) {
                 <div className="post__media">
                     {postMedia?.length > 1 ? (
                         <>
-                            <img src={post.media} alt={post.postTitle} />
+                            <img id="output" src={post.media} alt={post.postTitle} />
                             <input type="file" accept='image/*' name="image" id="image-input" className="new-post-input" onChange={loadImagePreview} />
-                            <img id="output" alt={post.postTitle} style={{ display: 'none' }} />
+                            {/* <img id="output" alt={post.postTitle} style={{ display: 'none' }} /> */}
                             <Button className="delete" id="remove-img-btn" onClick={deleteImage} buttonContent="Delete image" />
                         </>
                     ) : (
