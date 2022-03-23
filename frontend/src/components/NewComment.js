@@ -7,6 +7,8 @@ import Button from './Button';
 
 function NewComment({ postId, refreshComponent }) {
     //FIX: comment content not passing 
+    //FIX: refreshing post after inserting a comment
+    //TODO: investigate picture error while removign comment content
     function loadImagePreview(event) {
         const output = document.querySelector(`#new-comment__image-${postId}`)
         if (event && event.target.files[0]) {
@@ -55,7 +57,7 @@ function NewComment({ postId, refreshComponent }) {
             <form action="create-comment" className="comment-body" onSubmit={submitComment} encType="multipart/form-data">
                 <h2 className="new-comment__heading">Comment the post</h2>
                 <textarea className="new-comment__input" name="newComment" id="newComment" placeholder="Insert your comment here..."></textarea>
-                <img id={`new-comment__image-${postId}`} alt="media preview" style={{ display: 'none' }} class="new-comment__image-preview" />
+                <img id={`new-comment__image-${postId}`} alt="media preview" style={{ display: 'none' }} className="new-comment__image-preview" />
                 <input onChange={loadImagePreview} type="file" id={`image-url-new-post-${postId}`} className="new-post-input" accept='image/*' />
 
                 <Button className="new-comment__button" buttonContent="Create a comment" />
