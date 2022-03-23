@@ -45,7 +45,7 @@ function NewsFeed(props) {
             {props.unread === true ? (
                 <Button onClick={() => history.push(`/newsfeed/`)} className="read left" buttonContent="Back to homepage" />
             ) : (
-                <Button onClick={() => history.push(`/unread/`)} className="read left" buttonContent="Check new posts from your last visit" />
+                <Button onClick={() => history.push(`/unread/`)} className="read left" buttonContent="Check new posts" />
             )}
             <NewPost />
             {posts.length ? (<ShowPost post={posts} displayLikes={true} displayComment={true} unread={props.unread} />) : (
