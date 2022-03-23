@@ -159,7 +159,7 @@ function Comment({ comment, refreshComponent }) {
                 </div>
                 <div className="comment-content">
                     <div className="comment__media" >
-                        <img src={comment.media} alt={'tablet'} id={`comment__media-${comment.id}`} style={comment.media === null ? { display: 'none' } : { display: 'inline' }} />
+                        <img src={comment.media} alt={'tablet'} id={`comment__media-${comment.id}`} style={comment.media === null ? { display: 'none' } : { display: 'block' }} />
                     </div>
                     <div className="comment-content__text" id={`comment-content-${comment.id}`}>
                         {comment.commentContent}
@@ -171,14 +171,21 @@ function Comment({ comment, refreshComponent }) {
                             hideOldPicture('replace', event);
                         }} type="file" accept='image/*' id={`image-url-new-post-${comment.id}`} className="new-post-input" />
                         <img id={`output-comment-${comment.id}`} alt="media preview" style={{ display: 'none' }} />
-                        <Button type="button" onClick={(event) => { hideOldPicture('remove', event) }} className="delete" buttonContent="Remove Image" />
-                        <Button type="reset" onClick={() => displayEdit(false)} className="delete" buttonContent="Cancel" />
-                        <Button type="submit" className="submit" buttonContent="Save" />
+                        <div className='button-container'>
+                            <div className='button-container-row'>
+                                <Button type="button" onClick={(event) => { hideOldPicture('remove', event) }} className="delete" buttonContent="Remove Image" />
+                            </div>
+                            <div className='button-container-row'>
+                                <Button type="reset" onClick={() => displayEdit(false)} className="delete" buttonContent="Cancel" />
+                                <Button type="submit" className="submit" buttonContent="Save" />
+
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
 
-            <div>
+            <div class="comment-buttons">
                 {(() => {
                     if (parseInt(localStorage.getItem('userId')) === comment.UserId) {
                         return (<>
