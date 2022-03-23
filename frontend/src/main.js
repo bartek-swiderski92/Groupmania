@@ -80,6 +80,13 @@ export async function getUserDetails(query) {
         console.log(error);
     })
 }
+
+export function formatDate(sqlDate, dateOnly) {
+    let date = sqlDate.split('T')[0];
+    let time = sqlDate.split('T')[1].split('.')[0];
+    return (dateOnly === true) ? `${date}` : `${time}, ${date}`
+
+}
     // const [users, setUsers] = useState([]);
 
 // async function getPosts(query) {

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 
-import { apiUrl, appUrl } from '../main';
+import { apiUrl, appUrl, formatDate } from '../main';
 import LikeBar from './LikeBar';
 import Button from './Button';
 import Comment from './Comment.js';
@@ -117,8 +117,8 @@ function Post({ post, user, displayLikes, displayComments }) {
                         </div>
                     </div>
                     <div className="post-details-dates">
-                        <div className="post-details__created-at">Post Created: {post.createdAt}</div>
-                        {post.createdAt !== post.updatedAt ? <div className="post-details__last-modified">Last Modified: {post.updatedAt}</div> : null}
+                        <div className="post-details__created-at">Post Created: {formatDate(post.createdAt)}</div>
+                        {post.createdAt !== post.updatedAt ? <div className="post-details__last-modified">Last Modified: {formatDate(post.updatedAt)}</div> : null}
                     </div>
                     {post.media?.length > 0 ? (
                         <div className="post__media">

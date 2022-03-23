@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getUserDetails, api, apiUrl } from '../main'
+import { getUserDetails, api, apiUrl, formatDate } from '../main'
 import '../styles/UserProfile.css';
 import Post from './Post';
 import Button from './Button';
@@ -93,9 +93,10 @@ function UserProfile({ logout }) {
                     )()}
                     {(() => {
                         if (!editProfile) {
-                            return (<>
-                                Email: {userDetails.email} <br />
-                                Birthday: {userDetails.dob} <br /></>)
+                            return (<div>
+                                <div className="user-email">Email: {userDetails.email}</div>
+                                <div className="user-birthday">Birthday: {userDetails.dob ? formatDate(userDetails.dob, true) : null}</div>
+                            </div>)
                         } else {
                             return (
                                 <>
