@@ -185,7 +185,7 @@ function Comment({ comment, refreshComponent }) {
                 </div>
             </div>
 
-            <div class="comment-buttons">
+            <div className="comment-buttons">
                 {(() => {
                     if (parseInt(localStorage.getItem('userId')) === comment.UserId) {
                         return (<>

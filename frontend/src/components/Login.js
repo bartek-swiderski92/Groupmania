@@ -79,7 +79,7 @@ function Login(props) {
                         <Button type='submit' className='login' buttonContent='Login' />
                     </form>
                     {window.innerWidth < 768 ?
-                        (<a href="#register" class="register-link"> Don't have an account? Click here to register.</a>) : (null)}
+                        (<a href="#register" className="register-link"> Don't have an account? Click here to register.</a>) : (null)}
                 </div>
                 <div id="register" className="register form">
                     <h2>Register</h2>

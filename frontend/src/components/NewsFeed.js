@@ -40,7 +40,7 @@ function NewsFeed(props) {
     }
 
     return (
-        <div className="news-feed-wrapper">
+        <div className="main-wrapper">
             <h2>Welcome {localStorage.getItem('userName')}!</h2>
             {props.unread === true ? (
                 <Button onClick={() => history.push(`/newsfeed/`)} className="read left" buttonContent="Back to homepage" />
