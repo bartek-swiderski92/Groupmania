@@ -1,8 +1,5 @@
 footer {
-    position: relative;
-    bottom: 0;
-    right: 0;
-    left: 0;
+    align-self: stretch;
     background-color: #5284ea;
     color: white;
     padding-top: 20px
