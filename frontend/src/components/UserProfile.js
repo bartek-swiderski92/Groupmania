@@ -20,7 +20,7 @@ function UserProfile({ logout }) {
             }
         })
     }, [id, userDetails.id])
-
+    //TODO: change password
     function openForm() {
         setEditProfile(true)
         document.querySelector('#edit-profile-btn').disabled = true
@@ -55,8 +55,8 @@ function UserProfile({ logout }) {
             "email": email.value,
             "firstName": firstName.value,
             "secondName": secondName.value,
-            "profilePicture": profilePicture.value,
-            "DOB": birthday.value
+            // "profilePicture": profilePicture.value,
+            // "DOB": birthday.value
         }, {
             headers: {
                 "Authorization": `Bearer: ${token}`
