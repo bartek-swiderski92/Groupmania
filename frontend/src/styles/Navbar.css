@@ -7,17 +7,29 @@ nav {
     padding: .1rem .4rem;
 }
 
-@media (max-width: 425px) {
+@media (max-width: 580px) {
     nav {
+        padding-top: 10px;
         flex-direction: column;
     }
 }
 
-h1 {
-    padding-left: 5%;
-    font-size: 1.5em;
-    font-weight: normal;
-    font-style: italic;
+img#site-logo {
+    display: block;
+    height: 50px;
+    margin-left: 20px;
+}
+
+@media (max-width: 580px) {
+    .button-container {
+        width: 100%;
+        flex-direction: row;
+    }
+
+    a,
+    img#site-logo {
+        margin: 0 auto;
+    }
 }
 
 #site-logo {
