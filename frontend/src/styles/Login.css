@@ -70,10 +70,6 @@ input {
     }
 }
 
-
-
-@media (max-width: 768px) {}
-
 form {
     display: flex;
     flex-direction: column;
