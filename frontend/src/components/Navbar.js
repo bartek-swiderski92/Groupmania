@@ -14,7 +14,7 @@ function Navbar({ userLoggedIn, logout }) {
 
     return (
         <nav>
-            <h1><a className="link" href={appUrl}><img id="site-logo" src={require('../media/icon-left-font-monochrome-white.png').default} alt="" /></a></h1>
+            <a className="link" href={appUrl}><img id="site-logo" src={require('../media/icon-left-font-monochrome-white.png').default} alt="" /></a>
             {(() => {
                 if (userLoggedIn === true) {
                     return (
