@@ -30,7 +30,9 @@ function Login(props) {
                 update(true)
                 history.push({ pathname: '/newsfeed', state: { userLoggedIn: true } })
             })
-            .catch(err => window.alert(err.response.data.error))
+            .catch(err => {
+                window.alert(err.response.data.error)
+            })
     }
     // TODO: 403 error redirects to login page
 
@@ -66,7 +68,7 @@ function Login(props) {
             <h2 className='login-text'>Welcome in Groupmania!</h2>
             <p className='login-text'>In order to proceed, you must login or register first. Please use forms below:</p>
             <div className="forms">
-                <div className="login">
+                <div className="login form">
                     <h2>Login</h2>
                     <form action="submit" onSubmit={loginUser} className="login-form">
                         <label htmlFor="login-email">Email:</label>
@@ -76,8 +78,10 @@ function Login(props) {
                         <input type="password" id="login-password" placeholder="•••••••••••" name="login-password" required />
                         <Button type='submit' className='login' buttonContent='Login' />
                     </form>
+                    {window.innerWidth < 768 ?
+                        (<a href="#register" class="register-link"> Don't have an account? Click here to register.</a>) : (null)}
                 </div>
-                <div className="register">
+                <div id="register" className="register form">
                     <h2>Register</h2>
                     <form action="submit" onSubmit={registerUser} className="register-form">
                         <label htmlFor="register-email">Email: </label>
