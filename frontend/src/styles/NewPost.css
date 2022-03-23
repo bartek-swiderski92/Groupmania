@@ -13,7 +13,6 @@ form.post-body {
     display: flex;
     flex-direction: column;
     gap: 1px;
-    /* border: 1px solid black */
     min-width: 100%;
 }
 
@@ -38,6 +37,20 @@ form.post-body>* {
     width: 100%
 }
 
-/* #image-url-new-post {
-    display: none;
-} */
+@media (max-width: 580px) {
+
+    .new-post-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 30px 0 10px;
+        padding: 0 10px 15px;
+        border-radius: 15px;
+    }
+
+    .new-post-wrapper>h3 {
+        font-size: 18px;
+        text-align: center;
+        padding: 5px
+    }
+}

@@ -16,11 +16,27 @@ button.like,
 button.read {
     color: black;
     background-color: rgba(82, 132, 234, 0.2);
+    align-self: center;
 }
 
 button.liked {
     color: white;
     background-color: rgba(82, 132, 234)
+}
+
+@media (max-width: 476px) {
+
+    button.like,
+    button.liked,
+    button.read {
+        margin: 15px;
+    }
+
+    button.delete-comment,
+    button.edit-comment {
+        color: pink
+    }
+
 }
 
 button.delete,
@@ -40,6 +56,33 @@ button.edit {
     border: 2px solid rgb(255, 159, 68);
     color: rgb(255, 159, 68);
 }
+
+@media (max-width: 580px) {
+    .button-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+    }
+
+    .button-container-row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+    }
+
+    button.delete,
+    button.edit,
+    button.submit,
+    button.disabled {
+        height: 35px;
+        width: 100%;
+        margin: 4px 5px 4px;
+
+    }
+}
+
+
 
 button.submit {
     border: 2px solid rgb(93, 199, 67);
@@ -77,12 +120,10 @@ button.login {
     color: white;
     background-color: rgb(34, 104, 253);
     align-self: center;
-    margin-left: 5px;
+    /* margin-left: 5px; */
 }
 
-button.left {
-    align-self: flex-start;
-}
+
 
 .new-post__button,
 .new-comment__button {

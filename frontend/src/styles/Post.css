@@ -35,13 +35,12 @@
   overflow: hidden;
 }
 
-.post-details__user-picture {
+.post-details__user-picture>a>img {
   height: 100%;
 }
 
 .post-details__title {
   font-size: 20px;
-  margin-right: 80px;
 }
 
 .post-details__user-name {
@@ -58,7 +57,7 @@
   max-height: 100%;
   max-width: 100%;
   margin: 10px auto;
-  border: 2px solid #aaa;
+  border: 1px solid #aaa;
   border-radius: 10px;
 }
 
@@ -69,7 +68,7 @@
 }
 
 @media (max-width: 412px) {
-  .post {
-    font-size: 14px;
+  .post-details__title {
+    font-size: 16px;
   }
 }

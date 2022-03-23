@@ -3,5 +3,12 @@
     justify-content: space-around;
     margin: 5px 0 10px;
     background-color: #eee;
+}
+
+@media (max-width: 476px) {
+    .like-bar {
+        flex-direction: column;
+    }
+
 
 }
