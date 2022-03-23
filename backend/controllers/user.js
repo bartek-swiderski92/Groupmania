@@ -70,12 +70,12 @@ exports.login = (req, res, next) => {
           });
         } else {
           return res.status(401).json({
-            error: 'Incorrect password!'
+            error: 'User or password are incorrect' //invalid password
           })
         }
       } else {
         return res.status(404).json({
-          error: 'User does not exist'
+          error: 'User or password are incorrect' //Invalid user
         })
       }
     })
