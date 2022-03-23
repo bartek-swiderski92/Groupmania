@@ -1,5 +1,5 @@
 .comment-wrapper {
-    margin: 0 25px 15px
+    margin: 0 0 15px
 }
 
 .comment {
@@ -11,7 +11,7 @@
 }
 
 .comment-details {
-    display:flex;
+    display: flex;
     flex-direction: row;
     gap: 15px;
     align-content: center;
@@ -26,11 +26,16 @@
 
 .comment-content {
     display: flex;
+    flex-direction: column;
 }
 
-.comment-content__media img{
-    max-width: 80px;
-    margin-right: 20px
+.comment__media img {
+
+    display: block;
+    max-width: 90%;
+    margin: 0 auto;
+    border: 1px solid #aaa;
+    border-radius: 10px;
 }
 
 @media (max-width: 412px) {
