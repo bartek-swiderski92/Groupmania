@@ -162,7 +162,7 @@ exports.changePassword = (req, res, next) => {
           })
         })
         res.status(200).json({
-          status: 'Password has been successfully changed!'
+          message: 'Password has been successfully changed!'
         })
       } else {
         return res.status(401).json({
