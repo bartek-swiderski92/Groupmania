@@ -111,11 +111,12 @@ function Comment({ comment, refreshComponent }) {
             loadImagePreview(event)
             return
         }
-        setDeletePictureFlag(true);
         if (value === 'remove') {
+            setDeletePictureFlag(true);
             imageINput.value = null
             image.style.display = 'none'
         } else if (value === 'replace') {
+            setDeletePictureFlag(true);
             loadImagePreview(event)
         } else {
             loadImagePreview(event)
