@@ -10,7 +10,6 @@ import '../styles/NewComment.css';
 function Comment({ comment, refreshComponent }) {
     const token = localStorage.getItem('token');
     const [deletePictureFlag, setDeletePictureFlag] = useState(false)
-    // TODO: check the file upload and cancellation
     function loadImagePreview(event) {
         const output = document.querySelector(`#comment__media-${comment.id}`)
         if (event && event.target.files[0]) {

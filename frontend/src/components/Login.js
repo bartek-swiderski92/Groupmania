@@ -34,7 +34,6 @@ function Login(props) {
                 window.alert(err.response.data.error)
             })
     }
-    // TODO: 403 error redirects to login page
 
     function registerUser(event) {
         event.preventDefault();
