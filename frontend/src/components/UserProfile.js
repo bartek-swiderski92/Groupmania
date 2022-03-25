@@ -84,7 +84,7 @@ function UserProfile({ logout }) {
                 <div className="user-info">
                     {(() => {
                         if (parseInt(localStorage.getItem('userId')) === userDetails.id) {
-                            return <div>
+                            return <div className="profile-buttons">
                                 <Button onClick={openForm} id="edit-profile-btn" buttonContent='Edit Profile' className="edit" />
                                 <Button onClick={deleteProfile} id="delete-profile-btn" buttonContent='Delete Profile' className="delete" />
                             </div>

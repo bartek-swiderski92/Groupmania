@@ -59,6 +59,10 @@
         width: 85%
     }
 
+    .profile-buttons {
+        margin-bottom: 15px;
+    }
+
 }
 
 .posts-heading {
