@@ -77,9 +77,9 @@ form {
     align-items: center;
 }
 
-button {
+/* button {
     margin: 20px;
-}
+} */
 
 .form {
     display: flex;

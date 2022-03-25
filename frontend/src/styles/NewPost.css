@@ -43,4 +43,13 @@ form.post-body>* {
         text-align: center;
         padding: 5px
     }
+
+    form.post-body .post__media {
+        margin-bottom: 10px;
+    }
+
+    form.post-body .post__media>button {
+        margin: 0;
+
+    }
 }
