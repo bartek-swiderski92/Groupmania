@@ -165,7 +165,7 @@ function Comment({ comment, refreshComponent }) {
                         {comment.commentContent}
                     </div>
                     <form action="create-comment" className="edit-comment--body" id={`edit-comment-${comment.id}`} onSubmit={editComment} style={{ display: "none" }}>
-                        <textarea className="new-comment__input" name="newComment" id="newComment" defaultValue={comment.commentContent}>
+                        <textarea className="new-comment__input" name="newComment" id="newComment" defaultValue={comment.commentContent} required>
                         </textarea>
                         <input onChange={(event) => {
                             hideOldPicture('replace', event);
