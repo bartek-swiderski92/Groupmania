@@ -9,6 +9,7 @@ function UserProfile({ logout }) {
     const token = localStorage.getItem('token');
 
     const [userDetails, setUser] = useState('');
+    const [changePassword, setChangePassword] = useState(false)
     const [editProfile, setEditProfile] = useState(false)
     let { id } = useParams()
     useEffect(() => {
@@ -20,17 +21,28 @@ function UserProfile({ logout }) {
             }
         })
     }, [id, userDetails.id])
-    //TODO: change password
-    function openForm() {
-        setEditProfile(true)
-        document.querySelector('#edit-profile-btn').disabled = true
-        document.querySelector('#edit-profile-btn').className = 'disabled'
+
+    function openForm(task) {
+        const profileBtns = [...document.querySelectorAll('.profile-btn')]
+        if (task === 'password') {
+            setChangePassword(true)
+        } else if (task === 'edit') {
+            setEditProfile(true)
+        }
+        profileBtns.forEach(button => {
+            button.disabled = true;
+            button.classList.add('disabled')
+        });
     }
 
     function closeForm() {
+        const profileBtns = [...document.querySelectorAll('.profile-btn')]
         setEditProfile(false);
-        document.querySelector('#edit-profile-btn').disabled = false
-        document.querySelector('#edit-profile-btn').className = 'edit'
+        setChangePassword(false);
+        profileBtns.forEach(button => {
+            button.disabled = false;
+            button.classList.remove('disabled');
+        });
     }
 
     function deleteProfile() {
@@ -47,6 +59,31 @@ function UserProfile({ logout }) {
         }
     }
 
+    function changePassowrd(event) {
+        event.preventDefault();
+        const [oldPassword, newPassword, newPasswordRepeat] = event.target.elements;
+        if (newPassword.value === newPasswordRepeat.value) {
+            axios.put(`${apiUrl}/users/password/`,
+                {
+                    "password": oldPassword.value,
+                    "newPassword": newPassword.value
+                }
+                , {
+                    headers: {
+                        "Authorization": `Bearer: ${token}`
+                    }
+                })
+                .then(res => {
+                    window.alert(res.data.message)
+                    closeForm()
+                })
+                .catch(err => {
+                    window.alert(err.response.data.error)
+                })
+        } else {
+            window.alert('New Password Fields must match!')
+        }
+    }
 
     function submitProfile(event) {
         event.preventDefault();
@@ -85,19 +122,29 @@ function UserProfile({ logout }) {
                     {(() => {
                         if (parseInt(localStorage.getItem('userId')) === userDetails.id) {
                             return <div className="profile-buttons">
-                                <Button onClick={openForm} id="edit-profile-btn" buttonContent='Edit Profile' className="edit" />
-                                <Button onClick={deleteProfile} id="delete-profile-btn" buttonContent='Delete Profile' className="delete" />
+                                <Button onClick={() => openForm('password')} id="change-password-profile-btn" buttonContent='Change Password' className="edit profile-btn" />
+                                <Button onClick={() => openForm('edit')} id="edit-profile-btn" buttonContent='Edit Profile' className="edit profile-btn" />
+                                <Button onClick={deleteProfile} id="delete-profile-btn" buttonContent='Delete Profile' className="delete profile-btn" />
                             </div>
                         }
                     }
                     )()}
                     {(() => {
-                        if (!editProfile) {
-                            return (<div>
-                                <div className="user-email">Email: {userDetails.email}</div>
-                                <div className="user-birthday">Birthday: {userDetails.dob ? formatDate(userDetails.dob, true) : null}</div>
-                            </div>)
-                        } else {
+                        if (changePassword === true) {
+                            return (<>
+                                <form onSubmit={changePassowrd} action="update-profile" className="profile-body">
+                                    <label htmlFor="oldPassword">Old Password: </label>
+                                    <input id="oldPassword" type="password" required />
+                                    <label htmlFor="secondName">New Password:</label>
+                                    <input id="newPasswordRepeat" type="password" required />
+                                    <label htmlFor="newPasswordRepeat">Repeat New Password:</label>
+                                    <input id="newPasswordRepeat" type="password" />
+                                    <Button type='submit' buttonContent="Change Password" className="submit" />
+                                </form>
+                                <Button onClick={closeForm} id="cancel-edit-btn" buttonContent="Cancel" className="delete" />
+                            </>
+                            )
+                        } else if (editProfile) {
                             return (
                                 <>
                                     <form onSubmit={submitProfile} action="update-profile" className="profile-body">
@@ -115,6 +162,13 @@ function UserProfile({ logout }) {
                                     </form>
                                     <Button onClick={closeForm} id="cancel-edit-btn" buttonContent="Cancel" className="delete" />
                                 </>
+                            )
+                        } else {
+                            return (
+                                <div>
+                                    <div className="user-email">Email: {userDetails.email}</div>
+                                    <div className="user-birthday">Birthday: {userDetails.dob ? formatDate(userDetails.dob, true) : null}</div>
+                                </div>
                             )
                         }
                     })()}
@@ -135,7 +189,7 @@ function UserProfile({ logout }) {
                 })()}
 
             </div>
-        </div>
+        </div >
     )
 }
 
