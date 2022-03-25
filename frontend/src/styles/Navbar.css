@@ -22,9 +22,15 @@ img#site-logo {
 }
 
 @media (max-width: 580px) {
+    nav {
+        padding: 15px 0;
+        gap: 10px;
+    }
+
     .button-container {
         width: 100%;
         flex-direction: row;
+        gap: 5vw
     }
 
     a,
