@@ -151,15 +151,17 @@ function Post({ post, user, displayLikes, displayComments, reverseComments }) {
             {displayComments ? (<div className="comment-section">
                 <NewComment postId={post.id} refreshComponent={refreshComponent} markAsRead={markAsRead} readPost={readPost} />
 
-                {reverseComments ? (
-                    postComments.map((comment) => (
-                        <Comment key={'comment-' + comment.id} comment={comment} user={post.User} refreshComponent={refreshComponent} reverseComments={reverseComments} />
-                    ))
-                ) : (
-                    postComments.map((comment) => (
-                        <Comment key={'comment-' + comment.id} comment={comment} user={post.User} refreshComponent={refreshComponent} />
-                    ))
-                )}
+                {
+                    reverseComments ? (
+                        postComments.map((comment) => (
+                            <Comment key={'comment-' + comment.id} comment={comment} user={post.User} refreshComponent={refreshComponent} reverseComments={reverseComments} />
+                        )).reverse()
+                    ) : (
+                        postComments.map((comment) => (
+                            <Comment key={'comment-' + comment.id} comment={comment} user={post.User} refreshComponent={refreshComponent} />
+                        ))
+                    )
+                }
             </div>) : null}
         </div >
     )
