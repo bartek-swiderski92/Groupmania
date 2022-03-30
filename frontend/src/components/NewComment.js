@@ -48,8 +48,8 @@ function NewComment({ postId, refreshComponent }) {
 
     return (
         <div className="new-comment-wrapper">
-            <form action="create-comment" className="comment-body" onSubmit={submitComment} encType="multipart/form-data">
-                <h2 className="new-comment__heading">Comment the post</h2>
+            <form action="create-comment" className="new-comment__comment-body" onSubmit={submitComment} encType="multipart/form-data">
+                {/* <h2 className="new-comment__heading">Comment the post</h2> */}
                 <textarea className="new-comment__input" name="newComment" id="newComment" placeholder="Insert your comment here..." required></textarea>
                 <img id={`new-comment__image-${postId}`} alt="media preview" style={{ display: 'none' }} className="new-comment__image-preview" />
                 <input onChange={loadImagePreview} type="file" id={`image-url-new-post-${postId}`} className="new-post-input" accept='image/*' />
