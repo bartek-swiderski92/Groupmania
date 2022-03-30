@@ -11,7 +11,7 @@ import NewComment from './NewComment.js';
 import '../styles/Post.css';
 import '../styles/Main.css';
 
-function Post({ post, user, displayLikes, displayComments }) {
+function Post({ post, user, displayLikes, displayComments, reverseComments }) {
     const history = useHistory()
     const token = localStorage.getItem('token');
     const loggedUsedId = localStorage.getItem('userId');
@@ -39,7 +39,13 @@ function Post({ post, user, displayLikes, displayComments }) {
             }
         })
             .then(res => {
-                setPostComments(res.data)
+                if (reverseComments === true) {
+                    setPostComments(res.data.reverse())
+                } else {
+                    setPostComments(res.data)
+
+                }
+
             })
             .catch(err => {
                 console.log(err)
@@ -144,9 +150,16 @@ function Post({ post, user, displayLikes, displayComments }) {
             </div>
             {displayComments ? (<div className="comment-section">
                 <NewComment postId={post.id} refreshComponent={refreshComponent} markAsRead={markAsRead} readPost={readPost} />
-                {postComments.map((comment) => (
-                    <Comment key={'comment-' + comment.id} comment={comment} user={post.User} refreshComponent={refreshComponent} />
-                )).reverse()}
+
+                {reverseComments ? (
+                    postComments.map((comment) => (
+                        <Comment key={'comment-' + comment.id} comment={comment} user={post.User} refreshComponent={refreshComponent} reverseComments={reverseComments} />
+                    ))
+                ) : (
+                    postComments.map((comment) => (
+                        <Comment key={'comment-' + comment.id} comment={comment} user={post.User} refreshComponent={refreshComponent} />
+                    ))
+                )}
             </div>) : null}
         </div >
     )
