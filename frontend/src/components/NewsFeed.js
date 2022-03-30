@@ -41,13 +41,18 @@ function NewsFeed(props) {
 
     return (
         <div className="main-wrapper">
-            <h2>Welcome {localStorage.getItem('userName')}!</h2>
             {props.unread === true ? (
-                <Button onClick={() => history.push(`/newsfeed/`)} className="read left" buttonContent="Back to homepage" />
+                <>
+                    <Button onClick={() => history.push(`/newsfeed/`)} id="unread-button" className="read left" buttonContent="Back to homepage" />
+                    <h2>Check your posts from last visit:</h2>
+                </>
             ) : (
-                <Button onClick={() => history.push(`/unread/`)} className="read left" buttonContent="Check new posts" />
+                <>
+                    <Button onClick={() => history.push(`/unread/`)} id="unread-button" className="read left" buttonContent="Check new posts" />
+                    <h2>Welcome {localStorage.getItem('userName')}!</h2>
+                    <NewPost />
+                </>
             )}
-            <NewPost />
             {posts.length ? (<ShowPost post={posts} displayLikes={true} displayComment={true} unread={props.unread} />) : (
                 <div>
                     <h2 className='error-message'>

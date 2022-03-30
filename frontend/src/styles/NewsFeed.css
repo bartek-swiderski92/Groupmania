@@ -6,6 +6,24 @@
     width: 100%
 }
 
+.main-wrapper>button#unread-button {
+    margin-top: 20px
+}
+
 .main-wrapper>h2 {
-    margin: 30px auto 0;
+    margin: 30px auto;
+}
+
+@media (max-width: 580px) {
+    .main-wrapper {
+        margin: 0 auto;
+    }
+
+    .main-wrapper>button#unread-button {
+        margin: 15px 0;
+    }
+
+    .main-wrapper>h2 {
+        margin: 0 auto 10px;
+    }
 }
