@@ -146,7 +146,7 @@ function Post({ post, user, displayLikes, displayComments }) {
                 <NewComment postId={post.id} refreshComponent={refreshComponent} markAsRead={markAsRead} readPost={readPost} />
                 {postComments.map((comment) => (
                     <Comment key={'comment-' + comment.id} comment={comment} user={post.User} refreshComponent={refreshComponent} />
-                ))}
+                )).reverse()}
             </div>) : null}
         </div >
     )

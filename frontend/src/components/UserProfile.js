@@ -181,7 +181,7 @@ function UserProfile({ logout }) {
                     if (userDetails.Posts) {
                         return (userDetails.Posts.map((post) => (
                             <Post key={'post-' + post.id} post={post} user={userDetails} displayLikes={true} />
-                        ))
+                        )).reverse()
                         )
                     } else {
                         <div>No posts</div>
