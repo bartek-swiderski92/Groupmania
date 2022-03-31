@@ -1,10 +1,8 @@
 import axios from 'axios';
-
-
-import { api, apiUrl, getPosts, ShowPost } from '../main';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useEffect, useState } from 'react';
+import { api, apiUrl, getPosts, ShowPost } from '../main';
 import NewPost from './NewPost';
 import Button from './Button';
 import '../styles/NewsFeed.css';
@@ -22,13 +20,11 @@ function NewsFeed(props) {
                 }
             })
                 .then(res => {
-                    console.log(res.data);
                     setPosts(res.data)
                 })
                 .catch(err => console.log(err))
         } else {
             getPosts(api.posts).then((res) => {
-                console.log(res)
                 setPosts(res)
             })
         }

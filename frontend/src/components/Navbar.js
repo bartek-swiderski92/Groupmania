@@ -1,12 +1,8 @@
 import { appUrl } from '../main'
-// import { useHistory, BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-// import { useEffect, useState } from 'react';
-
 
 import '../styles/Navbar.css'
 import '../styles/Main.css'
-
 import Button from './Button';
 
 function Navbar({ userLoggedIn, logout }) {

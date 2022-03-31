@@ -3,15 +3,7 @@ import UserProfile from './components/UserProfile';
 import './styles/Main.css'
 
 export const apiUrl = `http://localhost:5000/api`;
-
 export const appUrl = `http://localhost:3000/`;
-
-// export const postsApi = `${api}/posts`;
-// export const usersApi = `${api}/users`;
-// export const likeApi = `${api}/like`;
-// export const commentApi = `${api}/comment`;
-// export const readPost = `${api}/readPost`;
-
 export const api = {
     posts: `${apiUrl}/posts`,
     users: `${apiUrl}/users`,
@@ -64,8 +56,8 @@ export function showUser({ user }) {
 }
 
 export async function getPosts(query) {
-    // let Posts = []
-    return await getContent(query).then(items => {
+    return await getContent(query)
+    .then(items => {
         return items
     }).catch((error) => {
         console.log(error);
@@ -85,39 +77,4 @@ export function formatDate(sqlDate, dateOnly) {
     let date = sqlDate.split('T')[0];
     let time = sqlDate.split('T')[1].split('.')[0];
     return (dateOnly === true) ? `${date}` : `${time}, ${date}`
-
 }
-    // const [users, setUsers] = useState([]);
-
-// async function getPosts(query) {
-//     // let Posts = []
-//     return await getContent(query).then(items => {
-//         console.log(items);
-//         return [...items]
-//     }).catch((error) => {
-//         console.log(error);
-//     })
-// }
-
-// function ShowPost({ post }) {
-//     return (
-//         <div>
-//             {
-//                 post.map((singlePost) => {
-//                     return <Post post={singlePost} />
-//                 })
-//             }
-//         </div>
-//     )
-// }
-
-// export function getUserDetails(user) {
-//     // const [users, setUsers] = useState([]);
-//     getContent(api.users + '/' + user).then((user) => {
-//         return user
-
-//     }).catch((error) => {
-//         console.log(error)
-//     })
-
-// }

@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-import { api, apiUrl, getPosts } from '../main';
 import { useHistory } from 'react-router-dom';
 
+import { api, apiUrl, getPosts } from '../main';
 import Button from './Button'
 import '../styles/NewPost.css'
 
@@ -23,11 +22,10 @@ function NewPost({ editPost }) {
     function loadImagePreview(event) {
         const output = document.getElementById('output');
         if (event && event.target.files[0]) {
-            console.log('event')
             output.src = URL.createObjectURL(event.target.files[0]);
             output.style.display = 'block'
             output.onload = function () {
-                URL.revokeObjectURL(output.src) // free memory
+                URL.revokeObjectURL(output.src)
             };
             document.querySelector('#remove-img-btn').classList.remove('hidden')
         }
@@ -45,7 +43,6 @@ function NewPost({ editPost }) {
         const imgInput = document.getElementById('image-input');
         document.querySelector('#remove-img-btn').classList.add('hidden')
 
-        console.log('preview')
         output.removeAttribute('src')
         output.style.display = 'none'
 

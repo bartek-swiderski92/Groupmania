@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar'
 import Login from './Login'
@@ -9,7 +8,6 @@ import UserProfile from './UserProfile';
 import Footer from './Footer';
 import RedirectComponent from './RedirectComponent';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-// import { BrowserRouter, Switch, Routecls, Redirect } from 'react-router-dom';
 import '../styles/App.css';
 
 function App() {

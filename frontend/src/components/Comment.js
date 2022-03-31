@@ -22,7 +22,7 @@ function Comment({ comment, refreshComponent }) {
         }
     };
 
-    function dltComment() { // Method deleting Comment from DB 
+    function dltComment() { // deletes Comment from DB 
         axios.delete(`${apiUrl}/comments/${comment.id}`, {
             headers: {
                 "Authorization": `Bearer: ${token}`
@@ -38,7 +38,7 @@ function Comment({ comment, refreshComponent }) {
             })
     }
 
-    function dltPicture() { // deletes picture file from back-end
+    function dltPicture() { // deletes picture file from back-end folder
         axios.delete(`${apiUrl}/comments/picture/` + comment.id, {
             headers: {
                 "Authorization": `Bearer: ${token}`,

@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import { apiUrl } from '../main';
-
 import '../styles/NewComment.css';
 import Button from './Button';
 

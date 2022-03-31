@@ -7,7 +7,6 @@ import LikeBar from './LikeBar';
 import Button from './Button';
 import Comment from './Comment.js';
 import NewComment from './NewComment.js';
-
 import '../styles/Post.css';
 import '../styles/Main.css';
 
@@ -31,7 +30,6 @@ function Post({ post, user, displayLikes, displayComments, reverseComments }) {
         // eslint-disable-next-line
     }, [])
 
-
     function refreshComponent() {
         axios.get(`${apiUrl}/comments/post/${post.id}`, {
             headers: {
@@ -43,9 +41,7 @@ function Post({ post, user, displayLikes, displayComments, reverseComments }) {
                     setPostComments(res.data.reverse())
                 } else {
                     setPostComments(res.data)
-
                 }
-
             })
             .catch(err => {
                 console.log(err)

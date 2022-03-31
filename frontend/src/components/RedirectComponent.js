@@ -1,9 +1,6 @@
 import React from 'react'
 import { useHistory, useLocation } from 'react-router-dom';
 
-
-
-
 function RedirectComponent(props) {
     const history = useHistory();
     const location = useLocation();

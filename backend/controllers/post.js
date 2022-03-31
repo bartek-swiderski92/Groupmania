@@ -10,10 +10,6 @@ const {
 } = require('crypto');
 const { post } = require('../routes/post');
 
-// const {
-//     Z_FIXED
-// } = require('zlib');
-
 exports.getAllPosts = (req, res, next) => {
     db.Post.findAll({
         include: [db.User, { model: db.Comment, include: db.User }, db.Like, db.ReadPost]
@@ -33,9 +29,6 @@ exports.getOnePost = (req, res, next) => {
             id: req.params.id
         },
         include: [db.User, { model: db.Comment, include: db.User }, db.Like, db.ReadPost]
-        // attributes: {
-        //     exclude: ['userUserId']
-        // }
     }).then((post) => {
         if (post) {
             res.status(200).json(post);
@@ -51,37 +44,6 @@ exports.getOnePost = (req, res, next) => {
         })
     })
 }
-
-// exports.showAllUnreadPosts = (req, res, next) => {
-//     // console.log(res)
-//     db.Post.findAll({
-//         // attributes: ['id'],
-//         include: [{
-//             model: [db.ReadPost, db.User],
-//             required: false,
-//             // right: true,
-//             // attributes: ['id'],
-//             where: {
-//                 // UserId: res.locals.userId,
-//                 PostId: !null
-//             }
-//         }],
-//         where: {
-//             // id: db.ReadPost.PostId
-//             id: null
-
-//         },
-//         // required: false,
-//         // right: true
-//     })
-//         .then(unReadPosts => {
-//             res.status(200).json(unReadPosts)
-//         }).catch(error => {
-//             res.status(500).json({
-//                 error: error + ''
-//             })
-//         })
-// }
 
 exports.createAPost = (req, res, next) => {
     const url = req.protocol + '://' + req.get('host')
@@ -117,7 +79,6 @@ exports.editPost = (req, res, next) => {
             post.update({
                 postTitle: postObject.postTitle,
                 postContent: postObject.postContent,
-                //TODO: Add removing picture while editing post
                 media: req.file ? url + '/media/' + req.file.filename : post.dataValues.media
             }).then(() => {
                 res.status(200).json({
@@ -150,7 +111,6 @@ exports.deletePicture = (req, res, next) => { //Used when replacing or removing 
         }
     }).then((post) => {
         if (post) {
-            console.log(post)
             const fileName = post.media.split('/media/')[1]
             fs.unlink('media/' + fileName, () => {
                 post.update({
@@ -275,24 +235,3 @@ exports.showAllUnreadPosts = (req, res, next) => {
             })
         })
 }
-
-// exports.showAllUnreadPosts = (req, res, next) => {
-//     db.Post.findAll({
-//         where: {
-//             '$readposts.UserId$': res.locals.userId // User Id extracted from auth middleware
-//         },
-//         attributes: ['id'],
-//         include: [{
-//             model: db.ReadPost,
-//             required: false,
-//             attributes: [],
-//         }]
-//     }).then(unreadPosts => {
-//         res.status(200).json(unreadPosts);
-//     })
-//         .catch((error) => {
-//             res.status(500).json({
-//                 error: 'Error ' + error
-//             })
-//         })
-// }

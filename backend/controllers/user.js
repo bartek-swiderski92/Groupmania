@@ -17,10 +17,6 @@ exports.register = (req, res, next) => {
     where: {
       email: userObject.email
     }
-    // ,
-    // attributes: {
-    //   exclude: ['postPostId']
-    // }
   })
     .then(user => {
       if (!user) {
@@ -156,7 +152,6 @@ exports.changePassword = (req, res, next) => {
     if (user) {
       if (bcrypt.compareSync(userObject.password, user.password)) {
         bcrypt.hash(userObject.newPassword, 10, (err, hash) => {
-          console.log(hash)
           user.update({
             password: hash
           })

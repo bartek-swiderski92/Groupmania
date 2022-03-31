@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom'
+import axios from 'axios';
+
 import { getUserDetails, api, apiUrl, formatDate } from '../main'
-import '../styles/UserProfile.css';
 import Post from './Post';
 import Button from './Button';
-import axios from 'axios';
-import { useParams } from 'react-router-dom'
+import '../styles/UserProfile.css';
 function UserProfile({ logout }) {
     const token = localStorage.getItem('token');
-
     const [userDetails, setUser] = useState('');
     const [changePassword, setChangePassword] = useState(false)
     const [editProfile, setEditProfile] = useState(false)
+
     let { id } = useParams()
     useEffect(() => {
         getUserDetails(api.users + '/' + id).then((res) => {
@@ -87,7 +88,7 @@ function UserProfile({ logout }) {
 
     function submitProfile(event) {
         event.preventDefault();
-        const [firstName, secondName, email, birthday, profilePicture] = event.target.elements
+        const [firstName, secondName, email] = event.target.elements
         axios.put(`${apiUrl}/users/`, {
             "email": email.value,
             "firstName": firstName.value,
