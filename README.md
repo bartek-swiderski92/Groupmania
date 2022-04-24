@@ -2,7 +2,7 @@
 
 ## **A Full-Stack project, internal social media app**
 
-![image](https://github.com/bartek-swiderski92/Groupmania/blob/master/frontend/src/media/icon-left-font-monochrome-white_black.png?raw=true)  
+![image](https://github.com/bartek-swiderski92/Groupmania/blob/master/frontend/src/media/icon-left-font-monochrome-bg.png?raw=true)  
 
 <br> 
 
