@@ -1,9 +1,11 @@
+#root {
+  display: absolute;
+}
+
 .groupmania {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* position: absolute; */
-  /* width: 100%; */
+  min-height: 100vh;
   background-color: #fff;
 }
 

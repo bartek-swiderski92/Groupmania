@@ -1,8 +1,8 @@
 footer {
-    align-self: stretch;
+    padding-top: 20px;
+    margin-top: auto;
     background-color: #5284ea;
     color: white;
-    padding-top: 20px
 }
 
 .footer-container {
