@@ -1,18 +1,14 @@
 nav {
     align-self: stretch;
     display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
     justify-content: space-between;
     align-items: center;
     min-height: 5rem;
     background-color: #5284ea;
     padding: .1rem .4rem;
-}
-
-@media (max-width: 580px) {
-    nav {
-        padding-top: 10px;
-        flex-direction: column;
-    }
 }
 
 img#site-logo {
@@ -23,6 +19,8 @@ img#site-logo {
 
 @media (max-width: 580px) {
     nav {
+        padding-top: 10px;
+        flex-direction: column;
         padding: 15px 0;
         gap: 10px;
     }

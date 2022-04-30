@@ -4,19 +4,24 @@
 
 .groupmania {
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
   min-height: 100vh;
   background-color: #fff;
 }
 
 .main-content {
-
   display: flex;
   align-content: center;
   flex-direction: column;
-  margin: 0 auto;
+  margin: 100px auto 0;
   max-width: 800px;
   width: 90%;
   background-color: #fff;
-  /* min-height: 65vh; */
+}
+
+@media (max-width: 580px) {
+  .main-content {
+    margin: 150px auto 0;
+  }
 }
