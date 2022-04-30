@@ -1,10 +1,16 @@
-# **Groupmania**
+<img width="50%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/frontend/src/media/icon-left-font-monochrome-white_bg.png?raw=true" />
 
 ## **A Full-Stack project, internal social media app**
+<img src="https://img.shields.io/badge/html5%20-%23e34f26.svg?&style=for-the-badge&logo=html5&logoColor=white" />&nbsp;&nbsp;
+<img src="https://img.shields.io/badge/CSS3-1572B6?&style=for-the-badge&logo=css3&logoColor=white" />&nbsp;&nbsp;
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />&nbsp;&nbsp;
+<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />&nbsp;&nbsp;
+<img src="https://img.shields.io/badge/node.js%20-%23339933.svg?&style=for-the-badge&logo=node.js&logoColor=white" />&nbsp;&nbsp;&nbsp;&nbsp; 
+<img src="https://img.shields.io/badge/Express-828282?style=for-the-badge&logo=express&logoColor=white" />&nbsp;&nbsp;&nbsp;&nbsp; 
+<img src="https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white" />&nbsp;&nbsp;&nbsp;&nbsp; 
+<img src="https://img.shields.io/badge/MYSQL-3E6E93?style=for-the-badge&logo=mysql&logoColor=white" />&nbsp;&nbsp;&nbsp;&nbsp; 
+<img src="https://img.shields.io/badge/owasp-black?style=for-the-badge&logo=owasp&logoColor=#EFEFEF">&nbsp;&nbsp;
 
-![image](https://github.com/bartek-swiderski92/Groupmania/blob/master/frontend/src/media/icon-left-font-monochrome-white_bg.png?raw=true)  
-
-<br> 
 
 An internal social media app, allowing employees of Groupmania to create, comment and like posts. The app features CRUD methods for all of the content and the user profile. Securely stores data and user credentials in a SQL Database
 
@@ -15,16 +21,6 @@ An internal social media app, allowing employees of Groupmania to create, commen
 * Enabling users to interact with a database using CRUD operations
 * Managing a user session
 
-### Technologies used:
-<img src="https://img.shields.io/badge/html5%20-%23e34f26.svg?&style=for-the-badge&logo=html5&logoColor=white" />&nbsp;&nbsp;
-<img src="https://img.shields.io/badge/CSS3-1572B6?&style=for-the-badge&logo=css3&logoColor=white" />&nbsp;&nbsp;
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />&nbsp;&nbsp;
-<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />&nbsp;&nbsp;
-<img src="https://img.shields.io/badge/node.js%20-%23339933.svg?&style=for-the-badge&logo=node.js&logoColor=white" />&nbsp;&nbsp;&nbsp;&nbsp; 
-<img src="https://img.shields.io/badge/Express-828282?style=for-the-badge&logo=express&logoColor=white" />&nbsp;&nbsp;&nbsp;&nbsp; 
-<img src="https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white" />&nbsp;&nbsp;&nbsp;&nbsp; 
-<img src="https://img.shields.io/badge/MYSQL-3E6E93?style=for-the-badge&logo=mysql&logoColor=white" />&nbsp;&nbsp;&nbsp;&nbsp; 
-<img src="https://img.shields.io/badge/owasp-black?style=for-the-badge&logo=owasp&logoColor=#EFEFEF">&nbsp;&nbsp;
 
 ### The project is based on below scenario:
 >From: Stephanie J 
@@ -73,9 +69,9 @@ An internal social media app, allowing employees of Groupmania to create, commen
    ```
 5. Make sure you have installed a local Database Managment System (DBMS) of your choice (e.g. MySQL, PostgreSQL, or MariaDB)
 6. Go to
-```
-backend\config\config.json
-```
+   ```
+   backend\config\config.json
+   ```
 7. Input your username and password in config.json matching your local DBMS credentials
 8. Check host, port and dialect used, replace if needed with local settings. For Dialect choose one of the following: 
 "mysql" for MySQL, "mariadb" for MariaDB, "sqlite" for SQLite, "postgres" for PostgreSQL and Redshift, "mssql" for MSSQL, "snowflake" for Snowflake.
