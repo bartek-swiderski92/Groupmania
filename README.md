@@ -13,6 +13,22 @@
 
 
 An internal social media app, allowing employees of Groupmania to create, comment and like posts. The app features CRUD methods for all of the content and the user profile. Securely stores data and user credentials in a SQL Database
+<div>
+
+Mobile: 
+                <br>
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-login-mobile.png" />&nbsp;&nbsp;
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-feed-mobile.png" />&nbsp;&nbsp;
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-post-mobile.png" />&nbsp;&nbsp;
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-profile-mobile.png" />&nbsp;&nbsp;
+</div>
+
+<div> Desktop:  
+                <br>
+<!-- <img height="350px" src="https://raw.githubusercontent.com/bartek-swiderski92/Orinoco/main/snips/product_page_mobile.png" />&nbsp;&nbsp;
+<img height="350px" src="https://raw.githubusercontent.com/bartek-swiderski92/Orinoco/main/snips/order_page_mobile.png" />&nbsp;&nbsp;
+ -->
+</div>
 
 
 ### The project reviews following skills:
