@@ -17,10 +17,14 @@ An internal social media app, allowing employees of Groupmania to create, commen
 
 Mobile: 
                 <br>
-<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-login-mobile.png" />&nbsp;&nbsp;
-<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-feed-mobile.png" />&nbsp;&nbsp;
-<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-post-mobile.png" />&nbsp;&nbsp;
-<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-profile-mobile.png" />&nbsp;&nbsp;
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-login-titlebar.png" />
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-feed-titlebar.png" />
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-login-mobile.png" />
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-feed-mobile.png" />
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-post-titlebar.png" />
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-profile-titlebar.png" />
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-post-mobile.png" />
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-profile-mobile.png" />
 </div>
 
 <div> Desktop:  
