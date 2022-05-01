@@ -57,6 +57,10 @@ function Login(props) {
             console.log(error)
         })
     }
+
+    function scrollScreenToRegister() {
+        window.scroll({ top: document.getElementById('register').offsetTop - 120, behavior: 'smooth' })
+    }
     return (
         <div className="login-wrapper">
             <h2 className='login-text'>Welcome in Groupmania!</h2>
@@ -73,7 +77,7 @@ function Login(props) {
                         <Button type='submit' className='login' buttonContent='Login' />
                     </form>
                     {window.innerWidth < 768 ?
-                        (<a href="#register" className="register-link"> Don't have an account? Click here to register.</a>) : (null)}
+                        (<span onClick={scrollScreenToRegister} className="register-link"> Don't have an account? Click here to register.</span>) : (null)}
                 </div>
                 <div id="register" className="register form">
                     <h2>Register</h2>
@@ -97,7 +101,7 @@ function Login(props) {
                     </form>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
