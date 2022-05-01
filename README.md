@@ -29,9 +29,14 @@ Mobile:
 
 <div> Desktop:  
                 <br>
-<!-- <img height="350px" src="https://raw.githubusercontent.com/bartek-swiderski92/Orinoco/main/snips/product_page_mobile.png" />&nbsp;&nbsp;
-<img height="350px" src="https://raw.githubusercontent.com/bartek-swiderski92/Orinoco/main/snips/order_page_mobile.png" />&nbsp;&nbsp;
- -->
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-login-titlebar.png" />
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-feed-titlebar.png" />
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-login-desktop.png" />
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-feed-desktop.png" />
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-post-titlebar.png" />
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-profile-titlebar.png" />
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-post-desktop.png" />
+<img width="45%" src="https://github.com/bartek-swiderski92/Groupmania/blob/master/snips/groupmania-profile-desktop.png" />
 </div>
 
 
@@ -96,7 +101,7 @@ Mobile:
 8. Check host, port and dialect used, replace if needed with local settings. For Dialect choose one of the following: 
 "mysql" for MySQL, "mariadb" for MariaDB, "sqlite" for SQLite, "postgres" for PostgreSQL and Redshift, "mssql" for MSSQL, "snowflake" for Snowflake.
 Config described in details in [Sequelize documentation.](https://sequelize.org/docs/v6/other-topics/migrations/#configuration)
-9. Run nodemon server
+9. Run nodemon server within the back-end directory
    ```
    nodemon server
    ```
