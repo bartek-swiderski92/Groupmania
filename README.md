@@ -90,20 +90,24 @@ Mobile:
    ```
 4. Run npm install within the back-end directory
    ```
+   npm install
+   ```
+5.  Run npm start
+   ```
    npm start
    ```
-5. Make sure you have installed a local Database Managment System (DBMS) of your choice (e.g. MySQL, PostgreSQL, or MariaDB)
-6. Go to
+6. Make sure you have installed a local Database Managment System (DBMS) of your choice (e.g. MySQL, PostgreSQL, or MariaDB)
+7. Go to
    ```
    backend\config\config.json
    ```
-7. Input your username and password in config.json matching your local DBMS credentials
-8. Check host, port and dialect used, replace if needed with local settings. For Dialect choose one of the following: 
+8. Input your username and password in config.json matching your local DBMS credentials
+9. Check host, port and dialect used, replace if needed with local settings. For Dialect choose one of the following: 
 "mysql" for MySQL, "mariadb" for MariaDB, "sqlite" for SQLite, "postgres" for PostgreSQL and Redshift, "mssql" for MSSQL, "snowflake" for Snowflake.
 Config described in details in [Sequelize documentation.](https://sequelize.org/docs/v6/other-topics/migrations/#configuration)
-9. Run nodemon server within the back-end directory
+10. Run nodemon server within the back-end directory
    ```
    nodemon server
    ```
-10. Open http://localhost:3000 in browser, and create a new account using fake credentials.
-11. Start exploring the app
+11. Open http://localhost:3000 in browser, and create a new account using fake credentials.
+12. Start exploring the app
