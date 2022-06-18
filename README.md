@@ -92,7 +92,7 @@ Mobile:
    ```
    npm install
    ```
-5.  Run npm start
+5. Run npm start
    ```
    npm start
    ```
@@ -105,9 +105,10 @@ Mobile:
 9. Check host, port and dialect used, replace if needed with local settings. For Dialect choose one of the following: 
 "mysql" for MySQL, "mariadb" for MariaDB, "sqlite" for SQLite, "postgres" for PostgreSQL and Redshift, "mssql" for MSSQL, "snowflake" for Snowflake.
 Config described in details in [Sequelize documentation.](https://sequelize.org/docs/v6/other-topics/migrations/#configuration)
+
 10. Run nodemon server within the back-end directory
-   ```
-   nodemon server
-   ```
+    ```
+    nodemon server
+    ```
 11. Open http://localhost:3000 in browser, and create a new account using fake credentials.
 12. Start exploring the app
